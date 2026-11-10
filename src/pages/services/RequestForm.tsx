@@ -5,7 +5,8 @@ import { CheckCircle2, FileUp, MapPin, Paperclip, X } from 'lucide-react'
 import { servicesApi } from '../../services/api'
 import { ACCEPTED_FILES, MAX_FILE_MB, type ServiceType } from '../../services/types'
 import { Alert, Button, ErrorState, Spinner, useAsync } from '../../components/ui'
-import { LocationMap, type LatLng } from '../../components/map/LocationMap'
+import { GisViewer, type LatLng, type ViewerFile } from '../../components/map/GisViewer'
+import { isPreviewable } from '../../components/map/gisFiles'
 import { pick, useLang } from '../../lib/lang'
 import { formatSize, PriceLabel, ServiceIcon } from './shared'
 
@@ -45,6 +46,11 @@ function Form({ types }: { types: ServiceType[] }) {
   const [busy, setBusy] = useState(false)
 
   const type = useMemo(() => types.find((x) => x.id === typeId) ?? null, [types, typeId])
+  // ملفات GIS المرفقة تُعرض على خريطة الموقع قبل الإرسال
+  const gisFiles = useMemo<ViewerFile[]>(
+    () => files.filter((f) => isPreviewable(f.name)).map((f) => ({ key: `${f.name}-${f.size}-${f.lastModified}`, name: f.name, source: f })),
+    [files],
+  )
 
   function addFiles(list: FileList | null) {
     const picked = [...(list ?? [])]
@@ -151,14 +157,15 @@ function Form({ types }: { types: ServiceType[] }) {
         </fieldset>
 
         {/* 3. الموقع */}
-        {(!type || type.requiresLocation || location) && (
+        {(!type || type.requiresLocation || location || gisFiles.length > 0) && (
           <fieldset className="space-y-3" data-error={errors.location ? '' : undefined}>
             <legend className="mb-1 text-lg font-bold">
               3. {t('requests.form.location')}{' '}
               {!type?.requiresLocation && <span className="text-sm font-normal text-muted">({t('form.optional')})</span>}
             </legend>
             <p className="text-sm text-muted">{t('requests.form.locationHint')}</p>
-            <LocationMap value={location} onChange={setLocation} />
+            <GisViewer height={380} pick={{ value: location, onChange: setLocation }} files={gisFiles} allowUpload={false} />
+            {gisFiles.length > 0 && <p className="text-xs text-secondary">{t('requests.form.filesOnMap', { count: gisFiles.length })}</p>}
             <div className="flex flex-wrap items-center justify-between gap-2 text-sm">
               {location ? (
                 <span className="inline-flex items-center gap-1.5 text-secondary" dir="ltr">

@@ -18,6 +18,7 @@ import { RequireAuth } from './auth/RequireAuth'
 import { AdminCourses } from './pages/admin/AdminCourses'
 import { CourseEditorPage } from './pages/admin/editor/CourseEditor'
 import { ServicesPage } from './pages/services/ServicesPage'
+import { MapViewerPage } from './pages/MapViewerPage'
 import { RequestForm } from './pages/services/RequestForm'
 import { RequestDetailPage } from './pages/services/RequestDetail'
 import { MyRequests, StaffRequests } from './pages/services/RequestLists'
@@ -40,6 +41,7 @@ export const router = createBrowserRouter([
       { path: '/verify/:code', element: <Verify /> },
 
       // عامة
+      { path: '/map-viewer', element: <MapViewerPage /> },
       { path: '/software', element: soon('nav.software') },
       { path: '/services', element: <ServicesPage /> },
       { path: '/services/request', element: <RequireAuth><RequestForm /></RequireAuth> },

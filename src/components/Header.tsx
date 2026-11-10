@@ -10,6 +10,7 @@ const links = [
   { to: '/courses', key: 'nav.courses' },
   { to: '/software', key: 'nav.software' },
   { to: '/services', key: 'nav.services' },
+  { to: '/map-viewer', key: 'nav.mapViewer' },
   { to: '/about', key: 'nav.about' },
 ]
 

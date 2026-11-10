@@ -71,7 +71,8 @@ interface DemoRequest {
   status: RequestStatus
   createdAt: string
   updatedAt: string
-  files: Omit<RequestFile, 'url'>[]
+  /** dataUrl: نسخة من الملفات الصغيرة لتعمل المعاينة والتنزيل في وضع المعاينة */
+  files: (Omit<RequestFile, 'url'> & { dataUrl?: string })[]
   messages: Omit<RequestMessage, 'senderName' | 'senderIsStaff'>[]
   events: Omit<RequestEvent, 'actorName'>[]
 }
@@ -92,6 +93,22 @@ const saveDemo = (rs: DemoRequest[]) => {
   }
 }
 const delay = <T,>(v: T) => new Promise<T>((r) => setTimeout(() => r(v), 200))
+
+const DEMO_FILE_LIMIT = 1_500_000
+function readDataUrl(f: File): Promise<string | undefined> {
+  if (f.size > DEMO_FILE_LIMIT) return Promise.resolve(undefined)
+  return new Promise((resolve) => {
+    const r = new FileReader()
+    r.onload = () => resolve(typeof r.result === 'string' ? r.result : undefined)
+    r.onerror = () => resolve(undefined)
+    r.readAsDataURL(f)
+  })
+}
+async function demoFiles(files: File[], kind: 'input' | 'deliverable', at: string) {
+  return Promise.all(
+    files.map(async (f) => ({ id: crypto.randomUUID(), kind, name: f.name, sizeBytes: f.size, uploadedBy: DEMO_USER, createdAt: at, dataUrl: await readDataUrl(f) })),
+  )
+}
 
 function demoSummary(r: DemoRequest): RequestSummary {
   return {
@@ -151,7 +168,7 @@ const demoApi: ServicesApi = {
       status,
       createdAt: now,
       updatedAt: now,
-      files: input.files.map((f) => ({ id: crypto.randomUUID(), kind: 'input', name: f.name, sizeBytes: f.size, uploadedBy: DEMO_USER, createdAt: now })),
+      files: await demoFiles(input.files, 'input', now),
       messages: [],
       events: [event('status', null, status)],
     }
@@ -174,7 +191,7 @@ const demoApi: ServicesApi = {
       description: r.description,
       location: r.location,
       locationNote: r.locationNote,
-      files: r.files.map((f) => ({ ...f, url: '#' })),
+      files: r.files.map(({ dataUrl, ...f }) => ({ ...f, url: dataUrl ?? '#' })),
       messages: r.messages.map((m) => ({ ...m, senderName: m.senderId === r.clientId && !m.isInternal ? DEMO_NAME : 'فريق مقياس', senderIsStaff: m.senderId !== r.clientId })),
       events: r.events.map((e) => ({ ...e, actorName: null })),
     })
@@ -195,8 +212,8 @@ const demoApi: ServicesApi = {
   },
 
   async uploadFiles(id, kind, files) {
-    const now = new Date().toISOString()
-    mutate(id, (r) => r.files.push(...files.map((f) => ({ id: crypto.randomUUID(), kind, name: f.name, sizeBytes: f.size, uploadedBy: DEMO_USER, createdAt: now }))))
+    const added = await demoFiles(files, kind, new Date().toISOString())
+    mutate(id, (r) => r.files.push(...added))
     await delay(null)
   },
 

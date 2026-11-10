@@ -9,7 +9,8 @@
     "contact": "Contact",
     "login": "Log in",
     "register": "Sign up",
-    "menu": "Menu"
+    "menu": "Menu",
+    "mapViewer": "Map viewer"
   },
   "hero": {
     "badge": "A Saudi platform for GIS & surveying",
@@ -635,7 +636,9 @@
         "description": "Write a description of at least 20 characters",
         "location": "Set the location on the map",
         "pledge": "You must accept the pledge for this service"
-      }
+      },
+      "filesOnMap_one": "{{count}} GIS file from your attachments is shown on the map",
+      "filesOnMap_other": "{{count}} GIS files from your attachments are shown on the map"
     },
     "detail": {
       "description": "Request details",
@@ -650,7 +653,10 @@
       "client": "Client",
       "assignee": "Assignee",
       "unassigned": "Unassigned",
-      "teamSoon": "Assigned soon"
+      "teamSoon": "Assigned soon",
+      "onMap": "On the map",
+      "filesOnMap_one": "{{count}} GIS file shown on the map — click any feature to see its attributes.",
+      "filesOnMap_other": "{{count}} GIS files shown on the map — click any feature to see its attributes."
     },
     "client": {
       "reviewing": "We received your request and the team is reviewing it to send a quote. Updates will appear here.",
@@ -695,6 +701,47 @@
       "price": "Price: SAR {{price}}",
       "assigned": "Assigned to a team member",
       "unassigned": "Unassigned"
+    }
+  },
+  "viewer": {
+    "title": "Map viewer",
+    "subtitle": "View GIS files on a map, inspect feature attributes, and measure distances and areas — no software needed.",
+    "needHelp": "Need help with your data?",
+    "addFile": "Add file",
+    "layers": "Layers",
+    "zoomTo": "Zoom to layer",
+    "toggle": "Show/hide",
+    "noAttributes": "This feature has no attributes",
+    "dropHere": "Drop files here to view them",
+    "projectedWarning": "Coordinates aren’t geographic — the file may be in a projected system without a .prj. Export it in WGS 84 (EPSG:4326).",
+    "measure": {
+      "distance": "Distance",
+      "area": "Area",
+      "clear": "Clear measurements",
+      "finish": "Finish",
+      "distanceHint": "Click to add points, double-click to finish",
+      "areaHint": "Click to draw the polygon (3+ points), double-click to finish"
+    },
+    "errors": {
+      "unsupported": "{{name}}: unsupported format. Supported: GeoJSON, KML, KMZ and zipped Shapefile.",
+      "invalid": "{{name}}: couldn’t read the file. Make sure it’s valid and in the right format.",
+      "empty": "{{name}}: the file has no geographic features.",
+      "tooLarge": "{{name}}: the file exceeds the preview limit (30 MB).",
+      "rawShp": "{{name}}: zip the Shapefile parts together (.shp .shx .dbf .prj) into one archive."
+    },
+    "points": {
+      "formats": {
+        "title": "Common GIS formats",
+        "text": "GeoJSON, KML, KMZ and zipped Shapefile — reprojected automatically when a .prj is present."
+      },
+      "measure": {
+        "title": "Accurate measuring",
+        "text": "Geodesic distances and areas in meters, hectares and kilometers."
+      },
+      "private": {
+        "title": "Your files stay with you",
+        "text": "Files are read inside your browser and never uploaded to a server."
+      }
     }
   }
 }

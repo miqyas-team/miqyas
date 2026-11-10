@@ -1,11 +1,12 @@
-import { useEffect, useRef, useState, type FormEvent } from 'react'
+import { useEffect, useMemo, useRef, useState, type FormEvent } from 'react'
 import { Link, useLocation, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { Calendar, Download, FileUp, History, Lock, MapPin, Paperclip, Send, UserRound } from 'lucide-react'
 import { servicesApi } from '../../services/api'
 import { allowedTransitions, type RequestDetail as Detail, type RequestFile, type RequestStatus } from '../../services/types'
 import { Alert, Button, ErrorState, Spinner, useAsync } from '../../components/ui'
-import { LocationMap } from '../../components/map/LocationMap'
+import { GisViewer, type ViewerFile } from '../../components/map/GisViewer'
+import { isPreviewable } from '../../components/map/gisFiles'
 import { formatDate } from '../../components/home/CourseCard'
 import { pick, useLang } from '../../lib/lang'
 import { Placeholder } from '../Placeholder'
@@ -43,6 +44,16 @@ function RequestView({ r, as, reload }: { r: Detail; as: Perspective; reload: ()
   }, [created])
   const inputs = r.files.filter((f) => f.kind === 'input')
   const deliverables = r.files.filter((f) => f.kind === 'deliverable')
+  // ملفات GIS المتاحة لهذا الطرف تُعرض على الخريطة (العميل يرى التسليمات من المراجعة فما بعد)
+  const showDeliverables = staff || r.status === 'review' || r.status === 'completed'
+  const mapFiles: ViewerFile[] = useMemo(
+    () =>
+      [...inputs, ...(showDeliverables ? deliverables : [])]
+        .filter((f) => f.url !== '#' && isPreviewable(f.name))
+        .map((f) => ({ key: f.id, name: f.name, source: f.url })),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [r.files.map((f) => f.id).join('|'), showDeliverables],
+  )
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8">
@@ -75,10 +86,15 @@ function RequestView({ r, as, reload }: { r: Detail; as: Perspective; reload: ()
                 <Calendar className="h-4 w-4 text-accent" /> {t('requests.detail.due')}: {formatDate(r.dueDate, lang, { day: 'numeric', month: 'long', year: 'numeric' })}
               </p>
             )}
-            {r.location && (
+            {(r.location || mapFiles.length > 0) && (
               <div className="mt-5 space-y-2">
-                <h3 className="flex items-center gap-1.5 text-sm font-semibold"><MapPin className="h-4 w-4 text-accent" /> {t('requests.form.location')}</h3>
-                <LocationMap value={r.location} height={260} />
+                <h3 className="flex items-center gap-1.5 text-sm font-semibold"><MapPin className="h-4 w-4 text-accent" /> {t('requests.detail.onMap')}</h3>
+                <GisViewer height={340} marker={r.location} files={mapFiles} allowUpload={false} />
+                {mapFiles.length > 0 && <p className="text-xs text-muted">{t('requests.detail.filesOnMap', { count: mapFiles.length })}</p>}
+              </div>
+            )}
+            {r.location && (
+              <div className="mt-2 space-y-1">
                 <p className="text-xs text-muted" dir="ltr">
                   {r.location.lat.toFixed(5)}, {r.location.lng.toFixed(5)} ·{' '}
                   <a className="text-primary underline" href={`https://www.google.com/maps?q=${r.location.lat},${r.location.lng}`} target="_blank" rel="noopener noreferrer">Google Maps</a>

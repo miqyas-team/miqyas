@@ -40,6 +40,20 @@ body {
   .certificate { width: 297mm !important; height: 210mm !important; aspect-ratio: auto; }
 }
 
+/* عارض الخرائط */
+.leaflet-container { font-family: var(--font-sans); }
+.leaflet-tooltip.miqyas-measure-label {
+  background: #162220;
+  color: #fff;
+  border: 0;
+  border-radius: 999px;
+  padding: 3px 10px;
+  font-weight: 600;
+  font-size: 12px;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 0.2);
+}
+.leaflet-tooltip.miqyas-measure-label::before { display: none; }
+
 /* حركات خفيفة */
 @keyframes float {
   0%, 100% { transform: translateY(0); }
