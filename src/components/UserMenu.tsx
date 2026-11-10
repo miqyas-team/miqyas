@@ -8,7 +8,7 @@ import { dashboardPath } from '../lib/types'
 export function UserMenu({ onNavigate }: { onNavigate?: () => void }) {
   const { t } = useTranslation()
   const navigate = useNavigate()
-  const { profile, role, signOut } = useAuth()
+  const { profile, role, signOut, isDemo, setDemoRole } = useAuth()
   const [open, setOpen] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
 
@@ -47,7 +47,30 @@ export function UserMenu({ onNavigate }: { onNavigate?: () => void }) {
           {role !== 'user' && (
             <Link to="/app" onClick={go} className="block px-4 py-2 text-sm hover:bg-primary-50">{t('areas.app')}</Link>
           )}
+          <Link to="/app/courses" onClick={go} className="block px-4 py-2 text-sm hover:bg-primary-50">{t('myCourses.title')}</Link>
+          <Link to="/app/certificates" onClick={go} className="block px-4 py-2 text-sm hover:bg-primary-50">{t('certificates.title')}</Link>
           <Link to="/app/profile" onClick={go} className="block px-4 py-2 text-sm hover:bg-primary-50">{t('profile.title')}</Link>
+          {isDemo && (
+            <div className="mx-3 my-2 rounded-xl bg-accent-100/70 p-2">
+              <p className="px-1 pb-1.5 text-[11px] font-semibold text-[#8a5f22]">{t('demo.switchRole')}</p>
+              <div className="grid grid-cols-2 gap-1">
+                {(['user', 'instructor', 'team', 'admin'] as const).map((r) => (
+                  <button
+                    key={r}
+                    type="button"
+                    onClick={() => {
+                      setDemoRole(r)
+                      go()
+                      navigate(dashboardPath[r])
+                    }}
+                    className={`rounded-lg px-2 py-1 text-xs font-medium ${role === r ? 'bg-primary text-white' : 'bg-white text-ink hover:bg-primary-50'}`}
+                  >
+                    {t(`roles.${r}`)}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
           <hr className="my-2 border-primary/10" />
           <button
             type="button"

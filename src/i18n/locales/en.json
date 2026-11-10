@@ -19,9 +19,18 @@
     "requestService": "Request a service"
   },
   "pillars": {
-    "courses": { "title": "Recorded & live courses", "text": "Beginner to advanced, with quizzes, practical exercises and a verifiable certificate." },
-    "services": { "title": "GIS services", "text": "Graduation project guidance, technical consulting, mapping and spatial analysis." },
-    "software": { "title": "Software & tools", "text": "Official download links, Arabic install guides and practice datasets." }
+    "courses": {
+      "title": "Recorded & live courses",
+      "text": "Beginner to advanced, with quizzes, practical exercises and a verifiable certificate."
+    },
+    "services": {
+      "title": "GIS services",
+      "text": "Graduation project guidance, technical consulting, mapping and spatial analysis."
+    },
+    "software": {
+      "title": "Software & tools",
+      "text": "Official download links, Arabic install guides and practice datasets."
+    }
   },
   "page": {
     "comingSoon": "This page is under construction",
@@ -51,7 +60,16 @@
     "newPassword": "New password",
     "confirmPassword": "Confirm password",
     "specialization": "Specialization",
-    "specializationOptions": ["GIS student", "Surveying engineering student", "Geography student", "GIS specialist", "Surveying engineer", "Urban planner", "Researcher", "Other"],
+    "specializationOptions": [
+      "GIS student",
+      "Surveying engineering student",
+      "Geography student",
+      "GIS specialist",
+      "Surveying engineer",
+      "Urban planner",
+      "Researcher",
+      "Other"
+    ],
     "organization": "University or employer",
     "optional": "optional",
     "save": "Save"
@@ -82,6 +100,7 @@
     "forbiddenTitle": "Access denied",
     "forbiddenText": "This page belongs to a different role on the platform.",
     "goToDashboard": "Go to my dashboard",
+    "enterDemo": "Try the platform with a demo account →",
     "notConfigured": "Preview mode: the platform isn't connected to Supabase yet, so sign-in and sign-up won't work. See docs/SUPABASE_SETUP.md."
   },
   "errors": {
@@ -109,12 +128,424 @@
   "dash": {
     "welcome": "Hi {{name}} 👋",
     "completeProfile": "Complete your profile by adding your mobile number so the team can reach you about your requests.",
-    "soon": "This dashboard's content is built in the next stages."
+    "soon": "This dashboard's content is built in the next stages.",
+    "tiles": {
+      "myCourses": "Follow your courses and progress",
+      "certificates": "Your issued certificates and verification codes",
+      "manageCourses": "Add, edit and publish courses",
+      "inbox": "Incoming requests and assignments",
+      "instructorCourses": "Edit your courses’ content and questions"
+    }
+  },
+  "home": {
+    "hero": {
+      "titleA": "Learn GIS",
+      "titleB": "and master it",
+      "steps": {
+        "learn": "Learn",
+        "apply": "Apply",
+        "certify": "Get certified"
+      },
+      "cardCourse": "Your course progress",
+      "cardCert": "Verifiable certificate"
+    },
+    "courses": {
+      "eyebrow": "Courses",
+      "title": "Featured courses",
+      "text": "Practical paths from your first map to advanced analysis and programming.",
+      "all": "All courses",
+      "details": "Details",
+      "format": {
+        "recorded": "Recorded",
+        "live": "Live"
+      },
+      "level": {
+        "beginner": "Beginner",
+        "intermediate": "Intermediate",
+        "advanced": "Advanced"
+      },
+      "hours_one": "{{count}} hour",
+      "hours_other": "{{count}} hours",
+      "lessons_one": "{{count}} lesson",
+      "lessons_other": "{{count}} lessons",
+      "sessions_one": "{{count}} session",
+      "sessions_other": "{{count}} sessions",
+      "startsAt": "Cohort starts {{date}}"
+    },
+    "services": {
+      "eyebrow": "Services",
+      "title": "Our team, on your project",
+      "text": "Delivered by the Miqyas specialist team, and tracked step by step from a single page.",
+      "items": {
+        "graduation": {
+          "title": "Graduation project guidance",
+          "text": "We help you choose the method and tools, and review your maps and analysis before submission."
+        },
+        "consulting": {
+          "title": "Consulting & tech support",
+          "text": "A session with a specialist to fix an issue, review your work or answer your questions."
+        },
+        "mapping": {
+          "title": "Mapping",
+          "text": "Thematic maps and professional cartographic layouts, ready to print and publish."
+        },
+        "analysis": {
+          "title": "Spatial analysis",
+          "text": "Suitability, network, density and change analysis to support decisions."
+        },
+        "survey": {
+          "title": "Land surveying",
+          "text": "Field surveys, survey data processing and plan preparation."
+        },
+        "conversion": {
+          "title": "Data conversion",
+          "text": "CAD to GIS, coordinate fixes, data cleaning and format conversion."
+        }
+      }
+    },
+    "software": {
+      "title": "Software & tools",
+      "text": "Official download links, Arabic install guides and practice datasets.",
+      "cta": "Browse software",
+      "license": {
+        "free": "Free",
+        "student": "Student license"
+      }
+    },
+    "why": {
+      "eyebrow": "Why Miqyas",
+      "title": "Built for Saudi GIS students and professionals",
+      "items": {
+        "arabic": {
+          "title": "Clear Arabic content",
+          "text": "Explained in Arabic, with the English terms you'll need at work."
+        },
+        "practical": {
+          "title": "Hands-on practice",
+          "text": "Exercises on real data from Saudi cities, reviewed by your instructor."
+        },
+        "certificate": {
+          "title": "Verifiable certificate",
+          "text": "A QR-coded certificate employers can verify in seconds."
+        },
+        "team": {
+          "title": "Specialist team",
+          "text": "GIS and surveying specialists who stay with you until you succeed."
+        }
+      }
+    },
+    "testimonials": {
+      "eyebrow": "Testimonials",
+      "title": "What our learners say",
+      "sampleBadge": "Sample — shown in development only"
+    },
+    "cta": {
+      "title": "Start your GIS journey today",
+      "text": "Create a free account and begin with QGIS from Zero.",
+      "primary": "Create a free account"
+    }
+  },
+  "common": {
+    "retry": "Try again",
+    "close": "Close"
+  },
+  "courses": {
+    "listTitle": "Courses",
+    "listSubtitle": "Recorded courses at your own pace, and live cohorts with an instructor.",
+    "search": "Search a course or software…",
+    "filters": {
+      "level": "Level",
+      "software": "Software",
+      "type": "Type",
+      "free": "Free",
+      "paid": "Paid"
+    },
+    "resultCount_one": "{{count}} course",
+    "resultCount_other": "{{count}} courses",
+    "clearFilters": "Clear filters",
+    "empty": "No courses match your selection. Try changing the filters.",
+    "progress": "Progress",
+    "detail": {
+      "by": "By",
+      "outcomes": "What you'll learn",
+      "about": "About this course",
+      "curriculum": "Course content",
+      "modulesCount_one": "{{count}} module",
+      "modulesCount_other": "{{count}} modules",
+      "minutes_one": "{{count}} min",
+      "minutes_other": "{{count}} min",
+      "preview": "Free preview",
+      "hasQuiz": "Quiz",
+      "hasAssignment": "Practical exercise",
+      "certificateRule": "You earn the certificate after completing all lessons, passing every quiz with {{score}}% or more, and getting your exercises approved.",
+      "certificateIncluded": "Verifiable completion certificate",
+      "quizzesIncluded": "Quizzes and practical exercises",
+      "instructor": "Instructor"
+    },
+    "enroll": {
+      "free": "Enroll for free",
+      "paid": "Enroll now",
+      "loginToEnroll": "Log in to enroll",
+      "continue": "Continue learning",
+      "review": "Review course",
+      "pendingPayment": "Your enrollment is awaiting payment. You'll see bank transfer instructions, and the course opens once payment is confirmed.",
+      "vatNote": "Price includes VAT",
+      "chooseCohort": "Choose a cohort",
+      "seatsLeft_one": "{{count}} seat left",
+      "seatsLeft_other": "{{count}} seats left",
+      "cohortFull": "Full",
+      "full": "This cohort is full. Choose another or join the waitlist.",
+      "joinWaitlist": "Join the waitlist",
+      "waitlisted": "You're on the waitlist — we'll let you know when a new cohort opens."
+    }
+  },
+  "learn": {
+    "outline": "Course content",
+    "backToCourse": "Back to course page",
+    "lessonOf": "Lesson {{n}} of {{total}}",
+    "videoSoon": "Video coming soon",
+    "videoSoonText": "You can read the lesson summary and download attachments now.",
+    "attachments": "Attachments",
+    "prev": "Previous",
+    "next": "Next",
+    "markDone": "Mark complete",
+    "markDoneNext": "Complete & next",
+    "markUndone": "Mark incomplete",
+    "previewNote": "This is a free preview lesson. Enroll to unlock all lessons, quizzes and the certificate.",
+    "enrollNow": "Enroll now",
+    "completeTitle": "You've met all course requirements 🎉",
+    "completeText": "Your certificate is ready to issue with a verification code.",
+    "claimCertificate": "Issue my certificate",
+    "viewCertificate": "View certificate",
+    "claimError": "Requirements not met yet. Make sure all lessons, quizzes and exercises are done.",
+    "quiz": {
+      "title": "Quiz",
+      "best": "Best score: {{score}}%",
+      "answerAll": "Answer all questions first",
+      "submit": "Submit answers",
+      "passed": "Passed! You scored {{score}}% (required {{pass}}%).",
+      "failed": "You scored {{score}}%; {{pass}}% is required. Review the lesson and try again.",
+      "retry": "Try again"
+    },
+    "assignment": {
+      "title": "Practical exercise",
+      "pick": "Choose a file to upload",
+      "hint": "PDF, image or zip — up to {{mb}} MB",
+      "note": "Note to the instructor (optional)",
+      "submit": "Upload exercise",
+      "chooseFile": "Choose the file first",
+      "tooLarge": "File is larger than {{mb}} MB",
+      "grade": "Grade: {{grade}}/100",
+      "status": {
+        "submitted": "Uploaded — awaiting instructor review",
+        "approved": "Approved ✓",
+        "needs_revision": "Needs revision — upload an updated version",
+        "rejected": "Rejected — upload a new version"
+      }
+    }
+  },
+  "myCourses": {
+    "title": "My courses",
+    "empty": "You haven't enrolled in any course yet.",
+    "pending": "Awaiting payment",
+    "completed": "Completed"
+  },
+  "certificates": {
+    "title": "My certificates",
+    "empty": "No certificates yet. Complete a course to earn your first.",
+    "open": "Open",
+    "back": "Back to my certificates",
+    "download": "Download PDF / Print",
+    "printHint": "In the print dialog choose \"Save as PDF\", landscape, and enable \"Background graphics\"."
+  },
+  "verify": {
+    "title": "Verify a certificate",
+    "subtitle": "Enter the certificate number or scan its QR code.",
+    "codeLabel": "Certificate number",
+    "check": "Verify",
+    "valid": "Valid certificate issued by Miqyas",
+    "name": "Trainee",
+    "course": "Course",
+    "hours": "Hours",
+    "issued": "Issued",
+    "code": "Certificate no.",
+    "viewCertificate": "View certificate",
+    "invalidTitle": "No certificate found with this number",
+    "invalidText": "Check that the number is typed correctly."
   },
   "footer": {
+    "platform": "Platform",
+    "company": "Miqyas",
+    "contact": "Contact us",
+    "about": "A Saudi platform for GIS and surveying education, with services delivered by a specialist team.",
     "tagline": "We measure the land, and build the skill.",
     "rights": "All rights reserved",
     "terms": "Terms & Conditions",
     "privacy": "Privacy Policy"
+  },
+  "demo": {
+    "switchRole": "Switch role (demo)"
+  },
+  "admin": {
+    "nav": {
+      "overview": "Overview",
+      "courses": "Courses"
+    },
+    "courses": {
+      "title": "Manage courses",
+      "subtitleAdmin": "All published courses and drafts",
+      "subtitleInstructor": "Courses assigned to you",
+      "new": "New course",
+      "emptyAdmin": "No courses yet. Start by adding your first course.",
+      "emptyInstructor": "No courses assigned to you yet. An admin assigns them from the course editor.",
+      "col": {
+        "course": "Course",
+        "type": "Type",
+        "lessons": "Lessons",
+        "price": "Price",
+        "status": "Status"
+      },
+      "published": "Published",
+      "draft": "Draft",
+      "publish": "Publish",
+      "unpublish": "Unpublish",
+      "view": "View",
+      "edit": "Edit"
+    }
+  },
+  "editor": {
+    "back": "Back to courses",
+    "untitled": "Untitled course",
+    "untitledLesson": "Untitled lesson",
+    "unsaved": "Unsaved changes",
+    "save": "Save",
+    "saved": "Saved",
+    "fixIssues": "Fix the red items in the side panel before saving.",
+    "cannotPublish": "Can’t publish until the remaining items are done. Unpublish or complete them.",
+    "confirmDelete": "Permanently delete this course and all its content? This can’t be undone.",
+    "delete": "Delete course",
+    "moveUp": "Move up",
+    "moveDown": "Move down",
+    "remove": "Remove",
+    "checklist": "Before saving & publishing",
+    "publishBlockedHint": "Complete the orange items to publish",
+    "instructorPublished": "This course is published. Your edits go live on save.",
+    "instructorDraft": "This course is a draft. An admin publishes it after review.",
+    "tabs": {
+      "basics": "Basics",
+      "content": "Content",
+      "cohorts": "Cohorts"
+    },
+    "sections": {
+      "identity": "Course identity",
+      "settings": "Settings",
+      "instructor": "Instructor",
+      "publishing": "Publishing"
+    },
+    "tones": {
+      "primary": "Dark green",
+      "secondary": "Light green",
+      "accent": "Gold",
+      "ink": "Dark"
+    },
+    "fields": {
+      "title": "Course title",
+      "slug": "URL slug",
+      "slugHint": "lowercase letters, numbers and dashes",
+      "summary": "Short summary",
+      "summaryHint": "one line shown on the course card",
+      "description": "Full description",
+      "outcomes": "What learners will learn",
+      "outcomesHint": "one point per line",
+      "software": "Software",
+      "softwareHint": "comma separated: QGIS, Python",
+      "tone": "Cover color",
+      "price": "Price (SAR)",
+      "priceHint": "0 = free, VAT included",
+      "hours": "Hours",
+      "passScore": "Quiz pass score %",
+      "instructorAccount": "Responsible instructor account",
+      "instructorAccountHint": "lets them edit the course and grade its exercises",
+      "noInstructor": "— No instructor (admins only) —",
+      "instructorName": "Displayed instructor name",
+      "instructorBio": "Instructor bio",
+      "published": "Published",
+      "publishedHint": "Listed in courses and open for enrollment",
+      "featured": "Featured",
+      "featuredHint": "Shown in “Featured courses” on the home page"
+    },
+    "content": {
+      "module": "Module",
+      "moduleTitle": "Module title",
+      "addModule": "Add module",
+      "addLesson": "Add lesson",
+      "deleteModule": "Delete module",
+      "deleteLesson": "Delete lesson",
+      "confirmDeleteModule": "Delete this module and all its lessons?",
+      "confirmDeleteLesson": "Delete this lesson?"
+    },
+    "lesson": {
+      "title": "Lesson title",
+      "youtube": "YouTube video",
+      "youtubeHint": "paste the (unlisted) link",
+      "youtubeInvalid": "Invalid YouTube link",
+      "duration": "Duration (min)",
+      "body": "Lesson summary",
+      "preview": "Free preview",
+      "previewHint": "visible to non-enrolled users",
+      "quiz": "Quiz",
+      "assignment": "Practical exercise",
+      "assignmentText": "Exercise instructions",
+      "addAttachment": "Add attachment",
+      "pendingUpload": "uploads on save"
+    },
+    "quiz": {
+      "title": "Quiz questions",
+      "question": "Question {{n}}",
+      "kind": "Question type",
+      "mcq": "Multiple choice",
+      "trueFalse": "True / False",
+      "prompt": "Question text",
+      "options": "Options",
+      "correctHint": "(mark the correct answer with the circle)",
+      "markCorrect": "Correct answer",
+      "addOption": "Add option",
+      "add": "Add question"
+    },
+    "cohorts": {
+      "add": "Add cohort",
+      "empty": "No cohorts. Add one so learners can enroll.",
+      "cohort": "Cohort {{n}}",
+      "name": "Cohort name",
+      "start": "Start date",
+      "end": "End date",
+      "seats": "Seats",
+      "status": "Status",
+      "statuses": {
+        "open": "Open",
+        "full": "Full",
+        "running": "Running",
+        "finished": "Finished"
+      },
+      "sessionsNote": "Session times and Zoom links per cohort are managed from the instructor dashboard (later stage)."
+    },
+    "issues": {
+      "title": "Title is required in Arabic and English",
+      "slug": "Invalid URL slug",
+      "slugTaken": "This slug is used by another course",
+      "price": "Invalid price",
+      "passScore": "Pass score must be between 0 and 100",
+      "moduleTitle": "Module {{n}} title is missing",
+      "lessonTitle": "Lesson {{n}} title is missing",
+      "noQuestions": "Lesson {{n}}: quiz has no questions",
+      "questionPrompt": "Lesson {{n}}, question {{q}}: text is missing",
+      "questionOptions": "Lesson {{n}}, question {{q}}: options are incomplete",
+      "questionCorrect": "Lesson {{n}}, question {{q}}: mark the correct answer",
+      "assignment": "Lesson {{n}}: exercise instructions are missing",
+      "cohort": "Cohort {{n}}: name, start date and seats are required",
+      "noLessons": "Add at least one lesson",
+      "summary": "Add the short summary in both languages",
+      "noCohort": "A live course needs an open cohort"
+    }
   }
 }

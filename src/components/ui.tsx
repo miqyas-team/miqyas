@@ -1,7 +1,8 @@
-import { useId, type ButtonHTMLAttributes, type InputHTMLAttributes, type ReactNode } from 'react'
+import { useEffect, useId, useState, type ButtonHTMLAttributes, type InputHTMLAttributes, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { LogoMark } from './Logo'
 import { isSupabaseConfigured } from '../lib/supabase'
+import { useAuth } from '../auth/AuthProvider'
 
 export function Spinner() {
   return (
@@ -83,8 +84,55 @@ export function Alert({ tone = 'error', children }: { tone?: 'error' | 'success'
 
 export function NotConfiguredNotice() {
   const { t } = useTranslation()
+  const { canUseDemo, enterDemo } = useAuth()
   if (isSupabaseConfigured) return null
-  return <Alert tone="info">{t('auth.notConfigured')}</Alert>
+  return (
+    <Alert tone="info">
+      {t('auth.notConfigured')}
+      {canUseDemo && (
+        <button type="button" onClick={enterDemo} className="mt-2 block font-semibold text-primary underline">
+          {t('auth.enterDemo')}
+        </button>
+      )}
+    </Alert>
+  )
+}
+
+/** حالة تحميل/خطأ لبيانات غير متزامنة */
+export function useAsync<T>(fn: () => Promise<T>, deps: unknown[]) {
+  const [state, setState] = useState<{ data: T | null; loading: boolean; error: string | null }>({
+    data: null,
+    loading: true,
+    error: null,
+  })
+  const [tick, setTick] = useState(0)
+  useEffect(() => {
+    let alive = true
+    setState((s) => ({ ...s, loading: true, error: null }))
+    fn().then(
+      (data) => alive && setState({ data, loading: false, error: null }),
+      (e: unknown) => alive && setState({ data: null, loading: false, error: e instanceof Error ? e.message : String(e) }),
+    )
+    return () => {
+      alive = false
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [...deps, tick])
+  return { ...state, reload: () => setTick((n) => n + 1) }
+}
+
+export function ErrorState({ onRetry }: { onRetry?: () => void }) {
+  const { t } = useTranslation()
+  return (
+    <div className="mx-auto max-w-md px-4 py-20 text-center">
+      <Alert>{t('errors.generic')}</Alert>
+      {onRetry && (
+        <button type="button" onClick={onRetry} className="mt-4 font-semibold text-primary underline">
+          {t('common.retry')}
+        </button>
+      )}
+    </div>
+  )
 }
 
 /** إطار صفحات الدخول والتسجيل */
