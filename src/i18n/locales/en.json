@@ -1,0 +1,120 @@
+{
+  "brand": "Miqyas",
+  "nav": {
+    "home": "Home",
+    "courses": "Courses",
+    "software": "Software",
+    "services": "Services",
+    "about": "About",
+    "contact": "Contact",
+    "login": "Log in",
+    "register": "Sign up",
+    "menu": "Menu"
+  },
+  "hero": {
+    "badge": "A Saudi platform for GIS & surveying",
+    "title": "Learn GIS and master it",
+    "subtitle": "Hands-on courses in ArcGIS, QGIS and Python, plus a specialist team to help with your geospatial projects from idea to delivery.",
+    "browseCourses": "Browse courses",
+    "requestService": "Request a service"
+  },
+  "pillars": {
+    "courses": { "title": "Recorded & live courses", "text": "Beginner to advanced, with quizzes, practical exercises and a verifiable certificate." },
+    "services": { "title": "GIS services", "text": "Graduation project guidance, technical consulting, mapping and spatial analysis." },
+    "software": { "title": "Software & tools", "text": "Official download links, Arabic install guides and practice datasets." }
+  },
+  "page": {
+    "comingSoon": "This page is under construction",
+    "comingSoonText": "We're working on it and it will be ready soon.",
+    "backHome": "Back to home",
+    "notFound": "Page not found"
+  },
+  "areas": {
+    "app": "My dashboard",
+    "instructor": "Instructor dashboard",
+    "team": "Team dashboard",
+    "admin": "Admin dashboard",
+    "inbox": "Request Center"
+  },
+  "roles": {
+    "user": "User",
+    "instructor": "Instructor",
+    "team": "Team member",
+    "admin": "Admin"
+  },
+  "form": {
+    "fullName": "Full name",
+    "email": "Email",
+    "phone": "Mobile number",
+    "phoneHint": "Saudi number starting with 05, 10 digits",
+    "password": "Password",
+    "newPassword": "New password",
+    "confirmPassword": "Confirm password",
+    "specialization": "Specialization",
+    "specializationOptions": ["GIS student", "Surveying engineering student", "Geography student", "GIS specialist", "Surveying engineer", "Urban planner", "Researcher", "Other"],
+    "organization": "University or employer",
+    "optional": "optional",
+    "save": "Save"
+  },
+  "auth": {
+    "loginTitle": "Welcome back",
+    "loginSubtitle": "Log in to continue your courses and requests",
+    "registerTitle": "Create your Miqyas account",
+    "registerSubtitle": "Start your GIS journey",
+    "continueGoogle": "Continue with Google",
+    "or": "or",
+    "forgot": "Forgot password?",
+    "noAccount": "Don't have an account?",
+    "haveAccount": "Already have an account?",
+    "createAccount": "Create account",
+    "agreePrefix": "I agree to the",
+    "and": "and",
+    "checkEmailTitle": "Check your email",
+    "checkEmailText": "We sent an activation link to {{email}}. Open it to finish creating your account.",
+    "resetTitle": "Reset password",
+    "resetSubtitle": "Enter your email and we'll send you a link to set a new password",
+    "sendLink": "Send link",
+    "resetSent": "If {{email}} is registered with us, a reset link will arrive within minutes.",
+    "backToLogin": "Back to log in",
+    "updateTitle": "Set a new password",
+    "linkExpired": "This link has expired or is invalid. Request a new one.",
+    "signOut": "Sign out",
+    "forbiddenTitle": "Access denied",
+    "forbiddenText": "This page belongs to a different role on the platform.",
+    "goToDashboard": "Go to my dashboard",
+    "notConfigured": "Preview mode: the platform isn't connected to Supabase yet, so sign-in and sign-up won't work. See docs/SUPABASE_SETUP.md."
+  },
+  "errors": {
+    "fullName": "Enter your full name",
+    "email": "Enter a valid email address",
+    "phone": "Mobile number must be in the format 05xxxxxxxx",
+    "passwordLength": "Password must be at least {{n}} characters",
+    "passwordMismatch": "Passwords don't match",
+    "terms": "You must accept the terms and privacy policy",
+    "fillCredentials": "Enter your email and password",
+    "invalidCredentials": "Incorrect email or password",
+    "emailTaken": "This email is already registered. Try logging in.",
+    "emailNotConfirmed": "Your email isn't confirmed yet. Open the activation link we sent you.",
+    "phoneTaken": "This mobile number is used by another account",
+    "rateLimit": "Too many attempts. Wait a moment and try again.",
+    "weakPassword": "Password is too weak. Use at least 8 characters.",
+    "network": "Couldn't connect. Check your internet and try again.",
+    "generic": "Something went wrong. Please try again."
+  },
+  "profile": {
+    "title": "Profile",
+    "language": "Platform language",
+    "saved": "Changes saved"
+  },
+  "dash": {
+    "welcome": "Hi {{name}} 👋",
+    "completeProfile": "Complete your profile by adding your mobile number so the team can reach you about your requests.",
+    "soon": "This dashboard's content is built in the next stages."
+  },
+  "footer": {
+    "tagline": "We measure the land, and build the skill.",
+    "rights": "All rights reserved",
+    "terms": "Terms & Conditions",
+    "privacy": "Privacy Policy"
+  }
+}

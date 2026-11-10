@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+/* هوية مقياس — مأخوذة من الشعار */
+@theme {
+  --color-primary: #0f5e4e;
+  --color-primary-700: #0b4a3d;
+  --color-primary-50: #e6f2ef;
+  --color-secondary: #3fb59a;
+  --color-secondary-100: #d5f1e9;
+  --color-accent: #c9954a;
+  --color-accent-100: #f6ead6;
+  --color-sand: #f6f3ec;
+  --color-cream: #ede3c9;
+  --color-ink: #162220;
+  --color-muted: #5b6b67;
+
+  --font-sans: "Readex Pro", "IBM Plex Sans Arabic", system-ui, sans-serif;
+
+  --radius-card: 1.25rem;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-sand text-ink font-sans antialiased;
+}
+
+/* خطوط كنتور خفيفة لخلفية الأقسام */
+.contour-bg {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'%3E%3Cg fill='none' stroke='%233FB59A' stroke-opacity='.18' stroke-width='1.5'%3E%3Cpath d='M-50 120 C80 60 200 180 330 110 S560 40 680 120'/%3E%3Cpath d='M-50 170 C90 110 210 230 340 160 S570 90 680 170'/%3E%3Cpath d='M-50 230 C100 170 220 290 350 220 S580 150 680 230'/%3E%3Cpath d='M-50 300 C110 240 230 360 360 290 S590 220 680 300'/%3E%3Cpath d='M-50 380 C120 320 240 440 370 370 S600 300 680 380'/%3E%3Cpath d='M-50 470 C130 410 250 530 380 460 S610 390 680 470'/%3E%3Ccircle cx='450' cy='140' r='40'/%3E%3Ccircle cx='450' cy='140' r='70'/%3E%3Ccircle cx='450' cy='140' r='100'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 600px 600px;
+}
+
+/* مسار منقّط — العنصر البصري المتكرر من الشعار */
+.dotted-path {
+  background-image: radial-gradient(circle, currentColor 2px, transparent 2.5px);
+  background-size: 12px 6px;
+  background-repeat: repeat-x;
+  background-position: center;
+}
