@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { Award, BookOpen, Inbox, Pencil } from 'lucide-react'
+import { Award, BookOpen, ClipboardList, Inbox, Pencil } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { useAuth } from '../../auth/AuthProvider'
 import { Alert } from '../../components/ui'
@@ -27,15 +27,17 @@ export function Dashboard({ area }: { area: 'app' | 'instructor' | 'team' | 'adm
       ? [
           { to: '/app/courses', icon: <BookOpen className="h-6 w-6" />, title: t('myCourses.title'), text: t('dash.tiles.myCourses') },
           { to: '/app/certificates', icon: <Award className="h-6 w-6" />, title: t('certificates.title'), text: t('dash.tiles.certificates') },
+          { to: '/app/requests', icon: <ClipboardList className="h-6 w-6" />, title: t('requests.mine'), text: t('dash.tiles.myRequests') },
         ]
       : area === 'admin'
         ? [
             { to: '/admin/courses', icon: <Pencil className="h-6 w-6" />, title: t('admin.courses.title'), text: t('dash.tiles.manageCourses') },
+            { to: '/admin/requests', icon: <ClipboardList className="h-6 w-6" />, title: t('admin.nav.requests'), text: t('dash.tiles.allRequests') },
             { to: '/admin/inbox', icon: <Inbox className="h-6 w-6" />, title: t('areas.inbox'), text: t('dash.tiles.inbox') },
           ]
         : area === 'instructor'
           ? [{ to: '/instructor/courses', icon: <Pencil className="h-6 w-6" />, title: t('admin.courses.title'), text: t('dash.tiles.instructorCourses') }]
-          : []
+          : [{ to: '/team/requests', icon: <ClipboardList className="h-6 w-6" />, title: t('requests.assignedTitle'), text: t('dash.tiles.teamRequests') }]
 
   return (
     <>

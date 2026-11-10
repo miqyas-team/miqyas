@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { BookOpen, Inbox, LayoutDashboard } from 'lucide-react'
+import { BookOpen, ClipboardList, Inbox, LayoutDashboard } from 'lucide-react'
 import { useAuth } from '../../auth/AuthProvider'
 
 /** شريط تنقّل لوحات الإدارة والمدرّب */
@@ -13,7 +13,12 @@ export function AdminNav() {
   const items = [
     { to: base, end: true, icon: LayoutDashboard, label: t('admin.nav.overview') },
     { to: `${base}/courses`, end: false, icon: BookOpen, label: t('admin.nav.courses') },
-    ...(isAdmin ? [{ to: '/admin/inbox', end: false, icon: Inbox, label: t('areas.inbox') }] : []),
+    ...(isAdmin
+      ? [
+          { to: '/admin/requests', end: false, icon: ClipboardList, label: t('admin.nav.requests') },
+          { to: '/admin/inbox', end: false, icon: Inbox, label: t('areas.inbox') },
+        ]
+      : []),
   ]
 
   return (

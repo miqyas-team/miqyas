@@ -134,7 +134,10 @@
       "certificates": "Your issued certificates and verification codes",
       "manageCourses": "Add, edit and publish courses",
       "inbox": "Incoming requests and assignments",
-      "instructorCourses": "Edit your courses’ content and questions"
+      "instructorCourses": "Edit your courses’ content and questions",
+      "myRequests": "Follow your service requests and chats",
+      "allRequests": "Price requests and assign the team",
+      "teamRequests": "Requests assigned to you"
     }
   },
   "home": {
@@ -389,7 +392,8 @@
   "admin": {
     "nav": {
       "overview": "Overview",
-      "courses": "Courses"
+      "courses": "Courses",
+      "requests": "Service requests"
     },
     "courses": {
       "title": "Manage courses",
@@ -546,6 +550,151 @@
       "noLessons": "Add at least one lesson",
       "summary": "Add the short summary in both languages",
       "noCohort": "A live course needs an open cohort"
+    }
+  },
+  "map": {
+    "streets": "Streets",
+    "satellite": "Satellite",
+    "locateMe": "My location"
+  },
+  "services": {
+    "title": "GIS services",
+    "subtitle": "Delivered by the Miqyas specialist team — track stages, chat and files on one page.",
+    "steps": {
+      "request": "Send your request & files",
+      "quote": "Get a quote & pay",
+      "follow": "Follow progress with the team",
+      "deliver": "Receive the final files"
+    },
+    "customPrice": "Priced per request",
+    "order": "Request",
+    "browse": "Browse services",
+    "academicNote": "We offer guidance, coaching and review — we don’t do the project on the student’s behalf."
+  },
+  "requests": {
+    "mine": "My requests",
+    "allTitle": "Service requests",
+    "assignedTitle": "Assigned to me",
+    "back": "Back to requests",
+    "emptyMine": "You haven’t sent any service request yet.",
+    "emptyStaff": "No requests in this view.",
+    "created": "We received your request #{{n}}. We’ll review it and reply here.",
+    "cancelledNote": "This request was cancelled.",
+    "col": {
+      "request": "Request"
+    },
+    "filters": {
+      "open": "Open",
+      "all": "All",
+      "unassigned": "Unassigned only"
+    },
+    "status": {
+      "new": "New",
+      "quoting": "Quoting",
+      "awaiting_payment": "Awaiting payment",
+      "in_progress": "In progress",
+      "review": "Review",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    },
+    "actions": {
+      "new_quoting": "Start quoting",
+      "awaiting_payment_in_progress": "Confirm payment & start",
+      "awaiting_payment_quoting": "Re-quote",
+      "in_progress_review": "Send for review",
+      "review_completed": "Close as completed",
+      "review_in_progress": "Back to in progress",
+      "cancelled_new": "Reopen"
+    },
+    "form": {
+      "subtitle": "Describe what you need and attach your files. The team reviews your request and replies on the request page.",
+      "type": "Service type",
+      "fixedNote": "This service has a fixed price — your request goes straight to payment.",
+      "customNote": "The team reviews your request and sends a quote; then you pay and work begins.",
+      "details": "Request details",
+      "title": "Short title",
+      "titlePh": "e.g. Land-use map for Al-Narjis district",
+      "description": "Description",
+      "descriptionPh": "What do you need? Expected outputs (file formats, map scale, language)? Anything that helps the team.",
+      "dueDate": "Needed by",
+      "location": "Location",
+      "locationHint": "Click the map to set the project location; drag the pin to adjust.",
+      "noLocation": "No location set yet",
+      "clearLocation": "Remove location",
+      "locationNotePh": "Extra location details (optional): district, plan number…",
+      "files": "Files",
+      "dropFiles": "Drop files here or click to choose",
+      "images": "images",
+      "shapefileHint": "Shapefiles: zip all their files (.shp .shx .dbf .prj) into one archive.",
+      "tooLarge": "{{name}} is larger than {{mb}} MB",
+      "pledge": "I confirm this request is for guidance, and I will complete my academic project myself in line with my university’s rules.",
+      "submit": "Send request",
+      "errors": {
+        "type": "Choose a service type",
+        "title": "Write a short title",
+        "description": "Write a description of at least 20 characters",
+        "location": "Set the location on the map",
+        "pledge": "You must accept the pledge for this service"
+      }
+    },
+    "detail": {
+      "description": "Request details",
+      "due": "Needed by",
+      "inputs": "Your attachments",
+      "noInputs": "No attachments.",
+      "deliverables": "Final files",
+      "noDeliverables": "No final files uploaded yet.",
+      "deliverablesLater": "Final files will appear here once delivered.",
+      "price": "Price",
+      "notPriced": "Not priced yet",
+      "client": "Client",
+      "assignee": "Assignee",
+      "unassigned": "Unassigned",
+      "teamSoon": "Assigned soon"
+    },
+    "client": {
+      "reviewing": "We received your request and the team is reviewing it to send a quote. Updates will appear here.",
+      "amountDue": "Amount due (VAT included)",
+      "paymentSoon": "We’ll send you bank transfer details; work starts once payment is confirmed.",
+      "inProgress": "The team is working on your request. Use the chat for any questions.",
+      "reviewTitle": "Final files are ready for review",
+      "reviewText": "Review the files under “Final files”. Accept them if they’re right, or request changes and add notes in the chat.",
+      "accept": "Accept & close",
+      "revise": "Request changes",
+      "completed": "Request completed. Thank you for choosing Miqyas!",
+      "cancel": "Cancel request",
+      "confirmCancel": "Cancel this request?"
+    },
+    "staff": {
+      "title": "Team actions",
+      "price": "Price (SAR, VAT included)",
+      "sendQuote": "Send quote",
+      "priceHint": "Sent to the client; the request moves to “Awaiting payment”.",
+      "assign": "Assign to",
+      "moveTo": "Move request to",
+      "paymentManual": "Payment is confirmed manually until bank transfer/payments are connected (command 7).",
+      "uploadDeliverables": "Upload final files",
+      "needDeliverable": "Upload at least one final file before sending for review.",
+      "needPrice": "Set the price first.",
+      "confirmCancel": "Cancel this request?"
+    },
+    "chat": {
+      "title": "Conversation",
+      "empty": "No messages yet. Write the first one.",
+      "placeholder": "Write a message… (Ctrl+Enter to send)",
+      "internalPh": "Internal note — hidden from the client",
+      "internal": "Internal team note",
+      "send": "Send",
+      "team": "Miqyas team",
+      "client": "Client",
+      "closed": "The conversation is closed because the request has ended."
+    },
+    "timeline": {
+      "title": "Request history",
+      "status": "Status: {{to}}",
+      "price": "Price: SAR {{price}}",
+      "assigned": "Assigned to a team member",
+      "unassigned": "Unassigned"
     }
   }
 }
