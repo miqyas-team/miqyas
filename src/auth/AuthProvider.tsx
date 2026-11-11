@@ -66,6 +66,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [sessionLoading, setSessionLoading] = useState(isSupabaseConfigured)
   const [profile, setProfile] = useState<Profile | null>(null)
   const [profileLoading, setProfileLoading] = useState(false)
+  // لأي مستخدم حُمّل الملف الشخصي آخر مرة — يمنع فحص الصلاحية قبل وصول الدور
+  const [profileFor, setProfileFor] = useState<string | undefined>(undefined)
 
   useEffect(() => {
     if (!isSupabaseConfigured) return
@@ -82,11 +84,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const loadProfile = useCallback(async (id: string | undefined) => {
     if (!id) {
       setProfile(null)
+      setProfileFor(undefined)
       return
     }
     setProfileLoading(true)
     const { data } = await supabase.from('profiles').select('*').eq('id', id).maybeSingle()
     setProfile((data as Profile | null) ?? null)
+    setProfileFor(id)
     setProfileLoading(false)
   }, [])
 
@@ -102,7 +106,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       user: activeSession?.user ?? null,
       profile: activeProfile,
       role: activeProfile?.role ?? null,
-      loading: !isDemo && (sessionLoading || profileLoading),
+      loading: !isDemo && (sessionLoading || profileLoading || (!!userId && profileFor !== userId)),
       isDemo,
       canUseDemo,
       enterDemo: () => {
@@ -136,7 +140,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setProfile(null)
       },
     }
-  }, [isDemo, demoRole, session, profile, sessionLoading, profileLoading, loadProfile, userId])
+  }, [isDemo, demoRole, session, profile, sessionLoading, profileLoading, profileFor, loadProfile, userId])
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }
