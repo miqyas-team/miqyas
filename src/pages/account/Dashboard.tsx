@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { Award, BookOpen, ClipboardList, Inbox, Pencil } from 'lucide-react'
+import { Award, BookOpen, ClipboardList, FileCheck2, Inbox, Pencil } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { useAuth } from '../../auth/AuthProvider'
 import { Alert } from '../../components/ui'
@@ -36,7 +36,10 @@ export function Dashboard({ area }: { area: 'app' | 'instructor' | 'team' | 'adm
             { to: '/admin/inbox', icon: <Inbox className="h-6 w-6" />, title: t('areas.inbox'), text: t('dash.tiles.inbox') },
           ]
         : area === 'instructor'
-          ? [{ to: '/instructor/courses', icon: <Pencil className="h-6 w-6" />, title: t('admin.courses.title'), text: t('dash.tiles.instructorCourses') }]
+          ? [
+              { to: '/instructor/courses', icon: <Pencil className="h-6 w-6" />, title: t('admin.courses.title'), text: t('dash.tiles.instructorCourses') },
+              { to: '/instructor/grading', icon: <FileCheck2 className="h-6 w-6" />, title: t('admin.nav.grading'), text: t('dash.tiles.grading') },
+            ]
           : [{ to: '/team/requests', icon: <ClipboardList className="h-6 w-6" />, title: t('requests.assignedTitle'), text: t('dash.tiles.teamRequests') }]
 
   return (

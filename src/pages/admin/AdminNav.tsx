@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { BookOpen, ClipboardList, Inbox, LayoutDashboard } from 'lucide-react'
+import { BookOpen, ClipboardList, FileCheck2, Inbox, LayoutDashboard, Users } from 'lucide-react'
 import { useAuth } from '../../auth/AuthProvider'
 
 /** شريط تنقّل لوحات الإدارة والمدرّب */
@@ -8,18 +8,20 @@ export function AdminNav() {
   const { t } = useTranslation()
   const { role } = useAuth()
   const isAdmin = role === 'admin'
-  const base = isAdmin ? '/admin' : '/instructor'
 
-  const items = [
-    { to: base, end: true, icon: LayoutDashboard, label: t('admin.nav.overview') },
-    { to: `${base}/courses`, end: false, icon: BookOpen, label: t('admin.nav.courses') },
-    ...(isAdmin
-      ? [
-          { to: '/admin/requests', end: false, icon: ClipboardList, label: t('admin.nav.requests') },
-          { to: '/admin/inbox', end: false, icon: Inbox, label: t('areas.inbox') },
-        ]
-      : []),
-  ]
+  const items = isAdmin
+    ? [
+        { to: '/admin', end: true, icon: LayoutDashboard, label: t('admin.nav.overview') },
+        { to: '/admin/inbox', end: false, icon: Inbox, label: t('areas.inbox') },
+        { to: '/admin/requests', end: false, icon: ClipboardList, label: t('admin.nav.requests') },
+        { to: '/admin/courses', end: false, icon: BookOpen, label: t('admin.nav.courses') },
+        { to: '/admin/users', end: false, icon: Users, label: t('admin.nav.users') },
+      ]
+    : [
+        { to: '/instructor', end: true, icon: LayoutDashboard, label: t('admin.nav.overview') },
+        { to: '/instructor/courses', end: false, icon: BookOpen, label: t('admin.nav.courses') },
+        { to: '/instructor/grading', end: false, icon: FileCheck2, label: t('admin.nav.grading') },
+      ]
 
   return (
     <nav className="border-b border-primary/10 bg-white">

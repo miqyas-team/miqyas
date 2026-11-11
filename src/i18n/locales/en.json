@@ -138,7 +138,8 @@
       "instructorCourses": "Edit your courses’ content and questions",
       "myRequests": "Follow your service requests and chats",
       "allRequests": "Price requests and assign the team",
-      "teamRequests": "Requests assigned to you"
+      "teamRequests": "Requests assigned to you",
+      "grading": "Learners’ exercises awaiting review"
     }
   },
   "home": {
@@ -394,7 +395,9 @@
     "nav": {
       "overview": "Overview",
       "courses": "Courses",
-      "requests": "Service requests"
+      "requests": "Service requests",
+      "users": "Users",
+      "grading": "Grading"
     },
     "courses": {
       "title": "Manage courses",
@@ -742,6 +745,120 @@
         "title": "Your files stay with you",
         "text": "Files are read inside your browser and never uploaded to a server."
       }
+    }
+  },
+  "adminHome": {
+    "title": "Overview",
+    "subtitle": "Platform performance over the last six months.",
+    "sampleNote": "Preview mode: numbers and charts are sample data for display only and will be replaced with real figures once Supabase is connected.",
+    "asTable": "Table",
+    "asChart": "Chart",
+    "roles": "Users by role",
+    "alerts": {
+      "grading_one": "{{count}} exercise awaiting review",
+      "grading_other": "{{count}} exercises awaiting review",
+      "unassigned_one": "{{count}} unassigned request",
+      "unassigned_other": "{{count}} unassigned requests",
+      "overdue_one": "{{count}} overdue request",
+      "overdue_other": "{{count}} overdue requests"
+    },
+    "tiles": {
+      "revenueMonth": "Revenue this month",
+      "estimated": "Estimated",
+      "vsPrev": "{{sign}}{{pct}}% vs last month",
+      "users": "Users",
+      "new30": "+{{n}} in the last 30 days",
+      "enrollments": "Active enrollments",
+      "enrollHint": "{{completed}} completed · {{pending}} awaiting payment",
+      "openRequests": "Open service requests",
+      "certificates": "{{n}} certificates issued"
+    },
+    "revenue": {
+      "title": "Monthly revenue",
+      "subtitle": "Last 6 months total: {{total}}",
+      "courses": "Courses",
+      "services": "Services",
+      "month": "Month",
+      "total": "Total",
+      "note": "Estimated until the payments ledger is connected (command 7): courses by activated enrollments, services by requests with confirmed payment."
+    },
+    "requests": {
+      "title": "Service requests by status",
+      "subtitle": "All requests since launch"
+    },
+    "courses": {
+      "title": "Most enrolled courses",
+      "subtitle": "Enrollments per course",
+      "empty": "No enrollments yet."
+    }
+  },
+  "adminUsers": {
+    "title": "Users",
+    "subtitle": "Search accounts and change their roles: instructor, team member, admin.",
+    "search": "Search by name, email or mobile",
+    "col": {
+      "name": "Name",
+      "contact": "Contact",
+      "joined": "Joined",
+      "role": "Role"
+    },
+    "you": "You",
+    "selfHint": "You can’t change your own role",
+    "confirmElevate": "Give {{name}} the “{{role}}” role? They’ll get access to client data and requests.",
+    "changed": "{{name}} is now: {{role}}",
+    "empty": "No matching users."
+  },
+  "center": {
+    "subtitle": "Everything waiting on the team, in one place.",
+    "instructorTitle": "Grading",
+    "instructorSubtitle": "Learners’ exercises in your courses awaiting review.",
+    "tabs": {
+      "assignments": "Assignments",
+      "requests": "Service requests",
+      "receipts": "Transfer receipts",
+      "contact": "Contact messages"
+    },
+    "summary": {
+      "grading": "Awaiting review",
+      "open": "Open requests",
+      "unassigned": "Unassigned",
+      "overdue": "Overdue"
+    },
+    "soon": {
+      "receipts": "Bank transfer receipts will appear here once payments are built (command 7).",
+      "contact": "Contact form messages will appear here once the page is built (command 8)."
+    },
+    "assign": {
+      "pending": "Awaiting review",
+      "all": "All",
+      "emptyPending": "Nothing awaiting review. 🎉",
+      "empty": "No submissions yet.",
+      "studentNote": "Learner’s note",
+      "grade": "Grade (0–100)",
+      "feedback": "Feedback for the learner",
+      "gradeRange": "Grade must be between 0 and 100",
+      "feedbackRequired": "Write feedback explaining what the learner should change",
+      "approve": "Approve",
+      "revise": "Needs revision",
+      "reject": "Reject",
+      "status": {
+        "submitted": "Awaiting review",
+        "approved": "Approved",
+        "needs_revision": "Needs revision",
+        "rejected": "Rejected"
+      }
+    },
+    "snippets": {
+      "excellent": "Excellent work, well done!",
+      "legend": "Add a map legend.",
+      "crs": "Check the coordinate system you used.",
+      "scale": "Add a scale bar and north arrow.",
+      "source": "Cite the data source."
+    },
+    "req": {
+      "empty": "No requests need action right now.",
+      "overdue": "Overdue",
+      "hint": "Shows new, quoting, unassigned and overdue requests. For all requests:"
     }
   }
 }

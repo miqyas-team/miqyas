@@ -19,6 +19,9 @@ import { AdminCourses } from './pages/admin/AdminCourses'
 import { CourseEditorPage } from './pages/admin/editor/CourseEditor'
 import { ServicesPage } from './pages/services/ServicesPage'
 import { MapViewerPage } from './pages/MapViewerPage'
+import { AdminOverview } from './pages/admin/AdminOverview'
+import { AdminUsers } from './pages/admin/AdminUsers'
+import { RequestCenter } from './pages/admin/RequestCenter'
 import { RequestForm } from './pages/services/RequestForm'
 import { RequestDetailPage } from './pages/services/RequestDetail'
 import { MyRequests, StaffRequests } from './pages/services/RequestLists'
@@ -70,18 +73,20 @@ export const router = createBrowserRouter([
       { path: '/instructor', element: <RequireAuth roles={['instructor']}><Dashboard area="instructor" /></RequireAuth> },
       { path: '/instructor/courses', element: <RequireAuth roles={['instructor']}><AdminCourses /></RequireAuth> },
       { path: '/instructor/courses/:id', element: <RequireAuth roles={['instructor']}><CourseEditorPage /></RequireAuth> },
+      { path: '/instructor/grading', element: <RequireAuth roles={['instructor']}><RequestCenter /></RequireAuth> },
       { path: '/instructor/*', element: <RequireAuth roles={['instructor']}>{soon('areas.instructor')}</RequireAuth> },
       { path: '/team', element: <RequireAuth roles={['team']}><Dashboard area="team" /></RequireAuth> },
       { path: '/team/requests', element: <RequireAuth roles={['team']}><StaffRequests as="team" /></RequireAuth> },
       { path: '/team/requests/:id', element: <RequireAuth roles={['team']}><RequestDetailPage as="team" /></RequireAuth> },
       { path: '/team/*', element: <RequireAuth roles={['team']}>{soon('areas.team')}</RequireAuth> },
-      { path: '/admin', element: <RequireAuth roles={['admin']}><Dashboard area="admin" /></RequireAuth> },
+      { path: '/admin', element: <RequireAuth roles={['admin']}><AdminOverview /></RequireAuth> },
+      { path: '/admin/users', element: <RequireAuth roles={['admin']}><AdminUsers /></RequireAuth> },
       { path: '/admin/courses', element: <RequireAuth roles={['admin']}><AdminCourses /></RequireAuth> },
       { path: '/admin/courses/new', element: <RequireAuth roles={['admin']}><CourseEditorPage /></RequireAuth> },
       { path: '/admin/courses/:id', element: <RequireAuth roles={['admin']}><CourseEditorPage /></RequireAuth> },
       { path: '/admin/requests', element: <RequireAuth roles={['admin']}><StaffRequests as="admin" /></RequireAuth> },
       { path: '/admin/requests/:id', element: <RequireAuth roles={['admin']}><RequestDetailPage as="admin" /></RequireAuth> },
-      { path: '/admin/inbox', element: <RequireAuth roles={['admin', 'team']}>{soon('areas.inbox')}</RequireAuth> },
+      { path: '/admin/inbox', element: <RequireAuth roles={['admin']}><RequestCenter /></RequireAuth> },
       { path: '/admin/*', element: <RequireAuth roles={['admin']}>{soon('areas.admin')}</RequireAuth> },
 
       { path: '*', element: <Placeholder notFound /> },

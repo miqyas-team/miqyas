@@ -149,16 +149,27 @@ export const demoApi: CoursesApi = {
     return delay({ score, passed: score >= pass, results, passScore: pass })
   },
 
-  async submitAssignment(_courseId, lessonId, file) {
+  async submitAssignment(_courseId, lessonId, file, note) {
     const s = load()
-    // في وضع المعاينة يُقبل التمرين تلقائياً لتجربة مسار الشهادة كاملاً
-    const sub: Submission = {
+    // يبقى «بانتظار التصحيح» حتى يصحّحه المدير أو المدرّب من مركز الطلبات
+    const dataUrl =
+      file.size <= 1_500_000
+        ? await new Promise<string | undefined>((resolve) => {
+            const r = new FileReader()
+            r.onload = () => resolve(typeof r.result === 'string' ? r.result : undefined)
+            r.onerror = () => resolve(undefined)
+            r.readAsDataURL(file)
+          })
+        : undefined
+    const sub: Submission & { note?: string | null; dataUrl?: string } = {
       id: `sub-${Date.now()}`,
       fileName: file.name,
-      status: 'approved',
-      grade: 90,
-      feedback: 'قُبل تلقائياً في وضع المعاينة.',
+      status: 'submitted',
+      grade: null,
+      feedback: null,
       createdAt: new Date().toISOString(),
+      note: note.trim() || null,
+      dataUrl,
     }
     s.submissions[lessonId] = sub
     save(s)
