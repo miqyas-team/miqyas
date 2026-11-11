@@ -257,7 +257,7 @@ export function PrivacyPage() {
         <H>Data we collect</H>
         <UL items={['Account data: name, email, mobile number, specialization and organization (optional).', 'Learning data: enrollments, lesson progress, quiz results, submitted exercises and certificates.', 'Service data: request descriptions, locations you choose on the map, uploaded files and chat messages.', 'Payment data: transfer receipts and invoice details. We do not store card numbers.', 'Community posts and attachments you publish.', 'Technical data needed to run the service, such as session tokens and language preference stored in your browser.']} />
         <H>Why we use it</H>
-        <UL items={['To create and secure your account and deliver courses, certificates and services you request.', 'To process payments and issue tax invoices as required by law.', 'To contact you about your requests and enrollments.', 'To keep the community safe and handle reports.']} />
+        <UL items={['To create and secure your account and deliver courses, certificates and services you request.', 'To process payments and issue invoices.', 'To contact you about your requests and enrollments.', 'To keep the community safe and handle reports.']} />
         <H>Sharing</H>
         <p>We do not sell your data. We share it only with service providers that run the platform (hosting and database, email delivery, map tiles and embedded video providers), with the assigned team member for your request, and with authorities when legally required. Some providers may process data outside the Kingdom under appropriate safeguards.</p>
         <H>Retention</H>
@@ -278,7 +278,7 @@ export function PrivacyPage() {
       <H>البيانات التي نجمعها</H>
       <UL items={['بيانات الحساب: الاسم، البريد الإلكتروني، رقم الجوال، التخصص، وجهة العمل أو الجامعة (اختياري).', 'بيانات التعلّم: الاشتراكات، والتقدّم في الدروس، ونتائج الاختبارات، والتمارين المرفوعة، والشهادات.', 'بيانات الخدمات: وصف الطلب، والموقع الذي تحدده على الخريطة، والملفات المرفوعة، ورسائل المحادثة.', 'بيانات الدفع: إيصالات التحويل وبيانات الفاتورة. لا نحفظ أرقام البطاقات.', 'ما تنشره في المجتمع من مشاركات ومرفقات.', 'بيانات تقنية لازمة لتشغيل الخدمة، مثل رمز الجلسة وتفضيل اللغة المحفوظين في متصفحك.']} />
       <H>أغراض الاستخدام</H>
-      <UL items={['إنشاء حسابك وتأمينه، وتقديم الدورات والشهادات والخدمات التي تطلبها.', 'معالجة المدفوعات وإصدار الفواتير الضريبية كما يقتضي النظام.', 'التواصل معك بخصوص طلباتك واشتراكاتك.', 'الحفاظ على سلامة المجتمع ومعالجة البلاغات.']} />
+      <UL items={['إنشاء حسابك وتأمينه، وتقديم الدورات والشهادات والخدمات التي تطلبها.', 'معالجة المدفوعات وإصدار الفواتير.', 'التواصل معك بخصوص طلباتك واشتراكاتك.', 'الحفاظ على سلامة المجتمع ومعالجة البلاغات.']} />
       <H>مشاركة البيانات</H>
       <p>لا نبيع بياناتك. نشاركها فقط مع مزوّدي الخدمات الذين تعمل بهم المنصة (الاستضافة وقاعدة البيانات، وإرسال البريد، وخرائط الأساس، ومشغّل الفيديو المضمّن)، ومع عضو الفريق المسند إليه طلبك، ومع الجهات الرسمية عند وجود إلزام نظامي. قد يعالج بعض المزوّدين البيانات خارج المملكة وفق ضمانات مناسبة.</p>
       <H>مدة الاحتفاظ</H>
@@ -309,7 +309,7 @@ export function TermsPage() {
         <H>Services</H>
         <UL items={['Services are delivered by the Miqyas team after payment is confirmed, within the agreed scope.', 'Academic services are limited to guidance, coaching and review; we do not complete academic work on a student’s behalf.', 'Software setup support uses official sources only; licenses remain the user’s responsibility.']} />
         <H>Payments and refunds</H>
-        <UL items={['Prices are in Saudi riyals and include 15% VAT. A tax invoice is issued for every confirmed payment.', 'Refund requests are reviewed case by case before course access starts or service work begins; contact us to request one.']} />
+        <UL items={['Prices are in Saudi riyals. An invoice is issued for every confirmed payment.', 'Refund requests are reviewed case by case before course access starts or service work begins; contact us to request one.']} />
         <H>Community</H>
         <UL items={['Be respectful; no offensive content, spam, personal data of others, or unlicensed files.', 'We may hide or remove content and restrict accounts that break these rules.']} />
         <H>Liability</H>
@@ -329,7 +329,7 @@ export function TermsPage() {
       <H>الخدمات</H>
       <UL items={['ينفّذ فريق مقياس الخدمات بعد تأكيد الدفع وضمن النطاق المتفق عليه.', 'الخدمات الأكاديمية تقتصر على المساعدة والتوجيه والمراجعة، ولا ننفّذ الأعمال الأكاديمية نيابة عن الطالب.', 'دعم تثبيت البرامج يتم من المصادر الرسمية فقط، والتراخيص مسؤولية المستخدم.']} />
       <H>المدفوعات والاسترداد</H>
-      <UL items={['الأسعار بالريال السعودي وشاملة ضريبة القيمة المضافة 15%، وتصدر فاتورة ضريبية لكل دفعة مؤكدة.', 'تُدرس طلبات الاسترداد لكل حالة قبل بدء الوصول للدورة أو بدء تنفيذ الخدمة؛ تواصل معنا لتقديم الطلب.']} />
+      <UL items={['الأسعار بالريال السعودي، وتصدر فاتورة لكل دفعة مؤكدة.', 'تُدرس طلبات الاسترداد لكل حالة قبل بدء الوصول للدورة أو بدء تنفيذ الخدمة؛ تواصل معنا لتقديم الطلب.']} />
       <H>المجتمع</H>
       <UL items={['الاحترام واجب؛ يُمنع المحتوى المسيء والإعلانات المزعجة ونشر بيانات الآخرين والملفات غير المرخّصة.', 'يحق لنا إخفاء المحتوى أو حذفه وتقييد الحسابات المخالفة.']} />
       <H>المسؤولية</H>

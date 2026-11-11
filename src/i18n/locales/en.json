@@ -254,7 +254,7 @@
     },
     "trust": {
       "verified": "Course completion certificates",
-      "invoice": "E-invoice with VAT",
+      "invoice": "E-invoice for every payment",
       "support": "Arabic tech support"
     },
     "process": {
@@ -275,7 +275,7 @@
         },
         "deliver": {
           "title": "Delivery & invoice",
-          "text": "Receive your final files with a VAT e-invoice."
+          "text": "Receive your final files with an e-invoice."
         }
       }
     },
@@ -287,7 +287,7 @@
       "items": {
         "pay": {
           "q": "How do I pay?",
-          "a": "By bank transfer to the company account; then upload the receipt on the payment page. Once verified, your request or course is activated and you receive a VAT e-invoice."
+          "a": "By bank transfer to the company account; then upload the receipt on the payment page. Once the transfer is confirmed, your request or course is activated and you receive an e-invoice."
         },
         "cert": {
           "q": "When do I get my certificate?",
@@ -339,7 +339,7 @@
           "points": [
             "Maps and analysis to support decisions",
             "Land surveying and data conversion",
-            "Clear quotes and a VAT invoice for every request"
+            "Clear quotes and an invoice for every request"
           ],
           "cta": "Browse services"
         }
@@ -558,7 +558,7 @@
       "softwareHint": "comma separated: QGIS, Python",
       "tone": "Cover color",
       "price": "Price (SAR)",
-      "priceHint": "0 = free, VAT included",
+      "priceHint": "0 = free",
       "hours": "Hours",
       "passScore": "Quiz pass score %",
       "instructorAccount": "Responsible instructor account",
@@ -754,7 +754,7 @@
     },
     "client": {
       "reviewing": "We received your request and the team is reviewing it to send a quote. Updates will appear here.",
-      "amountDue": "Amount due (VAT included)",
+      "amountDue": "Amount due",
       "paymentSoon": "We’ll send you bank transfer details; work starts once payment is confirmed.",
       "inProgress": "The team is working on your request. Use the chat for any questions.",
       "reviewTitle": "Final files are ready for review",
@@ -768,7 +768,7 @@
     },
     "staff": {
       "title": "Team actions",
-      "price": "Price (SAR, VAT included)",
+      "price": "Price (SAR)",
       "sendQuote": "Send quote",
       "priceHint": "Sent to the client; the request moves to “Awaiting payment”.",
       "assign": "Assign to",
@@ -1253,7 +1253,7 @@
       "pctRule": "Percentage must be 1–100",
       "codeTaken": "This code already exists",
       "settingsTitle": "Business and bank details",
-      "settingsHint": "Bank details show on the checkout page; business details show on the tax invoice.",
+      "settingsHint": "Bank details show on the checkout page; business details show on the invoice and the About page.",
       "fixFields": "Fix the fields marked in red",
       "ibanRule": "A Saudi IBAN is SA followed by 22 digits",
       "vatRule": "The VAT number is 15 digits starting and ending with 3",
@@ -1267,7 +1267,8 @@
         "bank_iban": "IBAN",
         "contact_email": "Contact email",
         "contact_whatsapp": "WhatsApp number"
-      }
+      },
+      "vatOptional": "Optional: leave empty if the business is not VAT-registered, and no VAT will be charged."
     }
   },
   "about": {
@@ -1328,7 +1329,7 @@
         },
         "transparency": {
           "title": "Transparency",
-          "text": "Clear quotes before work starts, live tracking of every stage, and a VAT invoice for every payment."
+          "text": "Clear quotes before work starts, live tracking of every stage, and an invoice for every payment."
         },
         "privacy": {
           "title": "Data protection",
@@ -1375,7 +1376,7 @@
     "fixed": "Fixed price",
     "custom": "Custom quote per request",
     "price": "Price (SAR)",
-    "priceHint": "VAT included",
+    "priceHint": "In Saudi riyals",
     "unit": "Price unit",
     "unitHint": "e.g. per hour, per file, per software",
     "position": "Order",

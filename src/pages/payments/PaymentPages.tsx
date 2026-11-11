@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import QRCode from 'qrcode'
 import { Building2, CheckCircle2, Copy, FileText, Printer, Receipt, Upload } from 'lucide-react'
-import { MAX_RECEIPT_MB, paymentsApi, zatcaQr, type Payment, type PaymentKind, type PaymentStatus } from '../../payments/api'
+import { MAX_RECEIPT_MB, paymentsApi, vatEnabled, zatcaQr, type Payment, type PaymentKind, type PaymentStatus } from '../../payments/api'
 import { Alert, Button, ErrorState, Spinner, useAsync } from '../../components/ui'
 import { formatDate } from '../../components/home/CourseCard'
 import { useLang } from '../../lib/lang'
@@ -148,7 +148,7 @@ function CheckoutForm({ kind, refId, bank, rejected, onDone }: { kind: PaymentKi
           <div className="flex justify-between"><dt className="text-muted">{t('payments.price')}</dt><dd>{money(q.listPrice, lang)}</dd></div>
           {q.discount > 0 && <div className="flex justify-between text-secondary"><dt>{t('payments.discount', { pct: q.percentOff })}</dt><dd>− {money(q.discount, lang)}</dd></div>}
           <div className="flex justify-between border-t border-primary/10 pt-2 text-lg font-bold"><dt>{t('payments.total')}</dt><dd>{money(q.total, lang)}</dd></div>
-          <p className="text-xs text-muted">{t('payments.vatIncluded')}</p>
+          {vatEnabled(bank) && <p className="text-xs text-muted">{t('payments.vatIncluded')}</p>}
         </dl>
         <form
           className="mt-4 flex gap-2"
@@ -221,7 +221,7 @@ export function InvoicePage() {
   const s = settings.data
 
   useEffect(() => {
-    if (!p || !s || !p.reviewedAt) return
+    if (!p || !s || !p.reviewedAt || p.vatAmount <= 0) return
     const payload = zatcaQr(s.seller_name || 'Miqyas', s.vat_number || '', new Date(p.reviewedAt).toISOString(), p.total, p.vatAmount)
     QRCode.toString(payload, { type: 'svg', margin: 0 }).then(setQr)
   }, [p, s])
@@ -229,9 +229,11 @@ export function InvoicePage() {
   if (pay.loading || settings.loading) return <Spinner />
   if (!p || p.status !== 'confirmed' || !s) return <Placeholder notFound />
 
+  // الضريبة تظهر فقط إن حُسبت على هذه الدفعة (أي كان للمنشأة رقم ضريبي وقتها)
+  const taxed = p.vatAmount > 0
   const subtotal = Math.round((p.total - p.vatAmount) * 100) / 100
-  const lineNet = Math.round((p.listPrice / 1.15) * 100) / 100
-  const discountNet = Math.round((lineNet - subtotal) * 100) / 100
+  const lineNet = taxed ? Math.round((p.listPrice / 1.15) * 100) / 100 : p.listPrice
+  const discountNet = taxed ? Math.round((lineNet - subtotal) * 100) / 100 : p.discount
   const ar = (n: number) => money(n, 'ar')
 
   return (
@@ -245,8 +247,8 @@ export function InvoicePage() {
       <article dir="rtl" lang="ar" className="mx-auto max-w-[800px] bg-white p-10 shadow-xl print:max-w-none print:shadow-none">
         <header className="flex items-start justify-between gap-6 border-b-2 border-primary pb-6">
           <div>
-            <h1 className="text-2xl font-bold text-ink">فاتورة ضريبية مبسّطة</h1>
-            <p className="text-sm text-muted" dir="ltr">Simplified Tax Invoice</p>
+            <h1 className="text-2xl font-bold text-ink">{taxed ? 'فاتورة ضريبية مبسّطة' : 'فاتورة'}</h1>
+            <p className="text-sm text-muted" dir="ltr">{taxed ? 'Simplified Tax Invoice' : 'Invoice'}</p>
             <dl className="mt-4 space-y-1 text-sm">
               <div className="flex gap-2"><dt className="text-muted">رقم الفاتورة:</dt><dd className="font-mono font-semibold" dir="ltr">{p.invoiceNumber}</dd></div>
               <div className="flex gap-2"><dt className="text-muted">التاريخ:</dt><dd>{formatDate(p.reviewedAt!, 'ar', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</dd></div>
@@ -256,7 +258,7 @@ export function InvoicePage() {
           <div className="text-start">
             <div className="flex items-center gap-2"><LogoMark className="h-10 w-10" /><span className="text-xl font-bold text-primary">{s.seller_name || 'مقياس'}</span></div>
             <dl className="mt-3 space-y-0.5 text-xs text-muted">
-              {s.vat_number && <div>الرقم الضريبي: <span className="font-mono text-ink" dir="ltr">{s.vat_number}</span></div>}
+              {taxed && s.vat_number && <div>الرقم الضريبي: <span className="font-mono text-ink" dir="ltr">{s.vat_number}</span></div>}
               {s.cr_number && <div>السجل التجاري: <span className="font-mono text-ink" dir="ltr">{s.cr_number}</span></div>}
               {s.seller_address && <div>{s.seller_address}</div>}
             </dl>
@@ -267,7 +269,7 @@ export function InvoicePage() {
           <thead className="bg-sand text-xs text-muted">
             <tr>
               <th className="px-3 py-2 text-start font-semibold">البيان</th>
-              <th className="px-3 py-2 text-end font-semibold">السعر قبل الضريبة</th>
+              <th className="px-3 py-2 text-end font-semibold">{taxed ? 'السعر قبل الضريبة' : 'السعر'}</th>
             </tr>
           </thead>
           <tbody>
@@ -285,11 +287,15 @@ export function InvoicePage() {
         </table>
 
         <div className="mt-6 flex flex-wrap items-end justify-between gap-6">
-          <div className="h-32 w-32" dangerouslySetInnerHTML={{ __html: qr }} aria-label="ZATCA QR" />
+          {taxed ? <div className="h-32 w-32" dangerouslySetInnerHTML={{ __html: qr }} aria-label="ZATCA QR" /> : <span />}
           <dl className="w-80 max-w-full space-y-2 text-sm">
-            <div className="flex justify-between"><dt className="text-muted">الإجمالي قبل الضريبة</dt><dd>{ar(subtotal)}</dd></div>
-            <div className="flex justify-between"><dt className="text-muted">ضريبة القيمة المضافة (15%)</dt><dd>{ar(p.vatAmount)}</dd></div>
-            <div className="flex justify-between border-t-2 border-primary pt-2 text-base font-bold"><dt>الإجمالي شامل الضريبة</dt><dd>{ar(p.total)}</dd></div>
+            {taxed && (
+              <>
+                <div className="flex justify-between"><dt className="text-muted">الإجمالي قبل الضريبة</dt><dd>{ar(subtotal)}</dd></div>
+                <div className="flex justify-between"><dt className="text-muted">ضريبة القيمة المضافة (15%)</dt><dd>{ar(p.vatAmount)}</dd></div>
+              </>
+            )}
+            <div className="flex justify-between border-t-2 border-primary pt-2 text-base font-bold"><dt>{taxed ? 'الإجمالي شامل الضريبة' : 'الإجمالي'}</dt><dd>{ar(p.total)}</dd></div>
           </dl>
         </div>
         <p className="mt-8 border-t border-primary/10 pt-4 text-center text-xs text-muted">طريقة الدفع: تحويل بنكي · شكراً لاختياركم مقياس</p>

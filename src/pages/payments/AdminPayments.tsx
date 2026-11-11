@@ -103,9 +103,9 @@ function PaymentLog() {
   if (error) return <ErrorState onRetry={reload} />
   return (
     <div className="space-y-4">
-      <div className="grid gap-3 sm:grid-cols-3">
+      <div className={`grid gap-3 ${vat > 0 ? 'sm:grid-cols-3' : 'sm:grid-cols-2'}`}>
         <div className="rounded-card border border-primary/10 bg-white p-4"><p className="text-xs text-muted">{t('payments.admin.confirmedTotal')}</p><p className="text-2xl font-semibold">{money(total, lang)}</p></div>
-        <div className="rounded-card border border-primary/10 bg-white p-4"><p className="text-xs text-muted">{t('payments.admin.vatTotal')}</p><p className="text-2xl font-semibold">{money(vat, lang)}</p></div>
+        {vat > 0 && <div className="rounded-card border border-primary/10 bg-white p-4"><p className="text-xs text-muted">{t('payments.admin.vatTotal')}</p><p className="text-2xl font-semibold">{money(vat, lang)}</p></div>}
         <div className="rounded-card border border-primary/10 bg-white p-4"><p className="text-xs text-muted">{t('payments.admin.pendingCount')}</p><p className="text-2xl font-semibold">{(data ?? []).filter((p) => p.status === 'pending_review').length}</p></div>
       </div>
       {!(data ?? []).length ? <Alert tone="info">{t('payments.empty')}</Alert> : (
@@ -262,6 +262,7 @@ function Settings() {
               <TextField label={t(`payments.admin.fields.${f.key}`)} dir={f.ltr ? 'ltr' : undefined} value={s[f.key]} onChange={(v) => setDraft({ ...s, [f.key]: v })} />
               {f.key === 'bank_iban' && !ibanOk && <p className="mt-1 text-xs text-red-600">{t('payments.admin.ibanRule')}</p>}
               {f.key === 'vat_number' && !vatOk && <p className="mt-1 text-xs text-red-600">{t('payments.admin.vatRule')}</p>}
+              {f.key === 'vat_number' && vatOk && <p className="mt-1 text-xs text-muted">{t('payments.admin.vatOptional')}</p>}
             </div>
           ))}
         </div>

@@ -10,6 +10,7 @@ import { formatDate, levelStyle, toneClasses } from '../../components/home/Cours
 import { formatPrice, pick, useLang } from '../../lib/lang'
 import { Placeholder } from '../Placeholder'
 import { usePageMeta } from '../../lib/seo'
+import { useVatOn } from '../../payments/useVat'
 
 export function CourseDetail() {
   const { slug = '' } = useParams()
@@ -177,6 +178,7 @@ function EnrollCard({ course, enrollment, onEnrolled }: { course: Course; enroll
   const openCohorts = course.cohorts.filter((c) => c.status === 'open' && c.seatsLeft > 0)
   const [cohortId, setCohortId] = useState(openCohorts[0]?.id)
   const [busy, setBusy] = useState(false)
+  const vatOn = useVatOn()
   const [error, setError] = useState<string | null>(null)
   const [waitlisted, setWaitlisted] = useState(false)
   const isLive = course.format === 'live'
@@ -246,7 +248,7 @@ function EnrollCard({ course, enrollment, onEnrolled }: { course: Course; enroll
   return (
     <div className="rounded-card border border-primary/10 bg-white p-6 shadow-xl shadow-primary/5">
       <p className={`text-3xl font-bold ${course.price === 0 ? 'text-secondary' : 'text-ink'}`}>{formatPrice(course.price, lang)}</p>
-      {course.price > 0 && <p className="mt-1 text-xs text-muted">{t('courses.enroll.vatNote')}</p>}
+      {course.price > 0 && vatOn && <p className="mt-1 text-xs text-muted">{t('courses.enroll.vatNote')}</p>}
 
       {isLive && course.cohorts.length > 0 && (
         <fieldset className="mt-5 space-y-2">

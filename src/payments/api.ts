@@ -69,7 +69,12 @@ export interface PaymentsApi {
   saveCoupon(id: string | null, c: Omit<Coupon, 'id' | 'usedCount'>): Promise<void>
 }
 
+/**
+ * الضريبة اختيارية: تُحتسب فقط إذا أُدخل رقم ضريبي في «البنك والمنشأة».
+ * بدونه: لا ضريبة، والفاتورة «فاتورة» عادية بلا رمز هيئة الزكاة.
+ */
 export const VAT_RATE = 0.15
+export const vatEnabled = (s: Pick<SiteSettings, 'vat_number'> | null | undefined) => Boolean(s?.vat_number?.trim())
 export const vatOf = (total: number) => Math.round((total - total / (1 + VAT_RATE)) * 100) / 100
 export const MAX_RECEIPT_MB = 10
 
@@ -107,7 +112,7 @@ const write = (k: string, v: unknown) => {
 
 const demoSettings = (): SiteSettings => ({
   seller_name: 'مقياس (بيانات تجريبية)',
-  vat_number: '300000000000003',
+  vat_number: '',
   cr_number: '',
   seller_address: '',
   bank_name: 'بنك تجريبي',
@@ -179,9 +184,10 @@ const demoApi: PaymentsApi = {
       ? await new Promise<string>((res) => { const r = new FileReader(); r.onload = () => res(String(r.result)); r.readAsDataURL(receipt) })
       : undefined
     const id = crypto.randomUUID()
+    const vatOn = Boolean(read('miqyas-demo-settings', demoSettings).vat_number.trim())
     all.unshift({
       id, userName: 'متدرب تجريبي', kind, refId: ref, description: q.description, listPrice: q.listPrice,
-      couponCode: q.percentOff ? coupon.trim().toUpperCase() : null, discount: q.discount, total: q.total, vatAmount: vatOf(q.total),
+      couponCode: q.percentOff ? coupon.trim().toUpperCase() : null, discount: q.discount, total: q.total, vatAmount: vatOn ? vatOf(q.total) : 0,
       status: 'pending_review', rejectionReason: null, invoiceNumber: null, createdAt: new Date().toISOString(), reviewedAt: null, receiptDataUrl: dataUrl,
     })
     write('miqyas-demo-payments', all)
