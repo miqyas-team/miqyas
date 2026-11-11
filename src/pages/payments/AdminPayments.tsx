@@ -41,7 +41,7 @@ export function ReceiptReview({ p, onDone }: { p: Payment; onDone: () => void })
         </div>
         <div className="text-end">
           <p className="text-xl font-bold">{money(p.total, lang)}</p>
-          {p.couponCode && <p className="text-xs text-secondary">{p.couponCode} (−{money(p.discount, lang)})</p>}
+          {p.couponCode && <p className="text-xs text-secondary-700">{p.couponCode} (−{money(p.discount, lang)})</p>}
         </div>
       </div>
       <div className="mt-3">
@@ -124,7 +124,7 @@ function PaymentLog() {
             <tbody>
               {(data ?? []).map((p) => (
                 <tr key={p.id} className="border-t border-primary/5">
-                  <td className="px-4 py-3"><p className="font-semibold">{p.description}</p>{p.couponCode && <p className="text-xs text-secondary">{p.couponCode}</p>}</td>
+                  <td className="px-4 py-3"><p className="font-semibold">{p.description}</p>{p.couponCode && <p className="text-xs text-secondary-700">{p.couponCode}</p>}</td>
                   <td className="px-4 py-3">{p.userName || '—'}</td>
                   <td className="px-4 py-3 font-semibold">{money(p.total, lang)}</td>
                   <td className="px-4 py-3 text-muted">{formatDate(p.createdAt, lang, { day: 'numeric', month: 'short' })}</td>

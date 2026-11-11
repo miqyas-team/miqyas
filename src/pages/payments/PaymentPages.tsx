@@ -14,7 +14,7 @@ export const money = (n: number, lang: 'ar' | 'en') =>
   lang === 'ar' ? `${n.toLocaleString('ar-SA-u-nu-latn', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ر.س` : `SAR ${n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
 
 const statusStyle: Record<PaymentStatus, string> = {
-  pending_review: 'bg-accent-100 text-[#8a5f22]',
+  pending_review: 'bg-accent-100 text-accent-700',
   confirmed: 'bg-secondary-100 text-primary',
   rejected: 'bg-red-50 text-red-600',
 }
@@ -44,7 +44,7 @@ function Submitted({ payment }: { payment: Payment }) {
   const lang = useLang()
   return (
     <section className="mx-auto max-w-xl px-4 py-14 text-center">
-      <CheckCircle2 className="mx-auto h-14 w-14 text-secondary" />
+      <CheckCircle2 className="mx-auto h-14 w-14 text-secondary-700" />
       <h1 className="mt-4 text-2xl font-bold text-primary">{t('payments.submittedTitle')}</h1>
       <p className="mt-2 text-muted">{t('payments.submittedText', { amount: money(payment.total, lang) })}</p>
       <Link to="/app/payments" className="mt-6 inline-block rounded-full bg-primary px-5 py-2.5 font-semibold text-white">{t('payments.mine')}</Link>
@@ -117,7 +117,7 @@ function CheckoutForm({ kind, refId, bank, rejected, onDone }: { kind: PaymentKi
         {rejected && <Alert>{t('payments.previousRejected', { reason: rejected.rejectionReason ?? '' })}</Alert>}
 
         <section className="rounded-card border border-primary/10 bg-sand/60 p-5">
-          <h2 className="mb-3 flex items-center gap-2 font-bold"><Building2 className="h-5 w-5 text-secondary" /> {t('payments.step1')}</h2>
+          <h2 className="mb-3 flex items-center gap-2 font-bold"><Building2 className="h-5 w-5 text-secondary-700" /> {t('payments.step1')}</h2>
           <div className="space-y-2">
             <CopyField label={t('payments.bank')} value={bank.bank_name} />
             <CopyField label={t('payments.accountName')} value={bank.bank_account_name} />
@@ -128,9 +128,9 @@ function CheckoutForm({ kind, refId, bank, rejected, onDone }: { kind: PaymentKi
         </section>
 
         <form onSubmit={submit} className="rounded-card border border-primary/10 bg-white p-5">
-          <h2 className="mb-3 flex items-center gap-2 font-bold"><Upload className="h-5 w-5 text-secondary" /> {t('payments.step2')}</h2>
+          <h2 className="mb-3 flex items-center gap-2 font-bold"><Upload className="h-5 w-5 text-secondary-700" /> {t('payments.step2')}</h2>
           <label className="flex cursor-pointer flex-col items-center gap-2 rounded-2xl border-2 border-dashed border-primary/20 bg-sand/50 px-4 py-8 text-center text-sm hover:border-secondary">
-            <Receipt className="h-8 w-8 text-secondary" />
+            <Receipt className="h-8 w-8 text-secondary-700" />
             <span className="font-semibold">{file ? file.name : t('payments.pickReceipt')}</span>
             <span className="text-xs text-muted">{t('payments.receiptHint', { mb: MAX_RECEIPT_MB })}</span>
             <input type="file" accept="image/*,.pdf" className="sr-only" onChange={(e) => setFile(e.target.files?.[0] ?? null)} />
@@ -146,7 +146,7 @@ function CheckoutForm({ kind, refId, bank, rejected, onDone }: { kind: PaymentKi
         <p className="mt-1 font-bold">{q.description}</p>
         <dl className="mt-4 space-y-2 border-t border-primary/10 pt-4 text-sm">
           <div className="flex justify-between"><dt className="text-muted">{t('payments.price')}</dt><dd>{money(q.listPrice, lang)}</dd></div>
-          {q.discount > 0 && <div className="flex justify-between text-secondary"><dt>{t('payments.discount', { pct: q.percentOff })}</dt><dd>− {money(q.discount, lang)}</dd></div>}
+          {q.discount > 0 && <div className="flex justify-between text-secondary-700"><dt>{t('payments.discount', { pct: q.percentOff })}</dt><dd>− {money(q.discount, lang)}</dd></div>}
           <div className="flex justify-between border-t border-primary/10 pt-2 text-lg font-bold"><dt>{t('payments.total')}</dt><dd>{money(q.total, lang)}</dd></div>
           {vatEnabled(bank) && <p className="text-xs text-muted">{t('payments.vatIncluded')}</p>}
         </dl>
@@ -161,7 +161,7 @@ function CheckoutForm({ kind, refId, bank, rejected, onDone }: { kind: PaymentKi
           <Button type="submit" variant="outline" className="px-4 py-2 text-sm" loading={quote.loading && Boolean(applied)}>{t('payments.apply')}</Button>
         </form>
         {applied && q.couponError && <p className="mt-2 text-xs text-red-600">{t(`payments.couponErrors.${q.couponError}`)}</p>}
-        {applied && !q.couponError && q.percentOff > 0 && <p className="mt-2 text-xs text-secondary">{t('payments.couponApplied', { code: applied })}</p>}
+        {applied && !q.couponError && q.percentOff > 0 && <p className="mt-2 text-xs text-secondary-700">{t('payments.couponApplied', { code: applied })}</p>}
       </aside>
     </section>
   )
@@ -278,7 +278,7 @@ export function InvoicePage() {
               <td className="px-3 py-3 text-end">{ar(lineNet)}</td>
             </tr>
             {p.discount > 0 && (
-              <tr className="border-b border-primary/10 text-secondary">
+              <tr className="border-b border-primary/10 text-secondary-700">
                 <td className="px-3 py-3">خصم {p.couponCode ? `(${p.couponCode})` : ''}</td>
                 <td className="px-3 py-3 text-end">− {ar(discountNet)}</td>
               </tr>

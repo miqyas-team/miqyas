@@ -13,16 +13,16 @@ export function HeroIllustration() {
             <rect x="0" y="0" width="480" height="400" rx="32" />
           </clipPath>
           <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-            <path d="M40 0H0V40" fill="none" stroke="#0F5E4E" strokeOpacity=".07" />
+            <path d="M40 0H0V40" fill="none" stroke="#167D68" strokeOpacity=".07" />
           </pattern>
         </defs>
         <g clipPath="url(#mapClip)">
           <rect width="480" height="400" fill="#FFFDF8" />
           <rect width="480" height="400" fill="url(#grid)" />
           {/* ماء */}
-          <path d="M0 300 C80 280 120 340 210 330 S360 280 480 310 V400 H0Z" fill="#3FB59A" fillOpacity=".22" />
+          <path d="M0 300 C80 280 120 340 210 330 S360 280 480 310 V400 H0Z" fill="#45B7D1" fillOpacity=".22" />
           {/* خطوط كنتور */}
-          <g fill="none" stroke="#0F5E4E" strokeOpacity=".22" strokeWidth="1.5">
+          <g fill="none" stroke="#167D68" strokeOpacity=".22" strokeWidth="1.5">
             <ellipse cx="340" cy="120" rx="110" ry="70" />
             <ellipse cx="345" cy="118" rx="80" ry="50" />
             <ellipse cx="350" cy="116" rx="52" ry="32" />
@@ -34,21 +34,21 @@ export function HeroIllustration() {
             <path d="M150 -10 C160 100 140 200 170 410" />
           </g>
           {/* قطعة أرض (مضلّع) */}
-          <polygon points="210,90 290,70 315,150 230,175" fill="#C9954A" fillOpacity=".25" stroke="#C9954A" strokeWidth="2.5" strokeDasharray="6 5" />
+          <polygon points="210,90 290,70 315,150 230,175" fill="#E0703A" fillOpacity=".25" stroke="#E0703A" strokeWidth="2.5" strokeDasharray="6 5" />
           {/* المسار المنقّط */}
           <path
             d="M60 340 C110 300 120 250 180 245 S280 260 300 200 S360 130 400 110"
             fill="none"
-            stroke="#0F5E4E"
+            stroke="#167D68"
             strokeWidth="5"
             strokeLinecap="round"
             strokeDasharray="0 12"
           />
-          <circle cx="60" cy="340" r="8" fill="#0F5E4E" />
+          <circle cx="60" cy="340" r="8" fill="#167D68" />
         </g>
         {/* الدبوس */}
         <g className="animate-bob">
-          <path d="M400 112 C386 94 378 82 378 70 a22 22 0 0 1 44 0 c0 12 -8 24 -22 42z" fill="#C9954A" />
+          <path d="M400 112 C386 94 378 82 378 70 a22 22 0 0 1 44 0 c0 12 -8 24 -22 42z" fill="#E0703A" />
           <circle cx="400" cy="70" r="8" fill="#fff" />
         </g>
       </svg>
@@ -60,7 +60,7 @@ export function HeroIllustration() {
         <div className="mt-3 h-2 overflow-hidden rounded-full bg-secondary-100">
           <div className="h-full w-[68%] rounded-full bg-secondary" />
         </div>
-        <p className="mt-1.5 text-xs font-medium text-secondary">68%</p>
+        <p className="mt-1.5 text-xs font-medium text-secondary-700">68%</p>
       </div>
 
       {/* شارة شهادة */}

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useLang } from '../lib/lang'
 
 /** ألوان المخططات — مُتحقَّق منها (تمييز عمى الألوان والتباين) مقابل سطح أبيض */
-export const SERIES = { courses: '#148F72', services: '#B57A2C' } as const
+export const SERIES = { courses: '#11907A', services: '#E0703A' } as const
 const GRID = '#E7E5DF'
 const INK_MUTED = '#5b6b67'
 
@@ -130,7 +130,7 @@ export function StackedColumns({
               style={{ outline: 'none' }}
             >
               {/* منطقة التفاعل أوسع من العمود */}
-              <rect x={cx(i) - band / 2} y={pad.top} width={band} height={innerH} fill={hover === i ? '#0F5E4E0A' : 'transparent'} />
+              <rect x={cx(i) - band / 2} y={pad.top} width={band} height={innerH} fill={hover === i ? '#167D680A' : 'transparent'} />
               {segs.map((s) => {
                 const h = Math.max(0, s.y0 - s.y1 - (s === top ? 0 : 2)) // فجوة 2px بين المقاطع
                 const isTop = s === top

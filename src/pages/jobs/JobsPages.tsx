@@ -14,7 +14,7 @@ import { Card, SelectField, TextField, Toggle } from '../admin/editor/fields'
 function KindChip({ kind }: { kind: JobKind }) {
   const { t } = useTranslation()
   return (
-    <span className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-semibold ${kind === 'job' ? 'bg-primary-50 text-primary' : 'bg-accent-100 text-[#8a5f22]'}`}>
+    <span className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-semibold ${kind === 'job' ? 'bg-primary-50 text-primary' : 'bg-accent-100 text-accent-700'}`}>
       {kind === 'job' ? <Briefcase className="h-3.5 w-3.5" /> : <GraduationCap className="h-3.5 w-3.5" />}
       {t(`jobs.kind.${kind}`)}
     </span>

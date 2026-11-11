@@ -126,7 +126,7 @@ export function AboutPage() {
       {legal.length > 0 && (
         <section className="mx-auto max-w-6xl px-4 pt-14">
           <div className="rounded-card border border-primary/10 bg-white p-7">
-            <h2 className="flex items-center gap-2 text-xl font-bold"><Building2 className="h-5 w-5 text-secondary" /> {t('about.company.title')}</h2>
+            <h2 className="flex items-center gap-2 text-xl font-bold"><Building2 className="h-5 w-5 text-secondary-700" /> {t('about.company.title')}</h2>
             <dl className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {legal.map((x) => (
                 <div key={x.label}>
@@ -196,7 +196,7 @@ export function ContactPage() {
         <p className="mt-2 text-muted">{t('contact.subtitle')}</p>
         {sent ? (
           <div className="mt-8 rounded-card border border-secondary bg-secondary-100/40 p-8 text-center">
-            <CheckCircle2 className="mx-auto h-12 w-12 text-secondary" />
+            <CheckCircle2 className="mx-auto h-12 w-12 text-secondary-700" />
             <p className="mt-3 text-lg font-bold">{t('contact.sentTitle')}</p>
             <p className="mt-1 text-muted">{t('contact.sentText')}</p>
           </div>
@@ -229,12 +229,12 @@ export function ContactPage() {
       <aside className="space-y-3">
         {seller.email && (
           <a href={`mailto:${seller.email}`} className="flex items-center gap-3 rounded-card border border-primary/10 bg-white p-4 hover:border-secondary">
-            <Mail className="h-5 w-5 text-secondary" /><span dir="ltr" className="text-sm">{seller.email}</span>
+            <Mail className="h-5 w-5 text-secondary-700" /><span dir="ltr" className="text-sm">{seller.email}</span>
           </a>
         )}
         {seller.whatsapp && (
           <a href={`https://wa.me/${seller.whatsapp.replace(/\D/g, '').replace(/^0/, '966')}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 rounded-card border border-primary/10 bg-white p-4 hover:border-secondary">
-            <MessageCircle className="h-5 w-5 text-secondary" /><span dir="ltr" className="text-sm">{seller.whatsapp}</span>
+            <MessageCircle className="h-5 w-5 text-secondary-700" /><span dir="ltr" className="text-sm">{seller.whatsapp}</span>
           </a>
         )}
         <div className="rounded-card bg-sand p-4 text-sm text-muted">

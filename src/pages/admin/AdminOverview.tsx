@@ -48,12 +48,12 @@ export function AdminOverview() {
         {(s.pendingGrading > 0 || s.requests.unassigned > 0 || s.requests.overdue > 0) && (
           <div className="flex flex-wrap gap-2">
             {s.pendingGrading > 0 && (
-              <Link to="/admin/inbox?tab=assignments" className="inline-flex items-center gap-2 rounded-full bg-accent-100 px-4 py-2 text-sm font-semibold text-[#8a5f22] hover:brightness-95">
+              <Link to="/admin/inbox?tab=assignments" className="inline-flex items-center gap-2 rounded-full bg-accent-100 px-4 py-2 text-sm font-semibold text-accent-700 hover:brightness-95">
                 {t('adminHome.alerts.grading', { count: s.pendingGrading })} <ArrowRight className="h-4 w-4 rtl:-scale-x-100" />
               </Link>
             )}
             {s.requests.unassigned > 0 && (
-              <Link to="/admin/inbox?tab=requests" className="inline-flex items-center gap-2 rounded-full bg-accent-100 px-4 py-2 text-sm font-semibold text-[#8a5f22] hover:brightness-95">
+              <Link to="/admin/inbox?tab=requests" className="inline-flex items-center gap-2 rounded-full bg-accent-100 px-4 py-2 text-sm font-semibold text-accent-700 hover:brightness-95">
                 {t('adminHome.alerts.unassigned', { count: s.requests.unassigned })} <ArrowRight className="h-4 w-4 rtl:-scale-x-100" />
               </Link>
             )}

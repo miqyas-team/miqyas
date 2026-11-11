@@ -131,7 +131,7 @@ function Form({ types }: { types: ServiceType[] }) {
                   <span className="min-w-0 flex-1">
                     <span className="flex items-center justify-between gap-2">
                       <span className="font-semibold">{pick(s.name, lang)}</span>
-                      {active && <CheckCircle2 className="h-5 w-5 shrink-0 text-secondary" />}
+                      {active && <CheckCircle2 className="h-5 w-5 shrink-0 text-secondary-700" />}
                     </span>
                     <span className="mt-1 block text-sm"><PriceLabel type={s} /></span>
                   </span>
@@ -160,7 +160,7 @@ function Form({ types }: { types: ServiceType[] }) {
             <textarea id="rq-desc" rows={6} value={description} onChange={(e) => setDescription(e.target.value)} aria-invalid={Boolean(errors.description)} placeholder={t('requests.form.descriptionPh')} className={inputCls} />
             <div className="mt-1 flex justify-between text-xs">
               <span className="text-red-600">{errors.description}</span>
-              <span className={description.trim().length < 20 ? 'text-muted' : 'text-secondary'}>{description.trim().length}/20+</span>
+              <span className={description.trim().length < 20 ? 'text-muted' : 'text-secondary-700'}>{description.trim().length}/20+</span>
             </div>
           </div>
           <div className="max-w-xs">
@@ -180,10 +180,10 @@ function Form({ types }: { types: ServiceType[] }) {
             </legend>
             <p className="text-sm text-muted">{t('requests.form.locationHint')}</p>
             <GisViewer height={380} pick={{ value: location, onChange: setLocation }} files={gisFiles} allowUpload={false} />
-            {gisFiles.length > 0 && <p className="text-xs text-secondary">{t('requests.form.filesOnMap', { count: gisFiles.length })}</p>}
+            {gisFiles.length > 0 && <p className="text-xs text-secondary-700">{t('requests.form.filesOnMap', { count: gisFiles.length })}</p>}
             <div className="flex flex-wrap items-center justify-between gap-2 text-sm">
               {location ? (
-                <span className="inline-flex items-center gap-1.5 text-secondary" dir="ltr">
+                <span className="inline-flex items-center gap-1.5 text-secondary-700" dir="ltr">
                   <MapPin className="h-4 w-4" /> {location.lat.toFixed(5)}, {location.lng.toFixed(5)}
                 </span>
               ) : (
@@ -211,7 +211,7 @@ function Form({ types }: { types: ServiceType[] }) {
               addFiles(e.dataTransfer.files)
             }}
           >
-            <FileUp className="h-8 w-8 text-secondary" />
+            <FileUp className="h-8 w-8 text-secondary-700" />
             <span className="font-semibold">{t('requests.form.dropFiles')}</span>
             <span className="text-xs text-muted" dir="ltr">Shapefile (zip) · KML · GeoJSON · DWG · PDF · {t('requests.form.images')} — {MAX_FILE_MB}MB</span>
             <input type="file" multiple accept={ACCEPTED_FILES} className="sr-only" onChange={(e) => { addFiles(e.target.files); e.target.value = '' }} />
@@ -222,7 +222,7 @@ function Form({ types }: { types: ServiceType[] }) {
               {files.map((f, i) => (
                 <li key={`${f.name}-${i}`} className="flex items-center justify-between gap-2 rounded-xl border border-primary/10 bg-white px-3 py-2 text-sm">
                   <span className="flex min-w-0 items-center gap-2">
-                    <Paperclip className="h-4 w-4 shrink-0 text-secondary" />
+                    <Paperclip className="h-4 w-4 shrink-0 text-secondary-700" />
                     <span className="truncate" dir="ltr">{f.name}</span>
                     <span className="shrink-0 text-xs text-muted" dir="ltr">{formatSize(f.size)}</span>
                   </span>

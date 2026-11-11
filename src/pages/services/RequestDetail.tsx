@@ -197,7 +197,7 @@ function FileList({ files }: { files: RequestFile[] }) {
         <li key={f.id}>
           <a href={f.url} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between gap-3 rounded-xl border border-primary/10 px-4 py-3 text-sm hover:border-secondary">
             <span className="flex min-w-0 items-center gap-2">
-              <Paperclip className="h-4 w-4 shrink-0 text-secondary" />
+              <Paperclip className="h-4 w-4 shrink-0 text-secondary-700" />
               <span className="truncate" dir="ltr">{f.name}</span>
             </span>
             <span className="flex shrink-0 items-center gap-3 text-xs text-muted">
@@ -247,7 +247,7 @@ function DeliverablesSection({ r, as, files, reload }: { r: Detail; as: Perspect
   return (
     <section className="rounded-card border-2 border-secondary/30 bg-white p-6">
       <h2 className="mb-4 flex items-center gap-2 text-lg font-bold text-primary">
-        <FileUp className="h-5 w-5 text-secondary" /> {t('requests.detail.deliverables')}
+        <FileUp className="h-5 w-5 text-secondary-700" /> {t('requests.detail.deliverables')}
       </h2>
       {visible && files.length ? <FileList files={files} /> : <p className="text-sm text-muted">{t(as === 'client' ? 'requests.detail.deliverablesLater' : 'requests.detail.noDeliverables')}</p>}
       {canUpload && (

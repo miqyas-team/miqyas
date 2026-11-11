@@ -141,7 +141,7 @@ export function AdminSupport() {
 function Stat({ icon: Icon, label, value, warn }: { icon: typeof Mail; label: string; value: number; warn?: boolean }) {
   return (
     <div className={`flex items-center gap-3 rounded-card border bg-white p-4 ${warn ? 'border-accent/50' : 'border-primary/10'}`}>
-      <span className={`grid h-10 w-10 place-items-center rounded-xl ${warn ? 'bg-accent-100 text-[#8a5f22]' : 'bg-primary-50 text-primary'}`}><Icon className="h-5 w-5" /></span>
+      <span className={`grid h-10 w-10 place-items-center rounded-xl ${warn ? 'bg-accent-100 text-accent-700' : 'bg-primary-50 text-primary'}`}><Icon className="h-5 w-5" /></span>
       <span>
         <span className="block text-2xl font-semibold">{value}</span>
         <span className="block text-sm text-muted">{label}</span>

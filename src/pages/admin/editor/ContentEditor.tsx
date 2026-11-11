@@ -62,7 +62,7 @@ export function ContentEditor({ draft, update }: { draft: CourseDraft; update: U
                       <ChevronDown className={`h-4 w-4 shrink-0 text-muted transition ${open ? 'rotate-180' : ''}`} />
                       <span className="text-xs text-muted">{mi + 1}.{li + 1}</span>
                       <span className="truncate text-sm font-medium">{pick(l.title, lang) || t('editor.untitledLesson')}</span>
-                      {l.isPreview && <Eye className="h-3.5 w-3.5 shrink-0 text-secondary" aria-label={t('courses.detail.preview')} />}
+                      {l.isPreview && <Eye className="h-3.5 w-3.5 shrink-0 text-secondary-700" aria-label={t('courses.detail.preview')} />}
                       {l.hasQuiz && <ClipboardCheck className="h-3.5 w-3.5 shrink-0 text-muted" aria-label={t('courses.detail.hasQuiz')} />}
                       {l.hasAssignment && <FileUp className="h-3.5 w-3.5 shrink-0 text-muted" aria-label={t('courses.detail.hasAssignment')} />}
                     </button>
@@ -135,7 +135,7 @@ function LessonEditor({ lesson: l, onChange }: { lesson: LessonDraft; onChange: 
           />
           {ytInvalid && <p className="mt-1 text-xs text-red-600">{t('editor.lesson.youtubeInvalid')}</p>}
           {l.youtubeId && !ytInvalid && (
-            <p className="mt-1 text-xs text-secondary" dir="ltr">✓ {l.youtubeId}</p>
+            <p className="mt-1 text-xs text-secondary-700" dir="ltr">✓ {l.youtubeId}</p>
           )}
         </div>
         <TextField
@@ -183,9 +183,9 @@ function AttachmentsEditor({ lesson: l, onChange }: { lesson: LessonDraft; onCha
         {l.attachments.map((a, ai) => (
           <li key={a.id} className="flex items-center justify-between gap-2 rounded-xl border border-primary/10 px-3 py-2 text-sm">
             <span className="flex min-w-0 items-center gap-2">
-              <Paperclip className="h-4 w-4 shrink-0 text-secondary" />
+              <Paperclip className="h-4 w-4 shrink-0 text-secondary-700" />
               <span className="truncate" dir="ltr">{a.name}</span>
-              {a.file && <span className="shrink-0 rounded-full bg-accent-100 px-2 text-[11px] text-[#8a5f22]">{t('editor.lesson.pendingUpload')}</span>}
+              {a.file && <span className="shrink-0 rounded-full bg-accent-100 px-2 text-[11px] text-accent-700">{t('editor.lesson.pendingUpload')}</span>}
             </span>
             <IconButton label={t('editor.remove')} danger onClick={() => onChange((x) => void x.attachments.splice(ai, 1))}>
               <Trash2 className="h-4 w-4" />

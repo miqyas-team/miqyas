@@ -18,7 +18,7 @@ export function CoursesComingSoon() {
           <GraduationCap className="h-10 w-10" />
         </span>
         <div>
-          <span className="inline-flex items-center gap-2 rounded-full bg-accent-100 px-3 py-1 text-xs font-semibold text-[#8a5f22]">
+          <span className="inline-flex items-center gap-2 rounded-full bg-accent-100 px-3 py-1 text-xs font-semibold text-accent-700">
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-accent" /> {t('coursesSoon.badge')}
           </span>
           <h2 className="mt-3 text-2xl font-bold text-primary md:text-3xl">{t('coursesSoon.title')}</h2>

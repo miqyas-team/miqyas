@@ -64,7 +64,7 @@ export function Dashboard({ area }: { area: 'app' | 'instructor' | 'team' | 'adm
           </div>
         ) : (
           <div className="mt-8 rounded-card border border-dashed border-primary/20 bg-white/60 p-10 text-center text-muted">
-            <div className="dotted-path mx-auto mb-4 h-2 w-32 text-secondary" />
+            <div className="dotted-path mx-auto mb-4 h-2 w-32 text-secondary-700" />
             {t('dash.soon')}
           </div>
         )}

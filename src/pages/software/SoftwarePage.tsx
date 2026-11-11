@@ -13,7 +13,7 @@ import { pick, useLang } from '../../lib/lang'
 
 const licenseStyle: Record<SoftwareLicense, string> = {
   free: 'bg-secondary-100 text-primary',
-  trial: 'bg-accent-100 text-[#8a5f22]',
+  trial: 'bg-accent-100 text-accent-700',
   student: 'bg-[#e8e3f7] text-[#4b3b8f]',
   paid: 'bg-sand text-ink',
 }
@@ -61,7 +61,7 @@ export function SoftwarePage() {
           <h1 className="text-3xl font-bold text-primary">{t('software.title')}</h1>
           <p className="mt-1 max-w-2xl text-muted">{t('software.subtitle')}</p>
           <p className="mt-4 inline-flex items-center gap-2 rounded-full bg-white/80 px-4 py-2 text-xs font-medium text-ink/80">
-            <ShieldCheck className="h-4 w-4 text-secondary" /> {t('software.officialOnly')}
+            <ShieldCheck className="h-4 w-4 text-secondary-700" /> {t('software.officialOnly')}
           </p>
         </div>
       </section>

@@ -1,16 +1,24 @@
 @import "tailwindcss";
 
-/* هوية مقياس — مأخوذة من الشعار */
+/*
+ * هوية مقياس — «Modern Nature»: أخضر زمردي مع سماوي وخوخي.
+ * الدرجات الزاهية (السماوي #45B7D1 والخوخي #FFB38A والليموني #A6D96A) للخلفيات والأيقونات والزخرفة؛
+ * والدرجات *-700 أغمق قليلاً لتبقى النصوص الصغيرة مقروءة (تباين ≥ 4.5).
+ */
 @theme {
-  --color-primary: #0f5e4e;
-  --color-primary-700: #0b4a3d;
-  --color-primary-50: #e6f2ef;
-  --color-secondary: #3fb59a;
-  --color-secondary-100: #d5f1e9;
-  --color-accent: #c9954a;
-  --color-accent-100: #f6ead6;
-  --color-sand: #f6f3ec;
-  --color-cream: #ede3c9;
+  --color-primary: #167d68;
+  --color-primary-700: #106252;
+  --color-primary-50: #e8f4f0;
+  --color-secondary: #45b7d1;
+  --color-secondary-700: #1b7f99;
+  --color-secondary-100: #def3f8;
+  --color-accent: #c2561f;
+  --color-accent-700: #9a3f14;
+  --color-accent-100: #ffe9dd;
+  --color-peach: #ffb38a;
+  --color-lime: #a6d96a;
+  --color-sand: #f8faf7;
+  --color-cream: #edf5f0;
   --color-ink: #162220;
   --color-muted: #5b6b67;
 
@@ -42,13 +50,14 @@ body {
 /* توهّج ناعم خلف القسم العلوي */
 .hero-glow {
   background-image:
-    radial-gradient(60rem 30rem at 85% -10%, rgb(63 181 154 / 0.16), transparent 60%),
-    radial-gradient(40rem 24rem at 0% 110%, rgb(201 149 74 / 0.12), transparent 60%);
+    radial-gradient(60rem 30rem at 85% -10%, rgb(69 183 209 / 0.18), transparent 60%),
+    radial-gradient(40rem 24rem at 0% 110%, rgb(255 179 138 / 0.22), transparent 60%),
+    radial-gradient(30rem 20rem at 50% 120%, rgb(166 217 106 / 0.12), transparent 60%);
 }
 
 /* خطوط كنتور خفيفة لخلفية الأقسام */
 .contour-bg {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'%3E%3Cg fill='none' stroke='%233FB59A' stroke-opacity='.18' stroke-width='1.5'%3E%3Cpath d='M-50 120 C80 60 200 180 330 110 S560 40 680 120'/%3E%3Cpath d='M-50 170 C90 110 210 230 340 160 S570 90 680 170'/%3E%3Cpath d='M-50 230 C100 170 220 290 350 220 S580 150 680 230'/%3E%3Cpath d='M-50 300 C110 240 230 360 360 290 S590 220 680 300'/%3E%3Cpath d='M-50 380 C120 320 240 440 370 370 S600 300 680 380'/%3E%3Cpath d='M-50 470 C130 410 250 530 380 460 S610 390 680 470'/%3E%3Ccircle cx='450' cy='140' r='40'/%3E%3Ccircle cx='450' cy='140' r='70'/%3E%3Ccircle cx='450' cy='140' r='100'/%3E%3C/g%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'%3E%3Cg fill='none' stroke='%2345B7D1' stroke-opacity='.18' stroke-width='1.5'%3E%3Cpath d='M-50 120 C80 60 200 180 330 110 S560 40 680 120'/%3E%3Cpath d='M-50 170 C90 110 210 230 340 160 S570 90 680 170'/%3E%3Cpath d='M-50 230 C100 170 220 290 350 220 S580 150 680 230'/%3E%3Cpath d='M-50 300 C110 240 230 360 360 290 S590 220 680 300'/%3E%3Cpath d='M-50 380 C120 320 240 440 370 370 S600 300 680 380'/%3E%3Cpath d='M-50 470 C130 410 250 530 380 460 S610 390 680 470'/%3E%3Ccircle cx='450' cy='140' r='40'/%3E%3Ccircle cx='450' cy='140' r='70'/%3E%3Ccircle cx='450' cy='140' r='100'/%3E%3C/g%3E%3C/svg%3E");
   background-size: 600px 600px;
 }
 

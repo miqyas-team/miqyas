@@ -192,7 +192,7 @@ function ThreadView({ thread, replies, reload }: { thread: ForumThread; replies:
       </article>
 
       <h2 className="mt-8 flex items-center gap-2 font-bold">
-        <MessageSquare className="h-5 w-5 text-secondary" /> {t('community.replies', { count: replies.length })} ({replies.length})
+        <MessageSquare className="h-5 w-5 text-secondary-700" /> {t('community.replies', { count: replies.length })} ({replies.length})
       </h2>
       <ul className="mt-3 space-y-3">
         {replies.map((r) => {

@@ -49,7 +49,7 @@ export function Attachments({ items }: { items: Attachment[] }) {
           <li key={a.id}>
             <a href={a.url} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between gap-3 rounded-xl border border-primary/10 bg-white px-4 py-3 text-sm hover:border-secondary">
               <span className="flex min-w-0 items-center gap-2">
-                <Paperclip className="h-4 w-4 shrink-0 text-secondary" />
+                <Paperclip className="h-4 w-4 shrink-0 text-secondary-700" />
                 <span className="truncate" dir="ltr">{a.name}</span>
               </span>
               <span className="shrink-0 text-xs text-muted" dir="ltr">{formatSize(a.sizeBytes)}</span>
@@ -94,10 +94,10 @@ export function Quiz({ content, onDone }: { content: LessonContent; onDone: () =
     <section className="rounded-card border border-primary/10 bg-white p-6">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <h3 className="flex items-center gap-2 text-lg font-bold">
-          <ClipboardCheck className="h-5 w-5 text-secondary" /> {t('learn.quiz.title')}
+          <ClipboardCheck className="h-5 w-5 text-secondary-700" /> {t('learn.quiz.title')}
         </h3>
         {content.bestScore !== null && (
-          <span className={`rounded-full px-3 py-1 text-xs font-semibold ${content.quizPassed ? 'bg-secondary-100 text-primary' : 'bg-accent-100 text-[#8a5f22]'}`}>
+          <span className={`rounded-full px-3 py-1 text-xs font-semibold ${content.quizPassed ? 'bg-secondary-100 text-primary' : 'bg-accent-100 text-accent-700'}`}>
             {t('learn.quiz.best', { score: content.bestScore })}
           </span>
         )}
@@ -111,7 +111,7 @@ export function Quiz({ content, onDone }: { content: LessonContent; onDone: () =
               <legend className="mb-3 flex gap-2 font-semibold">
                 <span className="text-muted">{qi + 1}.</span>
                 {pick(q.prompt, lang)}
-                {verdict === true && <CheckCircle2 className="h-5 w-5 shrink-0 text-secondary" />}
+                {verdict === true && <CheckCircle2 className="h-5 w-5 shrink-0 text-secondary-700" />}
                 {verdict === false && <XCircle className="h-5 w-5 shrink-0 text-red-500" />}
               </legend>
               <div className={`grid gap-2 ${q.kind === 'true_false' ? 'grid-cols-2' : ''}`}>
@@ -208,7 +208,7 @@ export function Assignment({ courseId, content, onDone }: { courseId: string; co
       {canSubmit && (
         <form onSubmit={submit} className="mt-4 space-y-3">
           <label className="flex cursor-pointer flex-col items-center gap-2 rounded-2xl border-2 border-dashed border-primary/20 bg-sand/50 px-4 py-8 text-center text-sm hover:border-secondary">
-            <FileUp className="h-8 w-8 text-secondary" />
+            <FileUp className="h-8 w-8 text-secondary-700" />
             <span className="font-semibold">{file ? file.name : t('learn.assignment.pick')}</span>
             <span className="text-xs text-muted">{t('learn.assignment.hint', { mb: MAX_MB })}</span>
             <input type="file" className="sr-only" onChange={(e) => setFile(e.target.files?.[0] ?? null)} />

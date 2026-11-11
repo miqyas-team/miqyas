@@ -34,13 +34,13 @@ interface LayerItem {
 }
 
 const KSA: L.LatLngExpression = [24.2, 45.1]
-const PALETTE = ['#0F5E4E', '#C9954A', '#3FB59A', '#7C3AED', '#DC2626', '#2563EB', '#DB2777']
-const MEASURE_COLOR = '#C9954A'
+const PALETTE = ['#167D68', '#E0703A', '#45B7D1', '#7C3AED', '#DC2626', '#2563EB', '#DB2777']
+const MEASURE_COLOR = '#E0703A'
 
 const pinIcon = L.divIcon({
   className: '',
   html: `<svg viewBox="0 0 28 40" width="28" height="40" style="filter:drop-shadow(0 3px 4px rgba(0,0,0,.3))">
-    <path d="M14 39C5 27 0 20 0 14a14 14 0 0 1 28 0c0 6-5 13-14 25z" fill="#C9954A"/>
+    <path d="M14 39C5 27 0 20 0 14a14 14 0 0 1 28 0c0 6-5 13-14 25z" fill="#E0703A"/>
     <circle cx="14" cy="14" r="5.5" fill="#fff"/></svg>`,
   iconSize: [28, 40],
   iconAnchor: [14, 39],
@@ -402,7 +402,7 @@ export function GisViewer({
       <div dir={pageDir} className="absolute left-2 right-20 top-2 z-[500] flex w-fit flex-wrap items-center gap-1 rounded-xl bg-white/95 p-1 shadow-lg backdrop-blur">
         {allowUpload && (
           <label className={`${btn(false)} cursor-pointer`}>
-            <FileUp className="h-4 w-4 text-secondary" /> {t('viewer.addFile')}
+            <FileUp className="h-4 w-4 text-secondary-700" /> {t('viewer.addFile')}
             <input type="file" multiple accept=".geojson,.json,.kml,.kmz,.zip" className="sr-only" onChange={(e) => { onPick(e.target.files); e.target.value = '' }} />
           </label>
         )}
@@ -454,7 +454,7 @@ export function GisViewer({
                     )}
                   </div>
                   {l.warning && (
-                    <p className="mt-1 flex gap-1 text-[11px] leading-snug text-[#8a5f22]"><AlertTriangle className="mt-0.5 h-3 w-3 shrink-0" />{t('viewer.projectedWarning')}</p>
+                    <p className="mt-1 flex gap-1 text-[11px] leading-snug text-accent-700"><AlertTriangle className="mt-0.5 h-3 w-3 shrink-0" />{t('viewer.projectedWarning')}</p>
                   )}
                 </li>
               ))}

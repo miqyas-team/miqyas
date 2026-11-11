@@ -54,7 +54,7 @@ export function UserMenu({ onNavigate }: { onNavigate?: () => void }) {
           <Link to="/app/profile" onClick={go} className="block px-4 py-2 text-sm hover:bg-primary-50">{t('profile.title')}</Link>
           {isDemo && (
             <div className="mx-3 my-2 rounded-xl bg-accent-100/70 p-2">
-              <p className="px-1 pb-1.5 text-[11px] font-semibold text-[#8a5f22]">{t('demo.switchRole')}</p>
+              <p className="px-1 pb-1.5 text-[11px] font-semibold text-accent-700">{t('demo.switchRole')}</p>
               <div className="grid grid-cols-2 gap-1">
                 {(['user', 'instructor', 'team', 'admin'] as const).map((r) => (
                   <button

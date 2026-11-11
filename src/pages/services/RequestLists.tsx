@@ -31,7 +31,7 @@ export function MyRequests() {
           <ErrorState onRetry={reload} />
         ) : !data?.length ? (
           <div className="rounded-card border border-dashed border-primary/20 bg-white/60 p-12 text-center">
-            <ClipboardList className="mx-auto h-10 w-10 text-secondary" />
+            <ClipboardList className="mx-auto h-10 w-10 text-secondary-700" />
             <p className="mt-3 text-muted">{t('requests.emptyMine')}</p>
             <Link to="/services" className="mt-5 inline-block rounded-full bg-primary px-5 py-2.5 font-semibold text-white">{t('services.browse')}</Link>
           </div>

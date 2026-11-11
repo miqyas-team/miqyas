@@ -13,7 +13,7 @@ export const toneClasses = {
 
 export const levelStyle = {
   beginner: 'bg-secondary-100 text-primary',
-  intermediate: 'bg-accent-100 text-[#8a5f22]',
+  intermediate: 'bg-accent-100 text-accent-700',
   advanced: 'bg-primary-50 text-primary',
 }
 
@@ -72,7 +72,7 @@ export function CourseCard({ course, progress }: { course: CourseSummary; progre
           </div>
         ) : (
           <div className="mt-auto flex items-center justify-between border-t border-primary/10 pt-4">
-            <span className={`text-lg font-bold ${course.price === 0 ? 'text-secondary' : 'text-ink'}`}>
+            <span className={`text-lg font-bold ${course.price === 0 ? 'text-secondary-700' : 'text-ink'}`}>
               {formatPrice(course.price, lang)}
             </span>
             <span className="text-sm font-semibold text-primary group-hover:underline">{t('home.courses.details')}</span>

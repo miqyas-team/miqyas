@@ -31,7 +31,7 @@ export function MapViewerPage() {
       <ul className="mt-6 grid gap-3 sm:grid-cols-3">
         {points.map(({ icon: Icon, key }) => (
           <li key={key} className="flex gap-3 rounded-2xl border border-primary/10 bg-white p-4">
-            <Icon className="h-6 w-6 shrink-0 text-secondary" />
+            <Icon className="h-6 w-6 shrink-0 text-secondary-700" />
             <div>
               <p className="font-semibold">{t(`viewer.points.${key}.title`)}</p>
               <p className="mt-0.5 text-sm text-muted">{t(`viewer.points.${key}.text`)}</p>

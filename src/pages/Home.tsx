@@ -48,6 +48,15 @@ const processSteps = [
   { key: 'deliver', icon: PackageCheck },
 ] as const
 const faqKeys = ['pay', 'price', 'time', 'cert', 'grad', 'software'] as const
+/** ألوان الأقسام من هوية Modern Nature (أيقونة داكنة على الدرجات الفاتحة لتبقى واضحة) */
+const sectionTone = [
+  'bg-lime text-ink',
+  'bg-secondary text-ink',
+  'bg-primary text-white',
+  'bg-peach text-ink',
+  'bg-primary-700 text-white',
+  'bg-secondary-700 text-white',
+] as const
 const audiences = [
   { key: 'students', icon: GraduationCap, to: '/courses' },
   { key: 'professionals', icon: BriefcaseBusiness, to: '/services/request?type=consulting' },
@@ -71,12 +80,12 @@ export function Home() {
         <div aria-hidden className="contour-bg pointer-events-none absolute inset-0" />
         <div className="relative mx-auto grid max-w-6xl items-center gap-14 px-4 pb-16 pt-12 lg:grid-cols-2 lg:pb-20 lg:pt-20">
           <div>
-            <span className="inline-flex items-center gap-2 rounded-full bg-accent-100 px-4 py-1.5 text-sm font-medium text-[#8a5f22]">
+            <span className="inline-flex items-center gap-2 rounded-full bg-accent-100 px-4 py-1.5 text-sm font-medium text-accent-700">
               <span className="h-2 w-2 rounded-full bg-accent" />
               {t('hero.badge')}
             </span>
             <h1 className="mt-6 text-4xl font-bold leading-[1.2] text-primary md:text-5xl xl:text-[3.4rem]">
-              {t('home.hero.titleA')} <span className="relative whitespace-nowrap text-secondary">{t('home.hero.titleB')}</span>
+              {t('home.hero.titleA')} <span className="relative whitespace-nowrap text-secondary-700">{t('home.hero.titleB')}</span>
             </h1>
             <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted">{t('hero.subtitle')}</p>
             <div className="mt-8 flex flex-wrap gap-3">
@@ -98,7 +107,7 @@ export function Home() {
             <ul className="mt-10 flex flex-wrap gap-x-6 gap-y-3 text-sm font-medium text-ink/80">
               {trustPoints.map(({ key, icon: Icon }) => (
                 <li key={key} className="inline-flex items-center gap-2">
-                  <span className="grid h-8 w-8 place-items-center rounded-full bg-white text-secondary shadow-sm ring-1 ring-primary/10">
+                  <span className="grid h-8 w-8 place-items-center rounded-full bg-white text-secondary-700 shadow-sm ring-1 ring-primary/10">
                     <Icon className="h-4 w-4" />
                   </span>
                   {t(`home.trust.${key}`)}
@@ -116,13 +125,13 @@ export function Home() {
         <div className="mx-auto max-w-6xl px-4 py-16 md:py-20">
           <SectionHeading eyebrow={t('home.audience.eyebrow')} title={t('home.audience.title')} text={t('home.audience.text')} />
           <div className="grid gap-5 md:grid-cols-3">
-            {audiences.map(({ key, icon: Icon, to }) => (
+            {audiences.map(({ key, icon: Icon, to }, i) => (
               <div key={key} className="flex flex-col rounded-card border border-primary/10 bg-sand/50 p-7">
-                <span className="grid h-12 w-12 place-items-center rounded-2xl bg-secondary-100 text-primary"><Icon className="h-6 w-6" /></span>
+                <span className={`grid h-12 w-12 place-items-center rounded-2xl ${['bg-lime text-ink', 'bg-secondary text-ink', 'bg-peach text-ink'][i]}`}><Icon className="h-6 w-6" /></span>
                 <h3 className="mt-5 text-xl font-bold">{t(`home.audience.items.${key}.title`)}</h3>
                 <ul className="mt-4 flex-1 space-y-2.5 text-sm text-ink/80">
                   {(t(`home.audience.items.${key}.points`, { returnObjects: true }) as string[]).map((p) => (
-                    <li key={p} className="flex gap-2"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-secondary" /> {p}</li>
+                    <li key={p} className="flex gap-2"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-secondary-700" /> {p}</li>
                   ))}
                 </ul>
                 <Link to={to} className="mt-6 inline-flex items-center gap-1.5 font-semibold text-primary hover:gap-2.5 transition-all">
@@ -176,7 +185,7 @@ export function Home() {
             }
           />
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {services.map((s) => {
+            {services.map((s, i) => {
               const Icon = serviceIcons[s.icon]
               return (
                 <Link
@@ -184,7 +193,7 @@ export function Home() {
                   to={`/services/request?type=${s.slug}`}
                   className="group flex flex-col rounded-card border border-primary/10 bg-sand/60 p-6 transition duration-300 hover:-translate-y-1 hover:border-secondary/50 hover:bg-white hover:shadow-xl hover:shadow-primary/10"
                 >
-                  <span className="grid h-12 w-12 place-items-center rounded-2xl bg-primary text-white transition group-hover:bg-secondary">
+                  <span className={`grid h-12 w-12 place-items-center rounded-2xl transition group-hover:scale-105 ${sectionTone[i % sectionTone.length]}`}>
                     <Icon className="h-6 w-6" />
                   </span>
                   <h3 className="mt-5 text-lg font-bold">{t(`home.services.items.${s.key}.title`)}</h3>
@@ -201,7 +210,7 @@ export function Home() {
           <div className="mt-20">
             <SectionHeading eyebrow={t('home.process.eyebrow')} title={t('home.process.title')} />
             <ol className="relative grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-              <span aria-hidden className="dotted-path absolute inset-x-[12%] top-7 hidden h-2 text-secondary/60 lg:block" />
+              <span aria-hidden className="dotted-path absolute inset-x-[12%] top-7 hidden h-2 text-secondary/70 lg:block" />
               {processSteps.map(({ key, icon: Icon }, i) => (
                 <li key={key} className="relative text-center">
                   <span className="relative mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-white text-primary shadow-lg shadow-primary/10 ring-1 ring-primary/10">
@@ -236,7 +245,7 @@ export function Home() {
                   <span className="min-w-0 font-semibold leading-tight" dir="ltr">{s.name}</span>
                   <span
                     className={`shrink-0 rounded-full px-2 py-0.5 text-[11px] font-semibold ${
-                      s.license === 'free' ? 'bg-secondary-100 text-primary' : 'bg-accent-100 text-[#8a5f22]'
+                      s.license === 'free' ? 'bg-secondary-100 text-primary' : 'bg-accent-100 text-accent-700'
                     }`}
                   >
                     {t(`home.software.license.${s.license}`)}
@@ -317,7 +326,7 @@ export function Home() {
               <details key={k} className="group rounded-card border border-primary/10 bg-white px-5 open:shadow-lg open:shadow-primary/5">
                 <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-4 font-semibold marker:hidden [&::-webkit-details-marker]:hidden">
                   {t(`home.faq.items.${k}.q`)}
-                  <ChevronDown className="h-5 w-5 shrink-0 text-secondary transition group-open:rotate-180" />
+                  <ChevronDown className="h-5 w-5 shrink-0 text-secondary-700 transition group-open:rotate-180" />
                 </summary>
                 <p className="pb-5 leading-relaxed text-muted">{t(`home.faq.items.${k}.a`)}</p>
               </details>

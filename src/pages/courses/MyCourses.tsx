@@ -10,7 +10,7 @@ import { pick, useLang } from '../../lib/lang'
 function Empty({ icon, text, cta }: { icon: ReactNode; text: string; cta: string }) {
   return (
     <div className="rounded-card border border-dashed border-primary/20 bg-white/60 p-12 text-center">
-      <div className="mx-auto w-fit text-secondary">{icon}</div>
+      <div className="mx-auto w-fit text-secondary-700">{icon}</div>
       <p className="mt-3 text-muted">{text}</p>
       <Link to="/courses" className="mt-5 inline-block rounded-full bg-primary px-5 py-2.5 font-semibold text-white">{cta}</Link>
     </div>

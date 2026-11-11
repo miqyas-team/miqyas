@@ -31,7 +31,7 @@ export function AuthorLine({ post }: { post: Pick<ForumPost, 'authorName' | 'aut
       </span>
       <span className="font-semibold text-ink">{post.authorName || t('community.member')}</span>
       {(staff || instructor) && (
-        <span className={`inline-flex items-center gap-0.5 rounded-full px-2 py-0.5 text-[10px] font-bold ${staff ? 'bg-primary text-white' : 'bg-accent-100 text-[#8a5f22]'}`}>
+        <span className={`inline-flex items-center gap-0.5 rounded-full px-2 py-0.5 text-[10px] font-bold ${staff ? 'bg-primary text-white' : 'bg-accent-100 text-accent-700'}`}>
           <BadgeCheck className="h-3 w-3" /> {t(staff ? 'community.badge.team' : 'community.badge.instructor')}
         </span>
       )}
@@ -63,7 +63,7 @@ export function PostAttachments({ items }: { items: ForumAttachment[] }) {
           {files.map((f) => (
             <li key={f.id}>
               <a href={f.url} target="_blank" rel="noopener noreferrer" download={f.name} className="inline-flex items-center gap-1.5 rounded-lg border border-primary/15 bg-white px-2.5 py-1.5 text-xs hover:border-secondary">
-                <Paperclip className="h-3.5 w-3.5 text-secondary" /> <span dir="ltr">{f.name}</span>
+                <Paperclip className="h-3.5 w-3.5 text-secondary-700" /> <span dir="ltr">{f.name}</span>
                 <span className="text-muted" dir="ltr">{formatSize(f.sizeBytes)}</span>
               </a>
             </li>
@@ -144,7 +144,7 @@ export function Composer({
         <ul className="flex flex-wrap gap-2">
           {files.map((f, i) => (
             <li key={`${f.name}-${i}`} className="inline-flex items-center gap-1.5 rounded-lg bg-sand px-2.5 py-1 text-xs">
-              {isImageName(f.name) ? <ImagePlus className="h-3.5 w-3.5 text-secondary" /> : <Paperclip className="h-3.5 w-3.5 text-secondary" />}
+              {isImageName(f.name) ? <ImagePlus className="h-3.5 w-3.5 text-secondary-700" /> : <Paperclip className="h-3.5 w-3.5 text-secondary-700" />}
               <span dir="ltr">{f.name}</span>
               <button type="button" onClick={() => setFiles((fs) => fs.filter((_, j) => j !== i))} aria-label={t('editor.remove')} className="text-red-500"><X className="h-3.5 w-3.5" /></button>
             </li>
@@ -171,7 +171,7 @@ export function ReportButton({ threadId, replyId }: { threadId: string; replyId:
   const [done, setDone] = useState(false)
   const [busy, setBusy] = useState(false)
 
-  if (done) return <span className="text-xs text-secondary">{t('community.report.thanks')}</span>
+  if (done) return <span className="text-xs text-secondary-700">{t('community.report.thanks')}</span>
   if (!open) {
     return (
       <button type="button" onClick={() => setOpen(true)} className="inline-flex items-center gap-1 text-xs text-muted hover:text-red-600">

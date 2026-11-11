@@ -25,8 +25,8 @@ export function PriceLabel({ type }: { type: ServiceType }) {
 
 export const statusStyle: Record<RequestStatus, string> = {
   new: 'bg-primary-50 text-primary',
-  quoting: 'bg-accent-100 text-[#8a5f22]',
-  awaiting_payment: 'bg-accent-100 text-[#8a5f22]',
+  quoting: 'bg-accent-100 text-accent-700',
+  awaiting_payment: 'bg-accent-100 text-accent-700',
   in_progress: 'bg-secondary-100 text-primary',
   review: 'bg-[#e8e3f7] text-[#4b3b8f]',
   completed: 'bg-secondary text-white',
@@ -54,16 +54,16 @@ export function StageTracker({ status, fixedPrice }: { status: RequestStatus; fi
         return (
           <li key={s} className="flex min-w-0 flex-1 flex-col items-center text-center">
             <div className="flex w-full items-center">
-              <span className={`dotted-path h-2 flex-1 ${i === 0 ? 'invisible' : done || active ? 'text-secondary' : 'text-primary/15'}`} />
+              <span className={`dotted-path h-2 flex-1 ${i === 0 ? 'invisible' : done || active ? 'text-secondary-700' : 'text-primary/15'}`} />
               {active ? (
                 <svg viewBox="0 0 20 28" className="h-7 w-5 shrink-0" aria-hidden="true">
-                  <path d="M10 27C4 19 0 14 0 9a10 10 0 0 1 20 0c0 5-4 10-10 18z" fill="#C9954A" />
+                  <path d="M10 27C4 19 0 14 0 9a10 10 0 0 1 20 0c0 5-4 10-10 18z" fill="#E0703A" />
                   <circle cx="10" cy="9" r="3.5" fill="#fff" />
                 </svg>
               ) : (
                 <span className={`h-3.5 w-3.5 shrink-0 rounded-full ${done ? 'bg-secondary' : 'border-2 border-primary/20 bg-white'}`} />
               )}
-              <span className={`dotted-path h-2 flex-1 ${i === stages.length - 1 ? 'invisible' : done ? 'text-secondary' : 'text-primary/15'}`} />
+              <span className={`dotted-path h-2 flex-1 ${i === stages.length - 1 ? 'invisible' : done ? 'text-secondary-700' : 'text-primary/15'}`} />
             </div>
             <span className={`mt-2 px-0.5 text-[11px] leading-tight sm:text-xs ${active ? 'font-bold text-primary' : done ? 'text-ink/80' : 'text-muted'}`}>
               {t(`requests.status.${s}`)}

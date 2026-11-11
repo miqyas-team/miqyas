@@ -77,7 +77,7 @@ function CourseView({ course, enrollment, onEnrolled }: { course: Course; enroll
               <ul className="mt-4 grid gap-3 sm:grid-cols-2">
                 {course.outcomes[lang].map((o) => (
                   <li key={o} className="flex gap-2">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-secondary" />
+                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-secondary-700" />
                     <span>{o}</span>
                   </li>
                 ))}
@@ -115,7 +115,7 @@ function CourseView({ course, enrollment, onEnrolled }: { course: Course; enroll
                       const row = (
                         <>
                           <span className="flex min-w-0 items-center gap-3">
-                            {open ? <PlayCircle className="h-4 w-4 shrink-0 text-secondary" /> : <Lock className="h-4 w-4 shrink-0 text-muted" />}
+                            {open ? <PlayCircle className="h-4 w-4 shrink-0 text-secondary-700" /> : <Lock className="h-4 w-4 shrink-0 text-muted" />}
                             <span className="truncate">{pick(l.title, lang)}</span>
                             {l.isPreview && !enrolled && (
                               <span className="shrink-0 rounded-full bg-secondary-100 px-2 py-0.5 text-[11px] font-semibold text-primary">{t('courses.detail.preview')}</span>
@@ -247,7 +247,7 @@ function EnrollCard({ course, enrollment, onEnrolled }: { course: Course; enroll
 
   return (
     <div className="rounded-card border border-primary/10 bg-white p-6 shadow-xl shadow-primary/5">
-      <p className={`text-3xl font-bold ${course.price === 0 ? 'text-secondary' : 'text-ink'}`}>{formatPrice(course.price, lang)}</p>
+      <p className={`text-3xl font-bold ${course.price === 0 ? 'text-secondary-700' : 'text-ink'}`}>{formatPrice(course.price, lang)}</p>
       {course.price > 0 && vatOn && <p className="mt-1 text-xs text-muted">{t('courses.enroll.vatNote')}</p>}
 
       {isLive && course.cohorts.length > 0 && (

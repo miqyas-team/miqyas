@@ -36,7 +36,7 @@ export function AdminSoftware() {
         {/* البرامج */}
         <section>
           <div className="mb-3 flex items-center justify-between">
-            <h2 className="flex items-center gap-2 font-bold"><Wrench className="h-5 w-5 text-secondary" /> {t('software.admin.software')}</h2>
+            <h2 className="flex items-center gap-2 font-bold"><Wrench className="h-5 w-5 text-secondary-700" /> {t('software.admin.software')}</h2>
             <button type="button" onClick={() => setEditSw('new')} className="inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-white"><Plus className="h-4 w-4" /> {t('software.admin.addSoftware')}</button>
           </div>
           {editSw && <SoftwareForm initial={editSw === 'new' ? null : editSw} onDone={() => { setEditSw(null); sw.reload() }} />}

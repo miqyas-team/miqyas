@@ -119,16 +119,16 @@ function LearnView({
                       }`}
                     >
                       {isDone ? (
-                        <CheckCircle2 className={`h-4 w-4 shrink-0 ${active ? 'text-white' : 'text-secondary'}`} />
+                        <CheckCircle2 className={`h-4 w-4 shrink-0 ${active ? 'text-white' : 'text-secondary-700'}`} />
                       ) : (
                         <Circle className="h-4 w-4 shrink-0 opacity-50" />
                       )}
                       <span className="flex-1 truncate">{pick(l.title, lang)}</span>
                       {l.hasQuiz && (
-                        <ClipboardCheck className={`h-3.5 w-3.5 shrink-0 ${progress.passedQuizLessonIds.includes(l.id) ? 'text-secondary' : 'opacity-50'}`} />
+                        <ClipboardCheck className={`h-3.5 w-3.5 shrink-0 ${progress.passedQuizLessonIds.includes(l.id) ? 'text-secondary-700' : 'opacity-50'}`} />
                       )}
                       {l.hasAssignment && (
-                        <FileUp className={`h-3.5 w-3.5 shrink-0 ${progress.approvedAssignmentLessonIds.includes(l.id) ? 'text-secondary' : 'opacity-50'}`} />
+                        <FileUp className={`h-3.5 w-3.5 shrink-0 ${progress.approvedAssignmentLessonIds.includes(l.id) ? 'text-secondary-700' : 'opacity-50'}`} />
                       )}
                     </Link>
                   )}

@@ -14,7 +14,7 @@ export function Placeholder({ titleKey, notFound = false }: { titleKey?: string;
           {notFound ? t('page.notFound') : t('page.comingSoon')}
         </p>
         {!notFound && <p className="mt-1 text-muted">{t('page.comingSoonText')}</p>}
-        <div className="dotted-path my-8 h-2 w-40 text-secondary" />
+        <div className="dotted-path my-8 h-2 w-40 text-secondary-700" />
         <Link to="/" className="rounded-full bg-primary px-5 py-2.5 font-semibold text-white hover:bg-primary-700">
           {t('page.backHome')}
         </Link>

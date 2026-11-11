@@ -13,9 +13,9 @@ import { isSupabaseConfigured } from './lib/supabase'
  */
 function NotConfigured() {
   return (
-    <main dir="rtl" lang="ar" style={{ minHeight: '100vh', display: 'grid', placeItems: 'center', fontFamily: 'Readex Pro, system-ui, sans-serif', background: '#F6F3EC', color: '#162220', padding: 24, textAlign: 'center' }}>
+    <main dir="rtl" lang="ar" style={{ minHeight: '100vh', display: 'grid', placeItems: 'center', fontFamily: 'Readex Pro, system-ui, sans-serif', background: '#F8FAF7', color: '#162220', padding: 24, textAlign: 'center' }}>
       <div>
-        <h1 style={{ color: '#0F5E4E', fontSize: 28, margin: 0 }}>مقياس</h1>
+        <h1 style={{ color: '#167D68', fontSize: 28, margin: 0 }}>مقياس</h1>
         <p style={{ marginTop: 12 }}>المنصة قيد التجهيز، نعود قريباً.</p>
         <p style={{ marginTop: 4, fontSize: 13, color: '#5b6b67' }} dir="ltr">Miqyas is being set up — back soon.</p>
       </div>

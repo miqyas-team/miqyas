@@ -311,7 +311,7 @@ function CourseEditor({ initial }: { initial: CourseDraft }) {
                   </li>
                 ))}
                 {issues.publish.map((i, n) => (
-                  <li key={`p${n}`} className="flex gap-2 text-[#8a5f22]">
+                  <li key={`p${n}`} className="flex gap-2 text-accent-700">
                     <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" /> {t(i.key, i.params ?? {})}
                   </li>
                 ))}
