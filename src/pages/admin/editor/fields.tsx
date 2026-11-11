@@ -1,6 +1,9 @@
 import { useId, type ReactNode } from 'react'
 import type { Localized } from '../../../lib/lang'
 
+/** يحوّل ٠-٩ و۰-۹ إلى 0-9 */
+const toLatinDigits = (s: string) => s.replace(/[٠-٩۰-۹]/g, (d) => String((d.charCodeAt(0) & 0xf) % 10))
+
 const inputCls =
   'w-full rounded-xl border border-primary/15 bg-white px-3.5 py-2.5 text-sm outline-none transition focus:border-secondary focus:ring-4 focus:ring-secondary/20'
 
@@ -95,7 +98,23 @@ export function TextField({
   return (
     <div>
       <Label htmlFor={id} hint={hint}>{label}</Label>
-      <input id={id} type={type} dir={dir} min={min} max={max} placeholder={placeholder} value={value} onChange={(e) => onChange(e.target.value)} className={inputCls} />
+      {type === 'number' ? (
+        // حقل نصي بلوحة أرقام: يعرض 0-9 دائماً ويحوّل الأرقام العربية-الهندية تلقائياً
+        <input
+          id={id}
+          type="text"
+          inputMode="decimal"
+          dir="ltr"
+          placeholder={placeholder}
+          value={value}
+          onChange={(e) => onChange(toLatinDigits(e.target.value).replace(/[^\d.]/g, ''))}
+          className={inputCls}
+          aria-valuemin={min}
+          aria-valuemax={max}
+        />
+      ) : (
+        <input id={id} type={type} dir={dir} min={min} max={max} placeholder={placeholder} value={value} onChange={(e) => onChange(e.target.value)} className={inputCls} />
+      )}
     </div>
   )
 }

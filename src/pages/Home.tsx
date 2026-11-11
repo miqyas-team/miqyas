@@ -4,15 +4,22 @@ import {
   ArrowRight,
   Award,
   BadgeCheck,
+  ChevronDown,
   Download,
   FileCog,
+  FileSearch,
   GraduationCap,
+  Headset,
   Languages,
   Layers,
   Map as MapIcon,
   MessagesSquare,
+  PackageCheck,
   Quote,
+  ReceiptText,
   Ruler,
+  Send,
+  ShieldCheck,
   Users,
   Wrench,
 } from 'lucide-react'
@@ -26,6 +33,18 @@ import { Spinner, useAsync } from '../components/ui'
 
 const serviceIcons = { GraduationCap, MessagesSquare, Map: MapIcon, Layers, Ruler, FileCog }
 const reasonIcons = { arabic: Languages, practical: Wrench, certificate: Award, team: Users }
+const trustPoints = [
+  { key: 'verified', icon: ShieldCheck },
+  { key: 'invoice', icon: ReceiptText },
+  { key: 'support', icon: Headset },
+] as const
+const processSteps = [
+  { key: 'request', icon: Send },
+  { key: 'quote', icon: FileSearch },
+  { key: 'work', icon: MessagesSquare },
+  { key: 'deliver', icon: PackageCheck },
+] as const
+const faqKeys = ['pay', 'price', 'time', 'cert', 'grad', 'software'] as const
 
 const Arrow = () => <ArrowRight className="h-4 w-4 rtl:-scale-x-100" />
 
@@ -39,8 +58,9 @@ export function Home() {
   return (
     <>
       {/* ───────── القسم العلوي ───────── */}
-      <section className="contour-bg overflow-hidden">
-        <div className="mx-auto grid max-w-6xl items-center gap-14 px-4 pb-16 pt-12 lg:grid-cols-2 lg:pb-20 lg:pt-20">
+      <section className="hero-glow relative overflow-hidden">
+        <div aria-hidden className="contour-bg pointer-events-none absolute inset-0" />
+        <div className="relative mx-auto grid max-w-6xl items-center gap-14 px-4 pb-16 pt-12 lg:grid-cols-2 lg:pb-20 lg:pt-20">
           <div>
             <span className="inline-flex items-center gap-2 rounded-full bg-accent-100 px-4 py-1.5 text-sm font-medium text-[#8a5f22]">
               <span className="h-2 w-2 rounded-full bg-accent" />
@@ -65,22 +85,17 @@ export function Home() {
               </Link>
             </div>
 
-            {/* رحلة المتدرب — مسار منقّط ينتهي بدبوس */}
-            <ol className="mt-12 flex max-w-md items-center gap-2 text-sm font-medium">
-              {(['learn', 'apply', 'certify'] as const).map((step, i) => (
-                <li key={step} className="flex flex-1 items-center gap-2">
-                  <span
-                    className={`grid h-8 w-8 shrink-0 place-items-center rounded-full text-xs font-bold ${
-                      i === 2 ? 'bg-accent text-white' : 'bg-white text-primary ring-2 ring-secondary/40'
-                    }`}
-                  >
-                    {i + 1}
+            {/* نقاط الثقة */}
+            <ul className="mt-10 flex flex-wrap gap-x-6 gap-y-3 text-sm font-medium text-ink/80">
+              {trustPoints.map(({ key, icon: Icon }) => (
+                <li key={key} className="inline-flex items-center gap-2">
+                  <span className="grid h-8 w-8 place-items-center rounded-full bg-white text-secondary shadow-sm ring-1 ring-primary/10">
+                    <Icon className="h-4 w-4" />
                   </span>
-                  <span className="whitespace-nowrap">{t(`home.hero.steps.${step}`)}</span>
-                  {i < 2 && <span className="dotted-path h-2 flex-1 text-secondary" />}
+                  {t(`home.trust.${key}`)}
                 </li>
               ))}
-            </ol>
+            </ul>
           </div>
 
           <HeroIllustration />
@@ -137,17 +152,38 @@ export function Home() {
               return (
                 <Link
                   key={s.key}
-                  to="/services"
-                  className="group rounded-card border border-primary/10 bg-sand/60 p-6 transition hover:border-secondary/50 hover:bg-white hover:shadow-xl hover:shadow-primary/5"
+                  to={`/services/request?type=${s.slug}`}
+                  className="group flex flex-col rounded-card border border-primary/10 bg-sand/60 p-6 transition duration-300 hover:-translate-y-1 hover:border-secondary/50 hover:bg-white hover:shadow-xl hover:shadow-primary/10"
                 >
                   <span className="grid h-12 w-12 place-items-center rounded-2xl bg-primary text-white transition group-hover:bg-secondary">
                     <Icon className="h-6 w-6" />
                   </span>
                   <h3 className="mt-5 text-lg font-bold">{t(`home.services.items.${s.key}.title`)}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted">{t(`home.services.items.${s.key}.text`)}</p>
+                  <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">{t(`home.services.items.${s.key}.text`)}</p>
+                  <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-primary opacity-80 transition group-hover:gap-2.5 group-hover:opacity-100">
+                    {t('hero.requestService')} <Arrow />
+                  </span>
                 </Link>
               )
             })}
+          </div>
+
+          {/* آلية العمل */}
+          <div className="mt-20">
+            <SectionHeading eyebrow={t('home.process.eyebrow')} title={t('home.process.title')} />
+            <ol className="relative grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              <span aria-hidden className="dotted-path absolute inset-x-[12%] top-7 hidden h-2 text-secondary/60 lg:block" />
+              {processSteps.map(({ key, icon: Icon }, i) => (
+                <li key={key} className="relative text-center">
+                  <span className="relative mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-white text-primary shadow-lg shadow-primary/10 ring-1 ring-primary/10">
+                    <Icon className="h-6 w-6" />
+                    <span className="absolute -top-2 -end-2 grid h-6 w-6 place-items-center rounded-full bg-accent text-xs font-bold text-white">{i + 1}</span>
+                  </span>
+                  <h3 className="mt-4 font-bold">{t(`home.process.steps.${key}.title`)}</h3>
+                  <p className="mx-auto mt-1.5 max-w-[16rem] text-sm leading-relaxed text-muted">{t(`home.process.steps.${key}.text`)}</p>
+                </li>
+              ))}
+            </ol>
           </div>
         </div>
       </section>
@@ -168,7 +204,7 @@ export function Home() {
             {software.map((s) => (
               <li key={s.name}>
                 <Link to="/software" className="flex items-center justify-between gap-2 rounded-2xl bg-white px-4 py-3 shadow-sm transition hover:shadow-md">
-                  <span className="truncate font-semibold" dir="ltr">{s.name}</span>
+                  <span className="min-w-0 font-semibold leading-tight" dir="ltr">{s.name}</span>
                   <span
                     className={`shrink-0 rounded-full px-2 py-0.5 text-[11px] font-semibold ${
                       s.license === 'free' ? 'bg-secondary-100 text-primary' : 'bg-accent-100 text-[#8a5f22]'
@@ -236,6 +272,30 @@ export function Home() {
           </div>
         </section>
       )}
+
+      {/* ───────── الأسئلة الشائعة ───────── */}
+      <section className="mx-auto max-w-6xl px-4 py-20">
+        <div className="grid gap-10 lg:grid-cols-[1fr_1.6fr]">
+          <div>
+            <SectionHeading eyebrow={t('home.faq.eyebrow')} title={t('home.faq.title')} />
+            <p className="-mt-6 text-muted">
+              {t('home.faq.more')}{' '}
+              <Link to="/contact" className="font-semibold text-primary underline-offset-4 hover:underline">{t('home.faq.contact')}</Link>
+            </p>
+          </div>
+          <div className="space-y-3">
+            {faqKeys.map((k) => (
+              <details key={k} className="group rounded-card border border-primary/10 bg-white px-5 open:shadow-lg open:shadow-primary/5">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-4 font-semibold marker:hidden [&::-webkit-details-marker]:hidden">
+                  {t(`home.faq.items.${k}.q`)}
+                  <ChevronDown className="h-5 w-5 shrink-0 text-secondary transition group-open:rotate-180" />
+                </summary>
+                <p className="pb-5 leading-relaxed text-muted">{t(`home.faq.items.${k}.a`)}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* ───────── دعوة ختامية ───────── */}
       <section className="mx-auto max-w-6xl px-4 pb-20">

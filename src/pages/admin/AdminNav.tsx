@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { BookOpen, Briefcase, ClipboardList, FileCheck2, Inbox, LayoutDashboard, Users, Wallet, Wrench } from 'lucide-react'
+import { BookOpen, Briefcase, ClipboardList, FileCheck2, Headset, Inbox, LayoutDashboard, Tags, Users, Wallet, Wrench } from 'lucide-react'
 import { useAuth } from '../../auth/AuthProvider'
 
 /** شريط تنقّل لوحات الإدارة والمدرّب */
@@ -13,7 +13,9 @@ export function AdminNav() {
     ? [
         { to: '/admin', end: true, icon: LayoutDashboard, label: t('admin.nav.overview') },
         { to: '/admin/inbox', end: false, icon: Inbox, label: t('areas.inbox') },
+        { to: '/admin/support', end: false, icon: Headset, label: t('support.nav') },
         { to: '/admin/requests', end: false, icon: ClipboardList, label: t('admin.nav.requests') },
+        { to: '/admin/services', end: false, icon: Tags, label: t('servicesAdmin.nav') },
         { to: '/admin/courses', end: false, icon: BookOpen, label: t('admin.nav.courses') },
         { to: '/admin/payments', end: false, icon: Wallet, label: t('admin.nav.payments') },
         { to: '/admin/jobs', end: false, icon: Briefcase, label: t('admin.nav.jobs') },

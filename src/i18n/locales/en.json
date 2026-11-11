@@ -15,9 +15,9 @@
     "jobs": "Opportunities"
   },
   "hero": {
-    "badge": "A Saudi platform for GIS & surveying",
+    "badge": "A Saudi platform for GIS and surveying",
     "title": "Learn GIS and master it",
-    "subtitle": "Hands-on courses in ArcGIS, QGIS and Python, plus a specialist team to help with your geospatial projects from idea to delivery.",
+    "subtitle": "Hands-on ArcGIS, QGIS and Python training with verifiable certificates, plus professional GIS services delivered by a specialist team from idea to delivery.",
     "browseCourses": "Browse courses",
     "requestService": "Request a service"
   },
@@ -159,7 +159,7 @@
     "courses": {
       "eyebrow": "Courses",
       "title": "Featured courses",
-      "text": "Practical paths from your first map to advanced analysis and programming.",
+      "text": "Structured learning paths, from mapping basics to advanced spatial analysis and programming.",
       "all": "All courses",
       "details": "Details",
       "format": {
@@ -182,19 +182,19 @@
     },
     "services": {
       "eyebrow": "Services",
-      "title": "Our team, on your project",
-      "text": "Delivered by the Miqyas specialist team, and tracked step by step from a single page.",
+      "title": "GIS solutions delivered by specialists",
+      "text": "From mapping and spatial analysis to land surveying and data conversion, with professional quality and transparent tracking at every stage.",
       "items": {
         "graduation": {
           "title": "Graduation project guidance",
-          "text": "We help you choose the method and tools, and review your maps and analysis before submission."
+          "text": "Academic guidance on methods and tools, and a review of your maps and analysis before submission."
         },
         "consulting": {
-          "title": "Consulting & tech support",
-          "text": "A session with a specialist to fix an issue, review your work or answer your questions."
+          "title": "Technical consulting",
+          "text": "Sessions with specialists to solve technical issues, review your work and recommend next steps."
         },
         "mapping": {
-          "title": "Mapping",
+          "title": "Map production",
           "text": "Thematic maps and professional cartographic layouts, ready to print and publish."
         },
         "analysis": {
@@ -207,13 +207,13 @@
         },
         "conversion": {
           "title": "Data conversion",
-          "text": "CAD to GIS, coordinate fixes, data cleaning and format conversion."
+          "text": "CAD to GIS, coordinate system fixes, data cleaning and format standardization."
         }
       }
     },
     "software": {
       "title": "Software & tools",
-      "text": "Official download links, Arabic install guides and practice datasets.",
+      "text": "A guide to the key GIS and surveying software, with tech support that downloads it from official sources, installs and activates it on your device.",
       "cta": "Browse software",
       "license": {
         "free": "Free",
@@ -222,23 +222,23 @@
     },
     "why": {
       "eyebrow": "Why Miqyas",
-      "title": "Built for Saudi GIS students and professionals",
+      "title": "Why professionals choose Miqyas",
       "items": {
         "arabic": {
-          "title": "Clear Arabic content",
-          "text": "Explained in Arabic, with the English terms you'll need at work."
+          "title": "Professional Arabic content",
+          "text": "Clear Arabic explanations that keep the English terms used in the industry."
         },
         "practical": {
-          "title": "Hands-on practice",
-          "text": "Exercises on real data from Saudi cities, reviewed by your instructor."
+          "title": "Hands-on learning",
+          "text": "Exercises on real-world data, assessed and reviewed by the instructor."
         },
         "certificate": {
-          "title": "Verifiable certificate",
-          "text": "A QR-coded certificate employers can verify in seconds."
+          "title": "Verifiable certificates",
+          "text": "Every certificate carries a QR code employers can verify instantly."
         },
         "team": {
           "title": "Specialist team",
-          "text": "GIS and surveying specialists who stay with you until you succeed."
+          "text": "GIS and surveying specialists who stay with you until you get results."
         }
       }
     },
@@ -248,14 +248,74 @@
       "sampleBadge": "Sample — shown in development only"
     },
     "cta": {
-      "title": "Start your GIS journey today",
-      "text": "Create a free account and begin with QGIS from Zero.",
+      "title": "Start your GIS career today",
+      "text": "Create your free account, pick the course that fits your level, or request a service from our team.",
       "primary": "Create a free account"
+    },
+    "trust": {
+      "verified": "QR-verifiable certificates",
+      "invoice": "E-invoice with VAT",
+      "support": "Arabic tech support"
+    },
+    "process": {
+      "eyebrow": "How it works",
+      "title": "Clear steps from request to delivery",
+      "steps": {
+        "request": {
+          "title": "Send your request",
+          "text": "Describe what you need and attach your files in minutes."
+        },
+        "quote": {
+          "title": "Get a quote",
+          "text": "The team reviews your request and sends a price before work starts."
+        },
+        "work": {
+          "title": "Work & follow-up",
+          "text": "Track each stage and talk to the team directly from the request page."
+        },
+        "deliver": {
+          "title": "Delivery & invoice",
+          "text": "Receive your final files with a VAT e-invoice."
+        }
+      }
+    },
+    "faq": {
+      "eyebrow": "FAQ",
+      "title": "Quick answers before you start",
+      "more": "Have another question?",
+      "contact": "Contact us",
+      "items": {
+        "pay": {
+          "q": "How do I pay?",
+          "a": "By bank transfer to the company account; then upload the receipt on the payment page. Once verified, your request or course is activated and you receive a VAT e-invoice."
+        },
+        "cert": {
+          "q": "Can certificates be verified?",
+          "a": "Yes. Certificates are issued after completing the course requirements and carry a unique code and QR code anyone can verify on the platform."
+        },
+        "price": {
+          "q": "How are services priced?",
+          "a": "Some services have a fixed published price; others are quoted by scope. The team reviews your request and sends a quote, and you only pay after you approve it."
+        },
+        "time": {
+          "q": "How long does a service take?",
+          "a": "It depends on the service and its scope; the team states the timeline with the quote. You can also set the date you need when sending the request."
+        },
+        "grad": {
+          "q": "Do you complete graduation projects for students?",
+          "a": "No. We provide guidance, review and tool training; preparing and submitting the project remains the student’s responsibility, out of respect for academic integrity."
+        },
+        "software": {
+          "q": "How do I get software like ArcGIS or QGIS?",
+          "a": "Request the “Software download & setup” service and tech support will contact you in the request chat to help you download from the official source, install and activate it."
+        }
+      }
     }
   },
   "common": {
     "retry": "Try again",
-    "close": "Close"
+    "close": "Close",
+    "cancel": "Cancel"
   },
   "courses": {
     "listTitle": "Courses",
@@ -385,11 +445,13 @@
     "platform": "Platform",
     "company": "Miqyas",
     "contact": "Contact us",
-    "about": "A Saudi platform for GIS and surveying education, with services delivered by a specialist team.",
+    "about": "A Saudi platform for GIS and surveying education, delivering geospatial solutions through a team of specialists.",
     "tagline": "We measure the land, and build the skill.",
     "rights": "All rights reserved",
     "terms": "Terms & Conditions",
-    "privacy": "Privacy Policy"
+    "privacy": "Privacy Policy",
+    "whatsapp": "WhatsApp",
+    "contactPage": "Message us from the contact page"
   },
   "demo": {
     "switchRole": "Switch role (demo)"
@@ -1221,5 +1283,56 @@
     "sentText": "Thanks for reaching out — we’ll reply to your email soon.",
     "privacy": "We use your data only to reply to your message. See our",
     "faq": "For technical GIS questions, ask in the"
+  },
+  "servicesAdmin": {
+    "nav": "Services & prices",
+    "title": "Services & prices",
+    "subtitle": "Edit service prices and descriptions, and hide what you do not offer right now.",
+    "edit": "Edit",
+    "hidden": "Hidden",
+    "saved": "Changes saved and visible to clients right away.",
+    "pricing": "Pricing",
+    "fixed": "Fixed price",
+    "custom": "Custom quote per request",
+    "price": "Price (SAR)",
+    "priceHint": "VAT included",
+    "unit": "Price unit",
+    "unitHint": "e.g. per hour, per file, per software",
+    "position": "Order",
+    "positionHint": "Lower shows first",
+    "name": "Service name",
+    "description": "Description",
+    "active": "Visible to clients",
+    "activeHint": "Hidden services cannot be requested; existing requests are unaffected.",
+    "note": "A new price applies to new requests only; existing requests keep their price.",
+    "nameRequired": "Enter the service name in Arabic and English.",
+    "priceInvalid": "Enter a valid price (zero or more).",
+    "priceRequired": "A fixed-price service needs a price."
+  },
+  "support": {
+    "nav": "Tech support",
+    "title": "Tech support",
+    "subtitle": "Software download and setup conversations in one place. Start with those waiting on you.",
+    "stats": {
+      "waiting": "Waiting on you",
+      "open": "Open conversations",
+      "contact": "New Contact Us messages"
+    },
+    "filter": {
+      "waiting": "Waiting on you",
+      "open": "Open",
+      "closed": "Closed"
+    },
+    "empty": {
+      "waiting": "Nobody is waiting on you right now 👍",
+      "open": "No open conversations.",
+      "closed": "No closed conversations yet."
+    },
+    "waitingBadge": "Waiting on you",
+    "client": "Client",
+    "them": "Client",
+    "you": "Team",
+    "noMessages": "No messages yet — start by welcoming the client.",
+    "openChat": "Open chat"
   }
 }

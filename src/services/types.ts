@@ -18,7 +18,13 @@ export interface ServiceType {
   isAcademic: boolean
   /** false للدعم الفني: يُغلق الطلب دون ملفات نهائية */
   requiresDeliverable: boolean
+  /** للإدارة: الخدمات المخفية لا تظهر للعملاء */
+  isActive: boolean
+  position: number
 }
+
+/** الحقول التي يعدّلها المدير من «الخدمات والأسعار» */
+export type ServiceTypePatch = Pick<ServiceType, 'name' | 'description' | 'pricing' | 'price' | 'unit' | 'isActive' | 'position'>
 
 export interface RequestFile {
   id: string

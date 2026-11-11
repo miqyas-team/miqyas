@@ -5,13 +5,14 @@
  */
 import type { Localized } from '../lib/lang'
 
+/** slug يطابق service_types.slug لفتح نموذج الطلب على الخدمة مباشرة */
 export const services = [
-  { key: 'graduation', icon: 'GraduationCap' },
-  { key: 'consulting', icon: 'MessagesSquare' },
-  { key: 'mapping', icon: 'Map' },
-  { key: 'analysis', icon: 'Layers' },
-  { key: 'survey', icon: 'Ruler' },
-  { key: 'conversion', icon: 'FileCog' },
+  { key: 'graduation', slug: 'graduation-guidance', icon: 'GraduationCap' },
+  { key: 'consulting', slug: 'consulting', icon: 'MessagesSquare' },
+  { key: 'mapping', slug: 'mapping', icon: 'Map' },
+  { key: 'analysis', slug: 'spatial-analysis', icon: 'Layers' },
+  { key: 'survey', slug: 'land-survey', icon: 'Ruler' },
+  { key: 'conversion', slug: 'data-conversion', icon: 'FileCog' },
 ] as const
 
 export const software = [
@@ -58,9 +59,12 @@ export const testimonials: { name: Localized; role: Localized; quote: Localized 
   },
 ]
 
-/** روابط التواصل — ضع روابطكم الحقيقية هنا */
+/**
+ * روابط التواصل الاحتياطية. البريد والواتساب يُقرآن أولاً من إعدادات المنشأة في لوحة الإدارة؛
+ * الحسابات الاجتماعية تظهر في التذييل فقط إذا وُضع رابطها هنا.
+ */
 export const contact = {
-  email: 'info@miqyas.sa',
+  email: '',
   whatsapp: '',
   x: '',
   linkedin: '',

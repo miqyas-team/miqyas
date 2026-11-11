@@ -9,6 +9,7 @@ import type {
   RequestStatus,
   RequestSummary,
   ServiceType,
+  ServiceTypePatch,
   TeamMember,
 } from './types'
 
@@ -24,6 +25,17 @@ export interface ServicesApi {
   transition(id: string, to: RequestStatus, price?: number): Promise<void>
   assign(id: string, memberId: string | null): Promise<void>
   listTeam(): Promise<TeamMember[]>
+  /** للمدير: كل الخدمات بما فيها المخفية */
+  adminServiceTypes(): Promise<ServiceType[]>
+  saveServiceType(id: string, patch: ServiceTypePatch): Promise<void>
+  /** آخر رسالة (غير داخلية) في كل طلب — لمعرفة من ينتظر الرد */
+  latestMessages(ids: string[]): Promise<Record<string, LatestMessage>>
+}
+
+export interface LatestMessage {
+  body: string
+  fromClient: boolean
+  createdAt: string
 }
 
 /* ═════════════════ وضع المعاينة ═════════════════ */
@@ -36,25 +48,25 @@ const demoTeam: TeamMember[] = [
 ]
 
 const demoTypes: ServiceType[] = [
-  { id: 'st-software', slug: 'software-install', icon: 'FileCog', pricing: 'fixed', price: 49, unit: { ar: 'للبرنامج', en: 'per software' }, requiresLocation: false, isAcademic: false, requiresDeliverable: false,
+  { id: 'st-software', slug: 'software-install', icon: 'FileCog', pricing: 'fixed', price: 49, unit: { ar: 'للبرنامج', en: 'per software' }, requiresLocation: false, isAcademic: false, requiresDeliverable: false, isActive: true, position: 0,
     name: { ar: 'تحميل وتثبيت البرامج', en: 'Software download & setup' },
     description: { ar: 'يتواصل معك الدعم الفني في محادثة الطلب، ويساعدك في تحميل البرنامج من مصدره الرسمي وتثبيته وتفعيله.', en: 'Tech support contacts you in the request chat and helps you download the software from its official source, install and activate it.' } },
-  { id: 'st-grad', slug: 'graduation-guidance', icon: 'GraduationCap', pricing: 'custom', price: null, unit: null, requiresLocation: false, isAcademic: true, requiresDeliverable: true,
+  { id: 'st-grad', slug: 'graduation-guidance', icon: 'GraduationCap', pricing: 'custom', price: null, unit: null, requiresLocation: false, isAcademic: true, requiresDeliverable: true, isActive: true, position: 1,
     name: { ar: 'توجيه مشاريع التخرج', en: 'Graduation project guidance' },
     description: { ar: 'نساعدك في اختيار المنهجية والأدوات، ونراجع خرائطك وتحليلاتك قبل التسليم.', en: 'We help you choose the method and tools, and review your maps and analysis before submission.' } },
-  { id: 'st-consult', slug: 'consulting', icon: 'MessagesSquare', pricing: 'fixed', price: 150, unit: { ar: 'للساعة', en: 'per hour' }, requiresLocation: false, isAcademic: false, requiresDeliverable: true,
+  { id: 'st-consult', slug: 'consulting', icon: 'MessagesSquare', pricing: 'fixed', price: 150, unit: { ar: 'للساعة', en: 'per hour' }, requiresLocation: false, isAcademic: false, requiresDeliverable: true, isActive: true, position: 2,
     name: { ar: 'استشارة فنية', en: 'Technical consultation' },
     description: { ar: 'جلسة مع مختص لحل مشكلة أو مراجعة عملك أو الإجابة عن أسئلتك.', en: 'A session with a specialist to fix an issue, review your work or answer your questions.' } },
-  { id: 'st-map', slug: 'mapping', icon: 'Map', pricing: 'custom', price: null, unit: null, requiresLocation: true, isAcademic: false, requiresDeliverable: true,
+  { id: 'st-map', slug: 'mapping', icon: 'Map', pricing: 'custom', price: null, unit: null, requiresLocation: true, isAcademic: false, requiresDeliverable: true, isActive: true, position: 3,
     name: { ar: 'رسم الخرائط', en: 'Mapping' },
     description: { ar: 'خرائط موضوعية وإخراج كارتوغرافي احترافي جاهز للطباعة والنشر.', en: 'Thematic maps and professional cartographic layouts.' } },
-  { id: 'st-analysis', slug: 'spatial-analysis', icon: 'Layers', pricing: 'custom', price: null, unit: null, requiresLocation: true, isAcademic: false, requiresDeliverable: true,
+  { id: 'st-analysis', slug: 'spatial-analysis', icon: 'Layers', pricing: 'custom', price: null, unit: null, requiresLocation: true, isAcademic: false, requiresDeliverable: true, isActive: true, position: 4,
     name: { ar: 'التحليل المكاني', en: 'Spatial analysis' },
     description: { ar: 'تحليل الملاءمة والشبكات والكثافة والتغيّر لدعم القرار.', en: 'Suitability, network, density and change analysis.' } },
-  { id: 'st-survey', slug: 'land-survey', icon: 'Ruler', pricing: 'custom', price: null, unit: null, requiresLocation: true, isAcademic: false, requiresDeliverable: true,
+  { id: 'st-survey', slug: 'land-survey', icon: 'Ruler', pricing: 'custom', price: null, unit: null, requiresLocation: true, isAcademic: false, requiresDeliverable: true, isActive: true, position: 5,
     name: { ar: 'الرفع المساحي', en: 'Land surveying' },
     description: { ar: 'رفع ميداني ومعالجة بيانات المساحة وإعداد المخططات.', en: 'Field surveys, data processing and plan preparation.' } },
-  { id: 'st-convert', slug: 'data-conversion', icon: 'FileCog', pricing: 'fixed', price: 99, unit: { ar: 'للملف', en: 'per file' }, requiresLocation: false, isAcademic: false, requiresDeliverable: true,
+  { id: 'st-convert', slug: 'data-conversion', icon: 'FileCog', pricing: 'fixed', price: 99, unit: { ar: 'للملف', en: 'per file' }, requiresLocation: false, isAcademic: false, requiresDeliverable: true, isActive: true, position: 6,
     name: { ar: 'تحويل البيانات', en: 'Data conversion' },
     description: { ar: 'من CAD إلى GIS، وإصلاح الإحداثيات، وتنظيف البيانات وتحويل الصيغ.', en: 'CAD to GIS, coordinate fixes, data cleaning and format conversion.' } },
 ]
@@ -148,7 +160,23 @@ const event = (type: RequestEvent['type'], from: string | null, to: string | nul
 })
 
 const demoApi: ServicesApi = {
-  listServiceTypes: () => delay(demoTypes),
+  listServiceTypes: () => delay(demoTypes.filter((t) => t.isActive).sort((a, b) => a.position - b.position)),
+  adminServiceTypes: () => delay([...demoTypes].sort((a, b) => a.position - b.position)),
+  async saveServiceType(id, patch) {
+    const t = demoTypes.find((x) => x.id === id)
+    if (!t) throw new Error('service type not found')
+    Object.assign(t, patch)
+    await delay(null)
+  },
+  async latestMessages(ids) {
+    const out: Record<string, LatestMessage> = {}
+    for (const r of loadDemo()) {
+      if (!ids.includes(r.id)) continue
+      const m = [...r.messages].reverse().find((x) => !x.isInternal)
+      if (m) out[r.id] = { body: m.body, fromClient: m.senderId === r.clientId, createdAt: m.createdAt }
+    }
+    return delay(out)
+  },
 
   async createRequest(input) {
     const type = demoTypes.find((t) => t.id === input.serviceTypeId)
@@ -269,6 +297,8 @@ const toType = (t: Row): ServiceType => ({
   requiresLocation: t.requires_location,
   isAcademic: t.is_academic,
   requiresDeliverable: t.requires_deliverable ?? true,
+  isActive: t.is_active ?? true,
+  position: t.position ?? 0,
 })
 
 const SUMMARY_COLS =
@@ -406,6 +436,49 @@ const supabaseApi: ServicesApi = {
   async listTeam() {
     const rows = must(await supabase.from('profiles').select('id, full_name, email').in('role', ['team', 'admin']).order('full_name')) as Row[]
     return rows.map((r) => ({ id: r.id, name: r.full_name || r.email }))
+  },
+
+  async adminServiceTypes() {
+    const rows = must(await supabase.from('service_types').select('*').order('position')) as Row[]
+    return rows.map(toType)
+  },
+
+  async saveServiceType(id, p) {
+    must(
+      await supabase
+        .from('service_types')
+        .update({
+          name_ar: p.name.ar.trim(),
+          name_en: p.name.en.trim(),
+          description_ar: p.description.ar.trim(),
+          description_en: p.description.en.trim(),
+          pricing: p.pricing,
+          price: p.price,
+          unit_ar: p.unit?.ar.trim() || null,
+          unit_en: p.unit?.en.trim() || null,
+          is_active: p.isActive,
+          position: p.position,
+        })
+        .eq('id', id),
+    )
+  },
+
+  async latestMessages(ids) {
+    const out: Record<string, LatestMessage> = {}
+    if (!ids.length) return out
+    const rows = must(
+      await supabase
+        .from('request_messages')
+        .select('request_id, sender_id, body, created_at, service_requests(client_id)')
+        .in('request_id', ids)
+        .eq('is_internal', false)
+        .order('created_at', { ascending: false }),
+    ) as Row[]
+    for (const m of rows) {
+      if (out[m.request_id]) continue
+      out[m.request_id] = { body: m.body, fromClient: m.sender_id === m.service_requests?.client_id, createdAt: m.created_at }
+    }
+    return out
   },
 }
 

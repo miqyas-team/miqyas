@@ -1,19 +1,25 @@
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { Mail } from 'lucide-react'
+import { Mail, MessageSquareText } from 'lucide-react'
 import { LogoMark } from './Logo'
 import { SocialIcon } from './SocialIcons'
 import { contact } from '../data/home'
+import { paymentsApi } from '../payments/api'
+import { useAsync } from './ui'
 
 const socials = [
   { key: 'x', label: 'X', href: contact.x },
   { key: 'linkedin', label: 'LinkedIn', href: contact.linkedin },
   { key: 'instagram', label: 'Instagram', href: contact.instagram },
-  { key: 'whatsapp', label: 'WhatsApp', href: contact.whatsapp },
 ] as const
 
 export function Footer() {
   const { t } = useTranslation()
+  // بيانات التواصل من «المدفوعات ← البنك والمنشأة» في لوحة الإدارة
+  const settings = useAsync(() => paymentsApi.getSettings(), [])
+  const email = settings.data?.contact_email || contact.email
+  const waNumber = (settings.data?.contact_whatsapp || contact.whatsapp).replace(/\D/g, '').replace(/^0(?=5)/, '966')
+  const liveSocials = socials.filter((s) => s.href)
 
   const columns = [
     {
@@ -65,24 +71,44 @@ export function Footer() {
 
         <div>
           <h2 className="text-sm font-semibold text-white">{t('footer.contact')}</h2>
-          <a href={`mailto:${contact.email}`} className="mt-4 inline-flex items-center gap-2 text-sm hover:text-white" dir="ltr">
-            <Mail className="h-4 w-4" /> {contact.email}
-          </a>
-          <ul className="mt-5 flex gap-2">
-            {socials.map((s) => (
-              <li key={s.key}>
-                <a
-                  href={s.href || '#'}
-                  aria-label={s.label}
-                  target={s.href ? '_blank' : undefined}
-                  rel="noopener noreferrer"
-                  className="grid h-10 w-10 place-items-center rounded-full bg-white/10 text-white transition hover:bg-secondary"
-                >
-                  <SocialIcon name={s.key} />
+          <ul className="mt-4 space-y-2.5 text-sm">
+            {email && (
+              <li>
+                <a href={`mailto:${email}`} className="inline-flex items-center gap-2 hover:text-white" dir="ltr">
+                  <Mail className="h-4 w-4" /> {email}
                 </a>
               </li>
-            ))}
+            )}
+            {waNumber && (
+              <li>
+                <a href={`https://wa.me/${waNumber}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 hover:text-white">
+                  <SocialIcon name="whatsapp" /> {t('footer.whatsapp')}
+                </a>
+              </li>
+            )}
+            <li>
+              <Link to="/contact" className="inline-flex items-center gap-2 hover:text-white">
+                <MessageSquareText className="h-4 w-4" /> {t('footer.contactPage')}
+              </Link>
+            </li>
           </ul>
+          {liveSocials.length > 0 && (
+            <ul className="mt-5 flex gap-2">
+              {liveSocials.map((s) => (
+                <li key={s.key}>
+                  <a
+                    href={s.href}
+                    aria-label={s.label}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="grid h-10 w-10 place-items-center rounded-full bg-white/10 text-white transition hover:bg-secondary"
+                  >
+                    <SocialIcon name={s.key} />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       </div>
       <div className="border-t border-white/10">
