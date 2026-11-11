@@ -263,6 +263,16 @@ ok((await q(`select * from storage.objects where bucket_id = 'receipts'`)).lengt
 await as(admin)
 ok((await q(`select * from storage.objects where bucket_id = 'receipts'`)).length === 1, 'admin reads receipts')
 
+/* ═══════════ 8. صلاحيات تنفيذ الدوال ═══════════ */
+await as(null)
+await throws(() => q(`select public.admin_stats(6)`), 'permission denied', 'visitors cannot call admin functions')
+await throws(() => q(`select public.enroll(gen_random_uuid(), null)`), 'permission denied', 'visitors cannot call enroll')
+await throws(() => q(`select public.has_role(array['admin']::public.app_role[])`), 'permission denied', 'visitors cannot call internal helpers')
+ok(Array.isArray(await q(`select * from public.verify_certificate('XXXX')`)), 'visitors can still verify certificates')
+ok((await q(`select * from public.courses`)).length >= 0 && (await q(`select * from public.service_types`)).length > 0, 'visitor reads (courses, services) still work under RLS')
+await as(student)
+await throws(() => q(`select public.handle_new_user()`), 'permission denied|trigger', 'trigger functions cannot be called directly')
+
 /* ═══════════ النتيجة ═══════════ */
 console.log(`\n${passed} passed, ${failures.length} failed`)
 for (const f of failures) console.log('  ✗ ' + f)

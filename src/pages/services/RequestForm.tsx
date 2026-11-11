@@ -22,9 +22,11 @@ function tomorrow() {
 
 export function RequestForm() {
   const types = useAsync(() => servicesApi.listServiceTypes(), [])
+  const [params] = useSearchParams()
   if (types.loading) return <Spinner />
   if (types.error || !types.data) return <ErrorState onRetry={types.reload} />
-  return <Form types={types.data} />
+  // المفتاح يعيد تهيئة النموذج إذا تغيّرت الخدمة/البرنامج في الرابط دون مغادرة الصفحة
+  return <Form key={`${params.get('type') ?? ''}|${params.get('software') ?? ''}`} types={types.data} />
 }
 
 type Errors = Partial<Record<'type' | 'title' | 'description' | 'location' | 'pledge' | 'files', string>>
