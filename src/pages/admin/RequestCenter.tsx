@@ -1,7 +1,11 @@
 import { useMemo, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { ChevronDown, ClipboardList, Download, FileCheck2, Mail, Receipt, Timer, UserX } from 'lucide-react'
+import { ChevronDown, ClipboardList, Download, FileCheck2, Flag, Mail, Receipt, Timer, UserX } from 'lucide-react'
+import { communityApi, type ForumReport } from '../../community/api'
+import { paymentsApi, type Payment } from '../../payments/api'
+import { ReceiptReview } from '../payments/AdminPayments'
+import { contactApi, type ContactMessage } from '../../contact/api'
 import { adminApi, type SubmissionRow } from '../../admin/api'
 import { servicesApi } from '../../services/api'
 import type { RequestSummary } from '../../services/types'
@@ -11,7 +15,7 @@ import { pick, useLang } from '../../lib/lang'
 import { AdminNav } from './AdminNav'
 import { StatusChip } from '../services/shared'
 
-type Tab = 'assignments' | 'requests' | 'receipts' | 'contact'
+type Tab = 'assignments' | 'requests' | 'reports' | 'receipts' | 'contact'
 
 function ageLabel(iso: string, lang: 'ar' | 'en') {
   const hours = Math.floor((Date.now() - new Date(iso).getTime()) / 3_600_000)
@@ -29,6 +33,11 @@ export function RequestCenter() {
 
   const subs = useAsync(() => adminApi.listSubmissions(), [])
   const reqs = useAsync(() => (isAdmin ? servicesApi.staffRequests('all') : Promise.resolve([] as RequestSummary[])), [isAdmin])
+  const reports = useAsync(() => (isAdmin ? communityApi.listReports() : Promise.resolve([] as ForumReport[])), [isAdmin])
+  const pays = useAsync(() => (isAdmin ? paymentsApi.listPayments() : Promise.resolve([] as Payment[])), [isAdmin])
+  const pendingPays = (pays.data ?? []).filter((p) => p.status === 'pending_review')
+  const msgs = useAsync(() => (isAdmin ? contactApi.list() : Promise.resolve([] as ContactMessage[])), [isAdmin])
+  const openMsgs = (msgs.data ?? []).filter((m) => !m.handled)
 
   const pendingSubs = (subs.data ?? []).filter((s) => s.status === 'submitted')
   const actionable = (reqs.data ?? []).filter((r) => r.status !== 'completed' && r.status !== 'cancelled')
@@ -41,8 +50,9 @@ export function RequestCenter() {
     ...(isAdmin
       ? [
           { key: 'requests' as const, label: t('center.tabs.requests'), count: needsAction.length, icon: ClipboardList },
-          { key: 'receipts' as const, label: t('center.tabs.receipts'), icon: Receipt },
-          { key: 'contact' as const, label: t('center.tabs.contact'), icon: Mail },
+          { key: 'reports' as const, label: t('center.tabs.reports'), count: reports.data?.length ?? 0, icon: Flag },
+          { key: 'receipts' as const, label: t('center.tabs.receipts'), count: pendingPays.length, icon: Receipt },
+          { key: 'contact' as const, label: t('center.tabs.contact'), count: openMsgs.length, icon: Mail },
         ]
       : []),
   ]
@@ -86,8 +96,16 @@ export function RequestCenter() {
             (subs.loading && !subs.data ? <Spinner /> : subs.error ? <ErrorState onRetry={subs.reload} /> : <Assignments rows={subs.data ?? []} onGraded={subs.reload} />)}
           {tab === 'requests' &&
             (reqs.loading && !reqs.data ? <Spinner /> : reqs.error ? <ErrorState onRetry={reqs.reload} /> : <RequestsTab rows={needsAction} overdue={overdue} onChange={reqs.reload} />)}
-          {tab === 'receipts' && <Alert tone="info">{t('center.soon.receipts')}</Alert>}
-          {tab === 'contact' && <Alert tone="info">{t('center.soon.contact')}</Alert>}
+          {tab === 'reports' &&
+            (reports.loading && !reports.data ? <Spinner /> : reports.error ? <ErrorState onRetry={reports.reload} /> : <ReportsTab rows={reports.data ?? []} onChange={reports.reload} />)}
+          {tab === 'receipts' &&
+            (pays.loading && !pays.data ? <Spinner /> : pays.error ? <ErrorState onRetry={pays.reload} /> : pendingPays.length === 0 ? (
+              <div className="rounded-card border border-dashed border-primary/20 bg-white/60 p-10 text-center text-muted">{t('center.receiptsEmpty')}</div>
+            ) : (
+              <div className="space-y-3">{pendingPays.map((p) => <ReceiptReview key={p.id} p={p} onDone={pays.reload} />)}</div>
+            ))}
+          {tab === 'contact' &&
+            (msgs.loading && !msgs.data ? <Spinner /> : msgs.error ? <ErrorState onRetry={msgs.reload} /> : <ContactTab rows={msgs.data ?? []} onChange={msgs.reload} />)}
         </div>
       </section>
     </>
@@ -265,5 +283,84 @@ function RequestsTab({ rows, overdue, onChange }: { rows: RequestSummary[]; over
       ))}
       <li className="pt-1 text-xs text-muted">{t('center.req.hint')} <Link to="/admin/requests" className="font-semibold text-primary underline">{t('admin.nav.requests')}</Link></li>
     </ul>
+  )
+}
+
+/* ───────── بلاغات المنتدى ───────── */
+function ReportsTab({ rows, onChange }: { rows: ForumReport[]; onChange: () => void }) {
+  const { t } = useTranslation()
+  const lang = useLang()
+  const [busy, setBusy] = useState<string | null>(null)
+
+  async function act(r: ForumReport, hide: boolean) {
+    setBusy(r.id)
+    try {
+      if (hide) await communityApi.setHidden(r.replyId ? 'reply' : 'thread', r.replyId ?? r.threadId, true)
+      await communityApi.resolveReport(r.id)
+      onChange()
+    } finally {
+      setBusy(null)
+    }
+  }
+
+  if (!rows.length) return <div className="rounded-card border border-dashed border-primary/20 bg-white/60 p-10 text-center text-muted">{t('center.reports.empty')}</div>
+  return (
+    <ul className="space-y-2">
+      {rows.map((r) => (
+        <li key={r.id} className="rounded-card border border-red-100 bg-white p-4">
+          <div className="flex flex-wrap items-start justify-between gap-2">
+            <div className="min-w-0">
+              <Link to={`/community/${r.threadId}`} className="font-semibold hover:text-primary hover:underline">{r.threadTitle}</Link>
+              <p className="text-xs text-muted">{t(r.replyId ? 'center.reports.onReply' : 'center.reports.onThread')} · {ageLabel(r.createdAt, lang)}</p>
+            </div>
+            <div className="flex gap-2">
+              <Button className="px-3 py-1.5 text-xs" loading={busy === r.id} onClick={() => act(r, true)}>{t('center.reports.hide')}</Button>
+              <Button variant="outline" className="px-3 py-1.5 text-xs" disabled={busy === r.id} onClick={() => act(r, false)}>{t('center.reports.dismiss')}</Button>
+            </div>
+          </div>
+          <blockquote className="mt-3 rounded-xl bg-sand px-3 py-2 text-sm text-ink/80" dir="auto">{r.excerpt}</blockquote>
+          <p className="mt-2 text-sm"><span className="font-semibold text-red-600">{t('center.reports.reason')}: </span>{r.reason}</p>
+        </li>
+      ))}
+    </ul>
+  )
+}
+/* ───────── رسائل التواصل ───────── */
+function ContactTab({ rows, onChange }: { rows: ContactMessage[]; onChange: () => void }) {
+  const { t } = useTranslation()
+  const lang = useLang()
+  const [showAll, setShowAll] = useState(false)
+  const list = showAll ? rows : rows.filter((m) => !m.handled)
+  return (
+    <div className="space-y-3">
+      <label className="inline-flex items-center gap-2 text-sm">
+        <input type="checkbox" className="accent-primary" checked={showAll} onChange={(e) => setShowAll(e.target.checked)} /> {t('center.contact.showHandled')}
+      </label>
+      {list.length === 0 ? (
+        <div className="rounded-card border border-dashed border-primary/20 bg-white/60 p-10 text-center text-muted">{t('center.contact.empty')}</div>
+      ) : (
+        <ul className="space-y-2">
+          {list.map((m) => (
+            <li key={m.id} className={`rounded-card border bg-white p-4 ${m.handled ? 'border-primary/10 opacity-60' : 'border-primary/20'}`}>
+              <div className="flex flex-wrap items-start justify-between gap-2">
+                <div>
+                  <p className="font-semibold">{m.name} <span className="ms-1 rounded-full bg-sand px-2 py-0.5 text-[11px] font-normal">{t(`contact.topics.${m.topic}`)}</span></p>
+                  <p className="text-xs text-muted">
+                    <a href={`mailto:${m.email}`} className="underline" dir="ltr">{m.email}</a>
+                    {m.phone && <span dir="ltr"> · {m.phone}</span>} · {ageLabel(m.createdAt, lang)}
+                  </p>
+                </div>
+                {!m.handled && (
+                  <Button variant="outline" className="px-3 py-1.5 text-xs" onClick={async () => { await contactApi.markHandled(m.id); onChange() }}>
+                    {t('center.contact.markHandled')}
+                  </Button>
+                )}
+              </div>
+              <p className="mt-3 whitespace-pre-line text-sm" dir="auto">{m.message}</p>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
   )
 }

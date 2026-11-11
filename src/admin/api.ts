@@ -178,6 +178,9 @@ function must<T>(res: { data: T; error: { message: string } | null }): T {
 const supabaseApi: AdminApi = {
   async getStats() {
     const r = must(await supabase.rpc('admin_stats', { p_months: 6 })) as Row
+    // بعد ربط الدفع: الإيراد من المدفوعات المؤكدة (admin_revenue)، وإن لم تتوفر الدالة نبقي التقدير
+    const rev = await supabase.rpc('admin_revenue', { p_months: 6 })
+    if (!rev.error && rev.data) r.revenue = rev.data
     return {
       isSample: false,
       users: { total: r.users.total, new30: r.users.new30, byRole: r.users.by_role },

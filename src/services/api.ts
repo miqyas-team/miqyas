@@ -36,22 +36,25 @@ const demoTeam: TeamMember[] = [
 ]
 
 const demoTypes: ServiceType[] = [
-  { id: 'st-grad', slug: 'graduation-guidance', icon: 'GraduationCap', pricing: 'custom', price: null, unit: null, requiresLocation: false, isAcademic: true,
+  { id: 'st-software', slug: 'software-install', icon: 'FileCog', pricing: 'fixed', price: 49, unit: { ar: 'للبرنامج', en: 'per software' }, requiresLocation: false, isAcademic: false, requiresDeliverable: false,
+    name: { ar: 'تحميل وتثبيت البرامج', en: 'Software download & setup' },
+    description: { ar: 'يتواصل معك الدعم الفني في محادثة الطلب، ويساعدك في تحميل البرنامج من مصدره الرسمي وتثبيته وتفعيله.', en: 'Tech support contacts you in the request chat and helps you download the software from its official source, install and activate it.' } },
+  { id: 'st-grad', slug: 'graduation-guidance', icon: 'GraduationCap', pricing: 'custom', price: null, unit: null, requiresLocation: false, isAcademic: true, requiresDeliverable: true,
     name: { ar: 'توجيه مشاريع التخرج', en: 'Graduation project guidance' },
     description: { ar: 'نساعدك في اختيار المنهجية والأدوات، ونراجع خرائطك وتحليلاتك قبل التسليم.', en: 'We help you choose the method and tools, and review your maps and analysis before submission.' } },
-  { id: 'st-consult', slug: 'consulting', icon: 'MessagesSquare', pricing: 'fixed', price: 150, unit: { ar: 'للساعة', en: 'per hour' }, requiresLocation: false, isAcademic: false,
+  { id: 'st-consult', slug: 'consulting', icon: 'MessagesSquare', pricing: 'fixed', price: 150, unit: { ar: 'للساعة', en: 'per hour' }, requiresLocation: false, isAcademic: false, requiresDeliverable: true,
     name: { ar: 'استشارة فنية', en: 'Technical consultation' },
     description: { ar: 'جلسة مع مختص لحل مشكلة أو مراجعة عملك أو الإجابة عن أسئلتك.', en: 'A session with a specialist to fix an issue, review your work or answer your questions.' } },
-  { id: 'st-map', slug: 'mapping', icon: 'Map', pricing: 'custom', price: null, unit: null, requiresLocation: true, isAcademic: false,
+  { id: 'st-map', slug: 'mapping', icon: 'Map', pricing: 'custom', price: null, unit: null, requiresLocation: true, isAcademic: false, requiresDeliverable: true,
     name: { ar: 'رسم الخرائط', en: 'Mapping' },
     description: { ar: 'خرائط موضوعية وإخراج كارتوغرافي احترافي جاهز للطباعة والنشر.', en: 'Thematic maps and professional cartographic layouts.' } },
-  { id: 'st-analysis', slug: 'spatial-analysis', icon: 'Layers', pricing: 'custom', price: null, unit: null, requiresLocation: true, isAcademic: false,
+  { id: 'st-analysis', slug: 'spatial-analysis', icon: 'Layers', pricing: 'custom', price: null, unit: null, requiresLocation: true, isAcademic: false, requiresDeliverable: true,
     name: { ar: 'التحليل المكاني', en: 'Spatial analysis' },
     description: { ar: 'تحليل الملاءمة والشبكات والكثافة والتغيّر لدعم القرار.', en: 'Suitability, network, density and change analysis.' } },
-  { id: 'st-survey', slug: 'land-survey', icon: 'Ruler', pricing: 'custom', price: null, unit: null, requiresLocation: true, isAcademic: false,
+  { id: 'st-survey', slug: 'land-survey', icon: 'Ruler', pricing: 'custom', price: null, unit: null, requiresLocation: true, isAcademic: false, requiresDeliverable: true,
     name: { ar: 'الرفع المساحي', en: 'Land surveying' },
     description: { ar: 'رفع ميداني ومعالجة بيانات المساحة وإعداد المخططات.', en: 'Field surveys, data processing and plan preparation.' } },
-  { id: 'st-convert', slug: 'data-conversion', icon: 'FileCog', pricing: 'fixed', price: 99, unit: { ar: 'للملف', en: 'per file' }, requiresLocation: false, isAcademic: false,
+  { id: 'st-convert', slug: 'data-conversion', icon: 'FileCog', pricing: 'fixed', price: 99, unit: { ar: 'للملف', en: 'per file' }, requiresLocation: false, isAcademic: false, requiresDeliverable: true,
     name: { ar: 'تحويل البيانات', en: 'Data conversion' },
     description: { ar: 'من CAD إلى GIS، وإصلاح الإحداثيات، وتنظيف البيانات وتحويل الصيغ.', en: 'CAD to GIS, coordinate fixes, data cleaning and format conversion.' } },
 ]
@@ -225,7 +228,8 @@ const demoApi: ServicesApi = {
         if (p !== r.price) r.events.push(event('price', r.price?.toString() ?? null, String(p)))
         r.price = p
       }
-      if (to === 'review' && !r.files.some((f) => f.kind === 'deliverable')) throw new Error('deliverable required')
+      const needs = demoTypes.find((t) => t.id === r.serviceTypeId)?.requiresDeliverable ?? true
+      if (to === 'review' && needs && !r.files.some((f) => f.kind === 'deliverable')) throw new Error('deliverable required')
       r.events.push(event('status', r.status, to))
       r.status = to
     })
@@ -264,6 +268,7 @@ const toType = (t: Row): ServiceType => ({
   unit: t.unit_ar || t.unit_en ? L(t, 'unit') : null,
   requiresLocation: t.requires_location,
   isAcademic: t.is_academic,
+  requiresDeliverable: t.requires_deliverable ?? true,
 })
 
 const SUMMARY_COLS =

@@ -50,6 +50,7 @@ export function UserMenu({ onNavigate }: { onNavigate?: () => void }) {
           <Link to="/app/courses" onClick={go} className="block px-4 py-2 text-sm hover:bg-primary-50">{t('myCourses.title')}</Link>
           <Link to="/app/certificates" onClick={go} className="block px-4 py-2 text-sm hover:bg-primary-50">{t('certificates.title')}</Link>
           <Link to="/app/requests" onClick={go} className="block px-4 py-2 text-sm hover:bg-primary-50">{t('requests.mine')}</Link>
+          <Link to="/app/payments" onClick={go} className="block px-4 py-2 text-sm hover:bg-primary-50">{t('payments.mine')}</Link>
           <Link to="/app/profile" onClick={go} className="block px-4 py-2 text-sm hover:bg-primary-50">{t('profile.title')}</Link>
           {isDemo && (
             <div className="mx-3 my-2 rounded-xl bg-accent-100/70 p-2">

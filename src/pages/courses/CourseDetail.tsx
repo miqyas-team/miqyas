@@ -9,6 +9,7 @@ import { Alert, Button, ErrorState, Spinner, useAsync } from '../../components/u
 import { formatDate, levelStyle, toneClasses } from '../../components/home/CourseCard'
 import { formatPrice, pick, useLang } from '../../lib/lang'
 import { Placeholder } from '../Placeholder'
+import { usePageMeta } from '../../lib/seo'
 
 export function CourseDetail() {
   const { slug = '' } = useParams()
@@ -32,6 +33,7 @@ function CourseView({ course, enrollment, onEnrolled }: { course: Course; enroll
   const lessons = course.modules.flatMap((m) => m.lessons)
   const totalMin = lessons.reduce((n, l) => n + (l.durationMin ?? 0), 0)
   const enrolled = enrollment === 'active' || enrollment === 'completed'
+  usePageMeta(pick(course.title, lang), pick(course.summary, lang))
 
   return (
     <>
@@ -219,7 +221,14 @@ function EnrollCard({ course, enrollment, onEnrolled }: { course: Course; enroll
       </Link>
     )
   } else if (enrollment === 'pending_payment') {
-    action = <Alert tone="info">{t('courses.enroll.pendingPayment')}</Alert>
+    action = (
+      <div className="space-y-2">
+        <Alert tone="info">{t('courses.enroll.pendingPayment')}</Alert>
+        <Link to={`/app/checkout/course/${course.id}`} className="block rounded-full bg-accent py-3 text-center font-semibold text-white hover:brightness-95">
+          {t('payments.payNow')}
+        </Link>
+      </div>
+    )
   } else if (isLive && openCohorts.length === 0) {
     action = waitlisted ? (
       <Alert tone="success">{t('courses.enroll.waitlisted')}</Alert>

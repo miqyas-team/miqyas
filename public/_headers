@@ -1,0 +1,10 @@
+# ترويسات Cloudflare Pages (الأمان والتخزين المؤقت)
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: DENY
+  Permissions-Policy: camera=(), microphone=(), geolocation=(self)
+  Strict-Transport-Security: max-age=63072000; includeSubDomains
+
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable

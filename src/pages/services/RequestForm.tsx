@@ -1,4 +1,4 @@
-import { useMemo, useState, type FormEvent } from 'react'
+import { useEffect, useMemo, useState, type FormEvent } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { CheckCircle2, FileUp, MapPin, Paperclip, X } from 'lucide-react'
@@ -7,6 +7,7 @@ import { ACCEPTED_FILES, MAX_FILE_MB, type ServiceType } from '../../services/ty
 import { Alert, Button, ErrorState, Spinner, useAsync } from '../../components/ui'
 import { GisViewer, type LatLng, type ViewerFile } from '../../components/map/GisViewer'
 import { isPreviewable } from '../../components/map/gisFiles'
+import { softwareApi } from '../../software/api'
 import { pick, useLang } from '../../lib/lang'
 import { formatSize, PriceLabel, ServiceIcon } from './shared'
 
@@ -46,6 +47,18 @@ function Form({ types }: { types: ServiceType[] }) {
   const [busy, setBusy] = useState(false)
 
   const type = useMemo(() => types.find((x) => x.id === typeId) ?? null, [types, typeId])
+
+  // قادم من صفحة البرامج: نعبّئ العنوان والوصف باسم البرنامج
+  const softwareSlug = params.get('software')
+  useEffect(() => {
+    if (!softwareSlug) return
+    softwareApi.listSoftware('public').then((list) => {
+      const sw = list.find((x) => x.slug === softwareSlug)
+      if (!sw) return
+      setTitle((v) => v || t('requests.form.softwareTitle', { name: sw.name }))
+      setDescription((v) => v || t('requests.form.softwareBody', { name: sw.name }))
+    })
+  }, [softwareSlug, t])
   // ملفات GIS المرفقة تُعرض على خريطة الموقع قبل الإرسال
   const gisFiles = useMemo<ViewerFile[]>(
     () => files.filter((f) => isPreviewable(f.name)).map((f) => ({ key: `${f.name}-${f.size}-${f.lastModified}`, name: f.name, source: f })),

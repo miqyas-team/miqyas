@@ -1,8 +1,10 @@
 import { Outlet, ScrollRestoration } from 'react-router-dom'
 import { Header } from './Header'
 import { Footer } from './Footer'
+import { useRouteTitle } from '../lib/seo'
 
 export function Layout() {
+  useRouteTitle()
   return (
     <div className="flex min-h-screen flex-col">
       <Header />

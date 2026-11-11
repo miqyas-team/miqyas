@@ -16,6 +16,8 @@ export interface ServiceType {
   unit: Localized | null
   requiresLocation: boolean
   isAcademic: boolean
+  /** false للدعم الفني: يُغلق الطلب دون ملفات نهائية */
+  requiresDeliverable: boolean
 }
 
 export interface RequestFile {

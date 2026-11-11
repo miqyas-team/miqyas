@@ -268,8 +268,9 @@ create policy "service_types: admin write" on public.service_types for all to au
   using (public.is_admin()) with check (public.is_admin());
 
 -- الطلب: صاحبه، والعضو المسند، والمدير. الإنشاء للعميل نفسه، والتعديل عبر الدوال.
+-- الأعمدة مباشرة (لا can_access_request): الدالة لا ترى الصف أثناء insert ... returning
 create policy "requests: read" on public.service_requests for select to authenticated
-  using (public.can_access_request(id));
+  using (client_id = auth.uid() or assigned_to = auth.uid() or public.is_admin());
 create policy "requests: client insert" on public.service_requests for insert to authenticated
   with check (client_id = auth.uid());
 create policy "requests: admin update" on public.service_requests for update to authenticated

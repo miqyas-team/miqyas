@@ -106,7 +106,9 @@ function RequestView({ r, as, reload }: { r: Detail; as: Perspective; reload: ()
 
           <FilesSection title={t('requests.detail.inputs')} files={inputs} empty={t('requests.detail.noInputs')} />
 
-          <DeliverablesSection r={r} as={as} files={deliverables} reload={reload} />
+          {(r.serviceType.requiresDeliverable || deliverables.length > 0 || staff) && (
+            <DeliverablesSection r={r} as={as} files={deliverables} reload={reload} />
+          )}
 
           <Conversation r={r} as={as} reload={reload} />
         </div>
@@ -158,7 +160,10 @@ function ClientBanner({ r, reload }: { r: Detail; reload: () => void }) {
         <div className="rounded-card border-2 border-accent/50 bg-accent-100/40 p-5">
           <p className="text-sm text-muted">{t('requests.client.amountDue')}</p>
           <p className="text-3xl font-bold text-ink">{price}</p>
-          <p className="mt-2 text-sm">{t('requests.client.paymentSoon')}</p>
+          <p className="mt-2 text-sm">{t('requests.client.paymentHow')}</p>
+          <Link to={`/app/checkout/request/${r.id}`} className="mt-4 inline-block rounded-full bg-accent px-6 py-2.5 font-semibold text-white hover:brightness-95">
+            {t('payments.payNow')}
+          </Link>
         </div>
       )}
       {r.status === 'in_progress' && <Alert tone="success">{t('requests.client.inProgress')}</Alert>}
@@ -431,7 +436,11 @@ function StaffPanel({ r, as, reload }: { r: Detail; as: Perspective; reload: () 
                 </Button>
               ))}
           </div>
-          {r.status === 'awaiting_payment' && isAdmin && <p className="text-xs text-muted">{t('requests.staff.paymentManual')}</p>}
+          {r.status === 'awaiting_payment' && isAdmin && (
+            <p className="text-xs text-muted">
+              {t('requests.staff.paymentManual')} <Link to="/admin/inbox?tab=receipts" className="font-semibold text-primary underline">{t('center.tabs.receipts')}</Link>
+            </p>
+          )}
         </div>
       )}
       {error && <Alert>{error}</Alert>}

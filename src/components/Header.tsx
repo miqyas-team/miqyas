@@ -8,10 +8,11 @@ import { useAuth } from '../auth/AuthProvider'
 
 const links = [
   { to: '/courses', key: 'nav.courses' },
-  { to: '/software', key: 'nav.software' },
+  { to: '/community', key: 'nav.community' },
+  { to: '/jobs', key: 'nav.jobs' },
   { to: '/services', key: 'nav.services' },
+  { to: '/software', key: 'nav.software' },
   { to: '/map-viewer', key: 'nav.mapViewer' },
-  { to: '/about', key: 'nav.about' },
 ]
 
 export function Header() {
@@ -20,7 +21,7 @@ export function Header() {
   const { session } = useAuth()
 
   const navClass = ({ isActive }: { isActive: boolean }) =>
-    `rounded-full px-3 py-2 text-sm font-medium transition ${
+    `whitespace-nowrap rounded-full px-2.5 py-2 text-sm font-medium transition ${
       isActive ? 'bg-primary-50 text-primary' : 'text-ink/80 hover:text-primary'
     }`
 
@@ -31,7 +32,7 @@ export function Header() {
           <Logo />
         </Link>
 
-        <nav className="hidden items-center gap-1 md:flex">
+        <nav className="hidden items-center gap-0.5 lg:flex">
           {links.map((l) => (
             <NavLink key={l.to} to={l.to} className={navClass}>
               {t(l.key)}
@@ -39,7 +40,7 @@ export function Header() {
           ))}
         </nav>
 
-        <div className="hidden items-center gap-2 md:flex">
+        <div className="hidden items-center gap-2 lg:flex">
           <LanguageSwitcher />
           {session ? (
             <UserMenu />
@@ -60,7 +61,7 @@ export function Header() {
 
         <button
           type="button"
-          className="rounded-lg p-2 text-primary md:hidden"
+          className="rounded-lg p-2 text-primary lg:hidden"
           aria-label={t('nav.menu')}
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
@@ -72,7 +73,7 @@ export function Header() {
       </div>
 
       {open && (
-        <div className="border-t border-primary/10 px-4 pb-4 md:hidden">
+        <div className="border-t border-primary/10 px-4 pb-4 lg:hidden">
           <nav className="flex flex-col gap-1 pt-3" onClick={() => setOpen(false)}>
             {links.map((l) => (
               <NavLink key={l.to} to={l.to} className={navClass}>

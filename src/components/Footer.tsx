@@ -20,7 +20,10 @@ export function Footer() {
       title: t('footer.platform'),
       links: [
         { to: '/courses', label: t('nav.courses') },
+        { to: '/community', label: t('nav.community') },
+        { to: '/jobs', label: t('nav.jobs') },
         { to: '/software', label: t('nav.software') },
+        { to: '/map-viewer', label: t('nav.mapViewer') },
         { to: '/services', label: t('nav.services') },
         { to: '/services/request', label: t('hero.requestService') },
       ],

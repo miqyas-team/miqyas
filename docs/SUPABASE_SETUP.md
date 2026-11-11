@@ -11,7 +11,7 @@
 
 ## 2. إنشاء الجداول
 1. من القائمة الجانبية: **SQL Editor** ← **New query**.
-2. انسخ محتوى الملف `supabase/migrations/0001_profiles_and_roles.sql` كاملاً والصقه.
+2. انسخ محتوى الملف `supabase/ALL_MIGRATIONS.sql` كاملاً والصقه (يجمع ملفات `supabase/migrations` كلها بالترتيب).
 3. اضغط **Run**. يجب أن تظهر رسالة `Success`.
 
 ## 3. ربط المنصة بالمشروع

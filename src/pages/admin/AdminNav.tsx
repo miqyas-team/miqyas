@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { BookOpen, ClipboardList, FileCheck2, Inbox, LayoutDashboard, Users } from 'lucide-react'
+import { BookOpen, Briefcase, ClipboardList, FileCheck2, Inbox, LayoutDashboard, Users, Wallet, Wrench } from 'lucide-react'
 import { useAuth } from '../../auth/AuthProvider'
 
 /** شريط تنقّل لوحات الإدارة والمدرّب */
@@ -15,6 +15,9 @@ export function AdminNav() {
         { to: '/admin/inbox', end: false, icon: Inbox, label: t('areas.inbox') },
         { to: '/admin/requests', end: false, icon: ClipboardList, label: t('admin.nav.requests') },
         { to: '/admin/courses', end: false, icon: BookOpen, label: t('admin.nav.courses') },
+        { to: '/admin/payments', end: false, icon: Wallet, label: t('admin.nav.payments') },
+        { to: '/admin/jobs', end: false, icon: Briefcase, label: t('admin.nav.jobs') },
+        { to: '/admin/software', end: false, icon: Wrench, label: t('nav.software') },
         { to: '/admin/users', end: false, icon: Users, label: t('admin.nav.users') },
       ]
     : [

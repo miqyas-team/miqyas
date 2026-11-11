@@ -101,6 +101,11 @@ export function Home() {
         />
         {courses.loading ? (
           <Spinner />
+        ) : featured.length === 0 ? (
+          <div className="rounded-card border border-dashed border-primary/20 bg-white/60 p-10 text-center text-muted">
+            {t('home.courses.soon')}{' '}
+            <Link to="/services" className="font-semibold text-primary underline">{t('nav.services')}</Link>
+          </div>
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {featured.map((c) => (

@@ -2,10 +2,12 @@ import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useAuth } from '../auth/AuthProvider'
 import { dashboardPath } from '../lib/types'
+import { usePageMeta } from '../lib/seo'
 
 export function Forbidden() {
   const { t } = useTranslation()
   const { role } = useAuth()
+  usePageMeta(t('auth.forbiddenTitle'))
   return (
     <section className="mx-auto max-w-md px-4 py-24 text-center">
       <p className="text-5xl">🔒</p>

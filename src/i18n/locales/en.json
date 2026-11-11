@@ -10,7 +10,9 @@
     "login": "Log in",
     "register": "Sign up",
     "menu": "Menu",
-    "mapViewer": "Map viewer"
+    "mapViewer": "Map viewer",
+    "community": "Community",
+    "jobs": "Opportunities"
   },
   "hero": {
     "badge": "A Saudi platform for GIS & surveying",
@@ -175,7 +177,8 @@
       "lessons_other": "{{count}} lessons",
       "sessions_one": "{{count}} session",
       "sessions_other": "{{count}} sessions",
-      "startsAt": "Cohort starts {{date}}"
+      "startsAt": "Cohort starts {{date}}",
+      "soon": "Our first courses are on the way! Meanwhile, you can request our"
     },
     "services": {
       "eyebrow": "Services",
@@ -293,7 +296,7 @@
       "loginToEnroll": "Log in to enroll",
       "continue": "Continue learning",
       "review": "Review course",
-      "pendingPayment": "Your enrollment is awaiting payment. You'll see bank transfer instructions, and the course opens once payment is confirmed.",
+      "pendingPayment": "Your enrollment is awaiting payment. Transfer the amount and upload the receipt; the course opens once confirmed.",
       "vatNote": "Price includes VAT",
       "chooseCohort": "Choose a cohort",
       "seatsLeft_one": "{{count}} seat left",
@@ -397,7 +400,9 @@
       "courses": "Courses",
       "requests": "Service requests",
       "users": "Users",
-      "grading": "Grading"
+      "grading": "Grading",
+      "jobs": "Opportunities",
+      "payments": "Payments"
     },
     "courses": {
       "title": "Manage courses",
@@ -641,7 +646,9 @@
         "pledge": "You must accept the pledge for this service"
       },
       "filesOnMap_one": "{{count}} GIS file from your attachments is shown on the map",
-      "filesOnMap_other": "{{count}} GIS files from your attachments are shown on the map"
+      "filesOnMap_other": "{{count}} GIS files from your attachments are shown on the map",
+      "softwareTitle": "Download & set up {{name}}",
+      "softwareBody": "I’d like to download and install {{name}}.\nOperating system: \nDo I have a license (student/trial/paid)? \nWhat I’ll use it for: "
     },
     "detail": {
       "description": "Request details",
@@ -672,7 +679,8 @@
       "revise": "Request changes",
       "completed": "Request completed. Thank you for choosing Miqyas!",
       "cancel": "Cancel request",
-      "confirmCancel": "Cancel this request?"
+      "confirmCancel": "Cancel this request?",
+      "paymentHow": "Transfer the amount to Miqyas’s bank account and upload the receipt; work starts once it’s confirmed."
     },
     "staff": {
       "title": "Team actions",
@@ -681,7 +689,7 @@
       "priceHint": "Sent to the client; the request moves to “Awaiting payment”.",
       "assign": "Assign to",
       "moveTo": "Move request to",
-      "paymentManual": "Payment is confirmed manually until bank transfer/payments are connected (command 7).",
+      "paymentManual": "Payments are usually confirmed from",
       "uploadDeliverables": "Upload final files",
       "needDeliverable": "Upload at least one final file before sending for review.",
       "needPrice": "Set the price first.",
@@ -816,7 +824,8 @@
       "assignments": "Assignments",
       "requests": "Service requests",
       "receipts": "Transfer receipts",
-      "contact": "Contact messages"
+      "contact": "Contact messages",
+      "reports": "Forum reports"
     },
     "summary": {
       "grading": "Awaiting review",
@@ -859,6 +868,358 @@
       "empty": "No requests need action right now.",
       "overdue": "Overdue",
       "hint": "Shows new, quoting, unassigned and overdue requests. For all requests:"
+    },
+    "reports": {
+      "empty": "No open reports.",
+      "onThread": "Report on a question",
+      "onReply": "Report on a reply",
+      "hide": "Hide content",
+      "dismiss": "Dismiss",
+      "reason": "Reason"
+    },
+    "receiptsEmpty": "No receipts awaiting review.",
+    "contact": {
+      "empty": "No new messages.",
+      "showHandled": "Show handled messages",
+      "markHandled": "Mark handled"
     }
+  },
+  "community": {
+    "title": "Miqyas Community",
+    "subtitle": "Ask, share your experience and help others with GIS and surveying.",
+    "ask": "Ask a question",
+    "search": "Search questions…",
+    "filters": {
+      "all": "All",
+      "unanswered": "Unanswered"
+    },
+    "empty": "No questions yet. Be the first to ask!",
+    "noResults": "No matching results.",
+    "member": "Member",
+    "badge": {
+      "team": "Miqyas team",
+      "instructor": "Instructor"
+    },
+    "replies_one": "reply",
+    "replies_other": "replies",
+    "lastActivity": "Last activity {{when}}",
+    "locked": "Locked",
+    "hidden": "Hidden",
+    "hiddenNote": "This post is hidden from members.",
+    "back": "Back to community",
+    "tips": "To get a faster answer: write a precise title, mention the software, its version and the coordinate system, and attach a screenshot or a small file showing the problem.",
+    "noReplies": "No replies yet. Share what you know!",
+    "yourReply": "Your reply",
+    "loginToReply": "to join the discussion.",
+    "lockedNote": "This topic is locked and doesn’t accept new replies.",
+    "showMap": "Show files on the map",
+    "hideMap": "Hide map",
+    "form": {
+      "title": "Question title",
+      "titlePh": "e.g. QGIS — layer appears in the wrong place after import",
+      "body": "Details",
+      "bodyPh": "Explain what you tried, what happened, and what you expected…",
+      "replyPh": "Write your reply…",
+      "publish": "Post question",
+      "reply": "Post reply",
+      "attach": "Attach images or files",
+      "attachHint": "Up to 5 files, {{mb}} MB each. GeoJSON, KML and zipped Shapefiles are shown on the map.",
+      "tooLarge": "{{name}} is larger than {{mb}} MB",
+      "titleShort": "Write a clearer title (at least 5 characters)",
+      "bodyShort": "Write at least {{n}} characters"
+    },
+    "report": {
+      "button": "Report",
+      "reason": "Why are you reporting this?",
+      "send": "Send",
+      "thanks": "Thanks — the team received your report."
+    },
+    "mod": {
+      "hide": "Hide",
+      "unhide": "Unhide",
+      "lock": "Lock",
+      "unlock": "Unlock",
+      "confirmDeleteThread": "Delete this question and all its replies?",
+      "confirmDeleteReply": "Delete this reply?"
+    }
+  },
+  "jobs": {
+    "title": "Jobs & co-op training",
+    "subtitle": "GIS and surveying jobs and co-op training, collected by the Miqyas team from trusted sources.",
+    "search": "Search by title, organization, city or major",
+    "kind": {
+      "job": "Job",
+      "coop": "Co-op training"
+    },
+    "mode": {
+      "onsite": "On-site",
+      "remote": "Remote",
+      "hybrid": "Hybrid"
+    },
+    "until": "Apply by {{date}}",
+    "closed": "Closed",
+    "showClosed": "Show closed opportunities",
+    "empty": "No open opportunities right now. Check back soon.",
+    "back": "Back to opportunities",
+    "description": "Description",
+    "requirements": "Requirements",
+    "majors": "Suitable majors",
+    "apply": "Apply on the organization’s site",
+    "applyEmail": "Apply by email",
+    "noApply": "Application details coming soon.",
+    "closedNote": "Applications for this opportunity are closed.",
+    "externalNote": "You apply directly with the organization; Miqyas doesn’t collect CVs.",
+    "boost": "Boost your chances with practical, verifiable certificates.",
+    "disclaimer": "We post opportunities as received from organizations; verify details with them before applying, and never pay fees to get hired.",
+    "admin": {
+      "title": "Opportunities",
+      "subtitle": "Add and edit jobs and co-op training posts.",
+      "new": "New opportunity",
+      "edit": "Edit opportunity",
+      "back": "Back to opportunities",
+      "empty": "No opportunities yet.",
+      "kind": "Type",
+      "mode": "Work mode",
+      "jobTitle": "Title",
+      "organization": "Organization",
+      "city": "City",
+      "majorsHint": "comma separated",
+      "apply": "Application link or email",
+      "applyHint": "https link or email address",
+      "deadline": "Application deadline",
+      "required": "Title, organization and description are required",
+      "confirmDelete": "Delete this opportunity?"
+    }
+  },
+  "software": {
+    "title": "Software & tools",
+    "subtitle": "Key GIS and surveying software — our tech support helps you download it from official sources and install it — plus practice data and open data sources.",
+    "officialOnly": "Downloads go through our tech support, from official sources only.",
+    "search": "Search software…",
+    "license": {
+      "free": "Free",
+      "trial": "Free trial",
+      "student": "Student license",
+      "paid": "Paid"
+    },
+    "category": {
+      "desktop": "Desktop",
+      "web": "Web",
+      "library": "Programming",
+      "survey": "Surveying & CAD",
+      "remote_sensing": "Remote sensing"
+    },
+    "os": {
+      "windows": "Windows",
+      "mac": "macOS",
+      "linux": "Linux",
+      "web": "Browser"
+    },
+    "howToInstall": "Install steps",
+    "learnIt": "Learn it with us:",
+    "download": "Download from the official site",
+    "officialPage": "Official page",
+    "datasets": {
+      "title": "Practice data",
+      "subtitle": "Ready-made files to practice what you learn — preview them on the map before downloading.",
+      "empty": "Practice data coming soon.",
+      "download": "Download",
+      "preview": "Preview on map"
+    },
+    "plugins": {
+      "title": "Useful QGIS plugins",
+      "items": {
+        "qms": "One-click base maps (OSM, satellite…).",
+        "quickosm": "Download OpenStreetMap data straight into your project.",
+        "scp": "Classify and analyze satellite imagery.",
+        "qgis2web": "Export your map as an interactive web page.",
+        "mmqgis": "Handy tools: conversion, merging, geocoding."
+      }
+    },
+    "sources": {
+      "title": "Open data sources",
+      "items": {
+        "osm": "The open world map: roads, buildings, points of interest.",
+        "geofabrik": "Ready OSM extracts for GCC countries in GIS formats.",
+        "usgs": "Landsat imagery and digital elevation models.",
+        "copernicus": "Free European Sentinel imagery.",
+        "naturalearth": "Small-scale country and city boundaries.",
+        "ksa": "The Saudi government open data portal."
+      }
+    },
+    "admin": {
+      "title": "Software & data",
+      "subtitle": "Manage the software list and official links, and practice data files.",
+      "software": "Software",
+      "addSoftware": "Add software",
+      "addDataset": "Add dataset",
+      "name": "Name",
+      "category": "Category",
+      "licenseLabel": "License",
+      "os": "Platforms",
+      "description": "Description",
+      "url": "Official download link",
+      "urlHint": "https only",
+      "position": "Order",
+      "courses": "Related courses",
+      "coursesHint": "slugs, comma separated",
+      "required": "Name, slug and both descriptions are required",
+      "httpsOnly": "The link must start with https://",
+      "confirmDelete": "Delete this item?",
+      "datasetTitle": "Title",
+      "region": "Region",
+      "format": "Format",
+      "dataLicense": "License",
+      "file": "Upload file",
+      "externalUrl": "Or external link",
+      "fileOrUrl": "Upload a file or add a link"
+    },
+    "requestDownload": "Request download & setup",
+    "supportPrice": "{{price}} — tech support contacts you in a chat",
+    "supportNote": "Tech support contacts you in a chat"
+  },
+  "payments": {
+    "payNow": "Pay now",
+    "mine": "My payments",
+    "empty": "No payments yet.",
+    "status": {
+      "pending_review": "Under review",
+      "confirmed": "Confirmed",
+      "rejected": "Rejected"
+    },
+    "kindCourse": "Course",
+    "kindRequest": "Service request",
+    "checkoutTitle": "Pay by bank transfer",
+    "checkoutSubtitle": "Transfer the amount to our account, then upload the receipt for us to confirm.",
+    "step1": "1. Transfer to this account",
+    "step2": "2. Upload the transfer receipt",
+    "bank": "Bank",
+    "accountName": "Account name",
+    "copy": "Copy",
+    "copied": "Copied",
+    "noBank": "Bank details haven’t been added yet. Please contact us.",
+    "transferNote": "Transfer exactly {{amount}}, and add your name to the transfer note if possible.",
+    "pickReceipt": "Choose the receipt image or PDF",
+    "receiptHint": "Image or PDF up to {{mb}} MB",
+    "chooseReceipt": "Choose the receipt file first",
+    "tooLarge": "The file is larger than {{mb}} MB",
+    "submit": "Send receipt",
+    "reviewNote": "We usually review receipts within one business day and notify you once confirmed.",
+    "already": "You already sent a receipt for this and it’s under review.",
+    "previousRejected": "Your previous receipt was rejected: {{reason}}. Please upload a valid receipt.",
+    "forCourse": "Course enrollment",
+    "forRequest": "Service request",
+    "price": "Price",
+    "discount": "Discount ({{pct}}%)",
+    "total": "Total",
+    "vatIncluded": "Includes 15% VAT",
+    "couponPh": "Discount code",
+    "apply": "Apply",
+    "couponApplied": "Code {{code}} applied",
+    "couponErrors": {
+      "invalid": "Invalid code",
+      "expired": "This code has expired",
+      "used_up": "This code has reached its usage limit",
+      "scope": "This code doesn’t apply here"
+    },
+    "submittedTitle": "Receipt received",
+    "submittedText": "We’re reviewing your {{amount}} transfer and will activate it once confirmed.",
+    "nothingTitle": "Nothing to pay here",
+    "rejectedReason": "Receipt rejected: {{reason}}",
+    "retry": "Upload a new receipt",
+    "invoice": "Invoice",
+    "admin": {
+      "title": "Payments",
+      "tabs": {
+        "log": "Payment log",
+        "coupons": "Coupons",
+        "settings": "Bank & business"
+      },
+      "receipt": "Receipt",
+      "openReceipt": "Open receipt",
+      "checkBank": "Make sure {{amount}} reached the account before confirming.",
+      "reasonPh": "Rejection reason (required to reject)",
+      "reasonRequired": "Write a reason so the client knows what to fix",
+      "confirm": "Confirm payment",
+      "reject": "Reject",
+      "review": "Review",
+      "confirmedTotal": "Confirmed total",
+      "vatTotal": "VAT collected",
+      "pendingCount": "Awaiting review",
+      "col": {
+        "item": "Item",
+        "date": "Date"
+      },
+      "newCoupon": "New coupon",
+      "code": "Code",
+      "percent": "Discount %",
+      "scopeLabel": "Applies to",
+      "scope": {
+        "all": "All",
+        "courses": "Courses",
+        "services": "Services"
+      },
+      "maxUses": "Max uses",
+      "expires": "Expires on",
+      "note": "Note",
+      "active": "Active",
+      "inactive": "Inactive",
+      "uses": "{{used}}/{{max}} uses",
+      "codeRule": "Code: 3–30 uppercase letters or digits",
+      "pctRule": "Percentage must be 1–100",
+      "codeTaken": "This code already exists",
+      "settingsTitle": "Business and bank details",
+      "settingsHint": "Bank details show on the checkout page; business details show on the tax invoice.",
+      "fixFields": "Fix the fields marked in red",
+      "ibanRule": "A Saudi IBAN is SA followed by 22 digits",
+      "vatRule": "The VAT number is 15 digits starting and ending with 3",
+      "fields": {
+        "seller_name": "Business name",
+        "vat_number": "VAT number",
+        "cr_number": "Commercial registration",
+        "seller_address": "Address",
+        "bank_name": "Bank name",
+        "bank_account_name": "Account holder name",
+        "bank_iban": "IBAN",
+        "contact_email": "Contact email",
+        "contact_whatsapp": "WhatsApp number"
+      }
+    }
+  },
+  "about": {
+    "title": "About Miqyas",
+    "lead": "Miqyas is a Saudi platform specialized in GIS and surveying. We teach through hands-on practice, deliver GIS services with a specialist team, and build a community where students and professionals share experience.",
+    "mission": {
+      "title": "Our mission",
+      "text": "Make learning and mastering GIS accessible in Arabic, practical, and backed by verifiable certificates."
+    },
+    "what": {
+      "title": "What we offer",
+      "text": "Recorded and live courses, GIS and surveying services, software support, a free map viewer, and job and training opportunities."
+    },
+    "who": {
+      "title": "Who it’s for",
+      "text": "University students, professionals, and anyone who needs a map or spatial analysis for their project."
+    },
+    "cta": "Start your journey with us today."
+  },
+  "contact": {
+    "title": "Contact us",
+    "subtitle": "A question, suggestion or partnership? Write to us and we’ll reply soon.",
+    "topic": "Topic",
+    "topics": {
+      "general": "General inquiry",
+      "courses": "Courses",
+      "services": "Services",
+      "partnership": "Partnership",
+      "other": "Other"
+    },
+    "message": "Your message",
+    "messageShort": "Write a message of at least 10 characters",
+    "send": "Send",
+    "sentTitle": "Message received",
+    "sentText": "Thanks for reaching out — we’ll reply to your email soon.",
+    "privacy": "We use your data only to reply to your message. See our",
+    "faq": "For technical GIS questions, ask in the"
   }
 }
