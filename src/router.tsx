@@ -31,7 +31,6 @@ const P = {
   myCourses: page(() => import('./pages/courses/MyCourses'), 'MyCourses'),
   myCertificates: page(() => import('./pages/courses/MyCourses'), 'MyCertificates'),
   certificate: page(() => import('./pages/courses/CertificateView'), 'CertificateView'),
-  verify: page(() => import('./pages/courses/Verify'), 'Verify'),
   dashboard: page(() => import('./pages/account/Dashboard'), 'Dashboard'),
   profile: page(() => import('./pages/account/Profile'), 'Profile'),
   mapViewer: page(() => import('./pages/MapViewerPage'), 'MapViewerPage'),
@@ -83,8 +82,6 @@ export const router = createBrowserRouter([
       // الدورات
       { path: '/courses', element: P.coursesList(), handle: t('nav.courses') },
       { path: '/courses/:slug', element: P.courseDetail() },
-      { path: '/verify', element: P.verify(), handle: t('verify.title') },
-      { path: '/verify/:code', element: P.verify(), handle: t('verify.title') },
 
       // عامة
       { path: '/map-viewer', element: P.mapViewer(), handle: t('viewer.title') },

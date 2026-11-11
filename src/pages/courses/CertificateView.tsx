@@ -1,8 +1,6 @@
-import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import QRCode from 'qrcode'
-import { Printer } from 'lucide-react'
+import { Award, Printer } from 'lucide-react'
 import { coursesApi } from '../../courses/api'
 import { LogoMark } from '../../components/Logo'
 import { Spinner, useAsync } from '../../components/ui'
@@ -17,15 +15,9 @@ export function CertificateView() {
   const { code = '' } = useParams()
   const { t } = useTranslation()
   const cert = useAsync(() => coursesApi.verifyCertificate(code), [code])
-  const [qr, setQr] = useState('')
-  const verifyUrl = `${window.location.origin}/verify/${code.toUpperCase()}`
-
-  useEffect(() => {
-    QRCode.toString(verifyUrl, { type: 'svg', margin: 0, color: { dark: '#0F5E4E', light: '#00000000' } }).then(setQr)
-  }, [verifyUrl])
 
   if (cert.loading) return <Spinner />
-  if (!cert.data) return <Placeholder titleKey="verify.invalidTitle" notFound />
+  if (!cert.data) return <Placeholder titleKey="certificates.notFound" notFound />
   const c = cert.data
 
   return (
@@ -69,9 +61,9 @@ export function CertificateView() {
                 <p className="mt-3 text-muted">رقم الشهادة</p>
                 <p className="font-mono font-semibold tracking-wider" dir="ltr">{c.code}</p>
               </div>
-              <div className="flex flex-col items-center">
-                <div className="h-24 w-24" dangerouslySetInnerHTML={{ __html: qr }} />
-                <p className="mt-2 text-[11px] text-muted" dir="ltr">{verifyUrl.replace(/^https?:\/\//, '')}</p>
+              {/* ختم زخرفي */}
+              <div className="grid h-24 w-24 place-items-center rounded-full border-[3px] border-double border-accent text-accent">
+                <Award className="h-11 w-11" />
               </div>
               <div className="text-end text-sm">
                 <div className="mb-2 h-px w-40 bg-ink/40" />

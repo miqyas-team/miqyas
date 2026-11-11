@@ -22,7 +22,6 @@ import {
   ReceiptText,
   Ruler,
   Send,
-  ShieldCheck,
   Users,
   Wrench,
 } from 'lucide-react'
@@ -38,7 +37,7 @@ import { Spinner, useAsync } from '../components/ui'
 const serviceIcons = { GraduationCap, MessagesSquare, Map: MapIcon, Layers, Ruler, FileCog }
 const reasonIcons = { arabic: Languages, practical: Wrench, certificate: Award, team: Users }
 const trustPoints = [
-  { key: 'verified', icon: ShieldCheck },
+  { key: 'verified', icon: Award },
   { key: 'invoice', icon: ReceiptText },
   { key: 'support', icon: Headset },
 ] as const

@@ -17,14 +17,14 @@
   "hero": {
     "badge": "A Saudi platform for GIS and surveying",
     "title": "Learn GIS and master it",
-    "subtitle": "Hands-on ArcGIS, QGIS and Python training with verifiable certificates, plus professional GIS services delivered by a specialist team from idea to delivery.",
+    "subtitle": "Hands-on ArcGIS, QGIS and Python training with completion certificates, plus professional GIS services delivered by a specialist team from idea to delivery.",
     "browseCourses": "Browse courses",
     "requestService": "Request a service"
   },
   "pillars": {
     "courses": {
       "title": "Recorded & live courses",
-      "text": "Beginner to advanced, with quizzes, practical exercises and a verifiable certificate."
+      "text": "Beginner to advanced, with quizzes, practical exercises and a completion certificate."
     },
     "services": {
       "title": "GIS services",
@@ -134,7 +134,7 @@
     "soon": "This dashboard's content is built in the next stages.",
     "tiles": {
       "myCourses": "Follow your courses and progress",
-      "certificates": "Your issued certificates and verification codes",
+      "certificates": "Your issued certificates",
       "manageCourses": "Add, edit and publish courses",
       "inbox": "Incoming requests and assignments",
       "instructorCourses": "Edit your courses’ content and questions",
@@ -154,7 +154,7 @@
         "certify": "Get certified"
       },
       "cardCourse": "Your course progress",
-      "cardCert": "Verifiable certificate"
+      "cardCert": "Completion certificate"
     },
     "courses": {
       "eyebrow": "Courses",
@@ -233,8 +233,8 @@
           "text": "Exercises on real-world data, assessed and reviewed by the instructor."
         },
         "certificate": {
-          "title": "Verifiable certificates",
-          "text": "Every certificate carries a QR code employers can verify instantly."
+          "title": "Completion certificate",
+          "text": "Earn a completion certificate in your name once you meet the course requirements, ready to print."
         },
         "team": {
           "title": "Specialist team",
@@ -253,7 +253,7 @@
       "primary": "Create a free account"
     },
     "trust": {
-      "verified": "QR-verifiable certificates",
+      "verified": "Course completion certificates",
       "invoice": "E-invoice with VAT",
       "support": "Arabic tech support"
     },
@@ -290,8 +290,8 @@
           "a": "By bank transfer to the company account; then upload the receipt on the payment page. Once verified, your request or course is activated and you receive a VAT e-invoice."
         },
         "cert": {
-          "q": "Can certificates be verified?",
-          "a": "Yes. Certificates are issued after completing the course requirements and carry a unique code and QR code anyone can verify on the platform."
+          "q": "When do I get my certificate?",
+          "a": "After completing the lessons, passing the quizzes and getting your exercises approved, a completion certificate is issued in your name to download and print from your account."
         },
         "price": {
           "q": "How are services priced?",
@@ -321,7 +321,7 @@
           "points": [
             "Hands-on courses from basics to mastery",
             "Guidance and review for graduation projects",
-            "Verifiable certificates for your CV"
+            "Completion certificates for your CV"
           ],
           "cta": "Start learning"
         },
@@ -380,7 +380,7 @@
       "hasQuiz": "Quiz",
       "hasAssignment": "Practical exercise",
       "certificateRule": "You earn the certificate after completing all lessons, passing every quiz with {{score}}% or more, and getting your exercises approved.",
-      "certificateIncluded": "Verifiable completion certificate",
+      "certificateIncluded": "Completion certificate",
       "quizzesIncluded": "Quizzes and practical exercises",
       "instructor": "Instructor"
     },
@@ -416,7 +416,7 @@
     "previewNote": "This is a free preview lesson. Enroll to unlock all lessons, quizzes and the certificate.",
     "enrollNow": "Enroll now",
     "completeTitle": "You've met all course requirements 🎉",
-    "completeText": "Your certificate is ready to issue with a verification code.",
+    "completeText": "Your certificate is ready to issue.",
     "claimCertificate": "Issue my certificate",
     "viewCertificate": "View certificate",
     "claimError": "Requirements not met yet. Make sure all lessons, quizzes and exercises are done.",
@@ -458,22 +458,8 @@
     "open": "Open",
     "back": "Back to my certificates",
     "download": "Download PDF / Print",
-    "printHint": "In the print dialog choose \"Save as PDF\", landscape, and enable \"Background graphics\"."
-  },
-  "verify": {
-    "title": "Verify a certificate",
-    "subtitle": "Enter the certificate number or scan its QR code.",
-    "codeLabel": "Certificate number",
-    "check": "Verify",
-    "valid": "Valid certificate issued by Miqyas",
-    "name": "Trainee",
-    "course": "Course",
-    "hours": "Hours",
-    "issued": "Issued",
-    "code": "Certificate no.",
-    "viewCertificate": "View certificate",
-    "invalidTitle": "No certificate found with this number",
-    "invalidText": "Check that the number is typed correctly."
+    "printHint": "In the print dialog choose \"Save as PDF\", landscape, and enable \"Background graphics\".",
+    "notFound": "Certificate not found"
   },
   "footer": {
     "platform": "Platform",
@@ -1067,7 +1053,7 @@
     "noApply": "Application details coming soon.",
     "closedNote": "Applications for this opportunity are closed.",
     "externalNote": "You apply directly with the organization; Miqyas doesn’t collect CVs.",
-    "boost": "Boost your chances with practical, verifiable certificates.",
+    "boost": "Boost your chances with practical GIS certificates.",
     "disclaimer": "We post opportunities as received from organizations; verify details with them before applying, and never pay fees to get hired.",
     "admin": {
       "title": "Opportunities",
@@ -1289,7 +1275,7 @@
     "lead": "Miqyas is a Saudi platform specialized in GIS and surveying. We teach through hands-on practice, deliver geospatial services with a team of specialists, and bring students and professionals together in one community.",
     "mission": {
       "title": "Our mission",
-      "text": "Enable students and professionals to master GIS with practical Arabic content and verifiable certificates, and deliver accurate geospatial solutions that support projects and decisions."
+      "text": "Enable students and professionals to master GIS with practical Arabic content and completion certificates, and deliver accurate geospatial solutions that support projects and decisions."
     },
     "what": {
       "title": "What we offer",
@@ -1313,7 +1299,7 @@
       "items": {
         "training": {
           "title": "Training",
-          "text": "Recorded and live courses in structured paths, with exercises, assessment and verifiable certificates."
+          "text": "Recorded and live courses in structured paths, with exercises, assessment and completion certificates."
         },
         "services": {
           "title": "GIS services",

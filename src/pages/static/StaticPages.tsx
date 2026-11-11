@@ -305,7 +305,7 @@ export function TermsPage() {
         <H>Accounts</H>
         <UL items={['Provide accurate information and keep your password confidential.', 'You are responsible for activity on your account.']} />
         <H>Courses and certificates</H>
-        <UL items={['Paid courses open once payment is confirmed. Access is personal and may not be shared.', 'Certificates are issued after completing all requirements and can be verified by anyone via their code.', 'Course content is owned by the platform and may not be copied or redistributed.']} />
+        <UL items={['Paid courses open once payment is confirmed. Access is personal and may not be shared.', 'A completion certificate is issued after completing all course requirements.', 'Course content is owned by the platform and may not be copied or redistributed.']} />
         <H>Services</H>
         <UL items={['Services are delivered by the Miqyas team after payment is confirmed, within the agreed scope.', 'Academic services are limited to guidance, coaching and review; we do not complete academic work on a student’s behalf.', 'Software setup support uses official sources only; licenses remain the user’s responsibility.']} />
         <H>Payments and refunds</H>
@@ -325,7 +325,7 @@ export function TermsPage() {
       <H>الحسابات</H>
       <UL items={['تقديم بيانات صحيحة، والمحافظة على سرية كلمة المرور.', 'أنت مسؤول عن أي نشاط يتم عبر حسابك.']} />
       <H>الدورات والشهادات</H>
-      <UL items={['تُفتح الدورات المدفوعة بعد تأكيد الدفع، والوصول شخصي ولا يجوز مشاركته.', 'تصدر الشهادة بعد استيفاء جميع المتطلبات، ويمكن لأي جهة التحقق منها برمزها.', 'محتوى الدورات مملوك للمنصة، ولا يجوز نسخه أو إعادة نشره.']} />
+      <UL items={['تُفتح الدورات المدفوعة بعد تأكيد الدفع، والوصول شخصي ولا يجوز مشاركته.', 'تصدر شهادة الإتمام بعد استيفاء جميع متطلبات الدورة.', 'محتوى الدورات مملوك للمنصة، ولا يجوز نسخه أو إعادة نشره.']} />
       <H>الخدمات</H>
       <UL items={['ينفّذ فريق مقياس الخدمات بعد تأكيد الدفع وضمن النطاق المتفق عليه.', 'الخدمات الأكاديمية تقتصر على المساعدة والتوجيه والمراجعة، ولا ننفّذ الأعمال الأكاديمية نيابة عن الطالب.', 'دعم تثبيت البرامج يتم من المصادر الرسمية فقط، والتراخيص مسؤولية المستخدم.']} />
       <H>المدفوعات والاسترداد</H>
