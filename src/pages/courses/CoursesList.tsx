@@ -5,6 +5,7 @@ import { Search, X } from 'lucide-react'
 import { coursesApi } from '../../courses/api'
 import type { CourseSummary } from '../../courses/types'
 import { CourseCard } from '../../components/home/CourseCard'
+import { CoursesComingSoon } from '../../components/home/CoursesComingSoon'
 import { ErrorState, Spinner, useAsync } from '../../components/ui'
 import { pick, useLang } from '../../lib/lang'
 
@@ -65,6 +66,7 @@ export function CoursesList() {
   }, [data, q, level, format, price, sw, lang])
 
   const hasFilters = Boolean(q || level || format || price || sw)
+  const catalogEmpty = !loading && !error && (data ?? []).length === 0
 
   return (
     <>
@@ -72,7 +74,7 @@ export function CoursesList() {
         <div className="mx-auto max-w-6xl px-4 py-12">
           <h1 className="text-3xl font-bold text-primary md:text-4xl">{t('courses.listTitle')}</h1>
           <p className="mt-2 max-w-2xl text-muted">{t('courses.listSubtitle')}</p>
-          <label className="relative mt-6 block max-w-xl">
+          <label className={`relative mt-6 max-w-xl ${catalogEmpty ? 'hidden' : 'block'}`}>
             <span className="sr-only">{t('courses.search')}</span>
             <Search className="pointer-events-none absolute start-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted" />
             <input
@@ -92,6 +94,10 @@ export function CoursesList() {
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-10">
+        {catalogEmpty ? (
+          <CoursesComingSoon />
+        ) : (
+        <>
         <div className="space-y-3">
           <div className="flex flex-wrap items-center gap-2">
             <span className="w-20 text-sm font-semibold text-muted">{t('courses.filters.level')}</span>
@@ -99,12 +105,14 @@ export function CoursesList() {
               <Chip key={l} active={level === l} onClick={() => set('level', l)}>{t(`home.courses.level.${l}`)}</Chip>
             ))}
           </div>
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="w-20 text-sm font-semibold text-muted">{t('courses.filters.software')}</span>
-            {softwareOptions.map((s) => (
-              <Chip key={s} active={sw === s} onClick={() => set('software', s)}><span dir="ltr">{s}</span></Chip>
-            ))}
-          </div>
+          {softwareOptions.length > 0 && (
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="w-20 text-sm font-semibold text-muted">{t('courses.filters.software')}</span>
+              {softwareOptions.map((s) => (
+                <Chip key={s} active={sw === s} onClick={() => set('software', s)}><span dir="ltr">{s}</span></Chip>
+              ))}
+            </div>
+          )}
           <div className="flex flex-wrap items-center gap-2">
             <span className="w-20 text-sm font-semibold text-muted">{t('courses.filters.type')}</span>
             {FORMATS.map((f) => (
@@ -140,6 +148,8 @@ export function CoursesList() {
               <CourseCard key={c.id} course={c} />
             ))}
           </div>
+        )}
+        </>
         )}
       </section>
     </>

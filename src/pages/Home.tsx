@@ -4,6 +4,9 @@ import {
   ArrowRight,
   Award,
   BadgeCheck,
+  BriefcaseBusiness,
+  Building2,
+  CheckCircle2,
   ChevronDown,
   Download,
   FileCog,
@@ -26,6 +29,7 @@ import {
 import { HeroIllustration } from '../components/home/HeroIllustration'
 import { SectionHeading } from '../components/home/SectionHeading'
 import { CourseCard } from '../components/home/CourseCard'
+import { CoursesComingSoon } from '../components/home/CoursesComingSoon'
 import { reasons, services, software, testimonials, testimonialsAreSamples } from '../data/home'
 import { pick, useLang } from '../lib/lang'
 import { coursesApi } from '../courses/api'
@@ -45,6 +49,11 @@ const processSteps = [
   { key: 'deliver', icon: PackageCheck },
 ] as const
 const faqKeys = ['pay', 'price', 'time', 'cert', 'grad', 'software'] as const
+const audiences = [
+  { key: 'students', icon: GraduationCap, to: '/courses' },
+  { key: 'professionals', icon: BriefcaseBusiness, to: '/services/request?type=consulting' },
+  { key: 'organizations', icon: Building2, to: '/services' },
+] as const
 
 const Arrow = () => <ArrowRight className="h-4 w-4 rtl:-scale-x-100" />
 
@@ -53,7 +62,8 @@ export function Home() {
   const lang = useLang()
   const showTestimonials = !testimonialsAreSamples || import.meta.env.DEV
   const courses = useAsync(() => coursesApi.listCourses(), [])
-  const featured = (courses.data ?? []).filter((c) => c.isFeatured).slice(0, 3)
+  const all = courses.data ?? []
+  const featured = (all.some((c) => c.isFeatured) ? all.filter((c) => c.isFeatured) : all).slice(0, 3)
 
   return (
     <>
@@ -102,6 +112,29 @@ export function Home() {
         </div>
       </section>
 
+      {/* ───────── لمن مقياس ───────── */}
+      <section className="border-y border-primary/10 bg-white">
+        <div className="mx-auto max-w-6xl px-4 py-16 md:py-20">
+          <SectionHeading eyebrow={t('home.audience.eyebrow')} title={t('home.audience.title')} text={t('home.audience.text')} />
+          <div className="grid gap-5 md:grid-cols-3">
+            {audiences.map(({ key, icon: Icon, to }) => (
+              <div key={key} className="flex flex-col rounded-card border border-primary/10 bg-sand/50 p-7">
+                <span className="grid h-12 w-12 place-items-center rounded-2xl bg-secondary-100 text-primary"><Icon className="h-6 w-6" /></span>
+                <h3 className="mt-5 text-xl font-bold">{t(`home.audience.items.${key}.title`)}</h3>
+                <ul className="mt-4 flex-1 space-y-2.5 text-sm text-ink/80">
+                  {(t(`home.audience.items.${key}.points`, { returnObjects: true }) as string[]).map((p) => (
+                    <li key={p} className="flex gap-2"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-secondary" /> {p}</li>
+                  ))}
+                </ul>
+                <Link to={to} className="mt-6 inline-flex items-center gap-1.5 font-semibold text-primary hover:gap-2.5 transition-all">
+                  {t(`home.audience.items.${key}.cta`)} <Arrow />
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ───────── أبرز الدورات ───────── */}
       <section className="mx-auto max-w-6xl px-4 py-16 md:py-20">
         <SectionHeading
@@ -117,10 +150,7 @@ export function Home() {
         {courses.loading ? (
           <Spinner />
         ) : featured.length === 0 ? (
-          <div className="rounded-card border border-dashed border-primary/20 bg-white/60 p-10 text-center text-muted">
-            {t('home.courses.soon')}{' '}
-            <Link to="/services" className="font-semibold text-primary underline">{t('nav.services')}</Link>
-          </div>
+          <CoursesComingSoon />
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {featured.map((c) => (

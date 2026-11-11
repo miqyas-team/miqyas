@@ -113,7 +113,13 @@ export function Footer() {
       </div>
       <div className="border-t border-white/10">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-4 py-5 text-xs text-white/50 sm:flex-row">
-          <span>© {new Date().getFullYear()} {t('brand')} — {t('footer.rights')}</span>
+          <span>© {new Date().getFullYear()} {settings.data?.seller_name || t('brand')} — {t('footer.rights')}</span>
+          {(settings.data?.cr_number || settings.data?.vat_number) && (
+            <span className="flex flex-wrap justify-center gap-x-4">
+              {settings.data?.cr_number && <span>{t('footer.cr')}: <span dir="ltr">{settings.data.cr_number}</span></span>}
+              {settings.data?.vat_number && <span>{t('footer.vat')}: <span dir="ltr">{settings.data.vat_number}</span></span>}
+            </span>
+          )}
           <span>{t('footer.tagline')}</span>
         </div>
       </div>

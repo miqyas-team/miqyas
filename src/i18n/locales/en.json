@@ -310,6 +310,40 @@
           "a": "Request the “Software download & setup” service and tech support will contact you in the request chat to help you download from the official source, install and activate it."
         }
       }
+    },
+    "audience": {
+      "eyebrow": "Who is Miqyas for?",
+      "title": "Solutions for every stage of your career",
+      "text": "Whether you are a student building foundations, a professional sharpening your tools, or an organization that needs accurate geospatial outputs.",
+      "items": {
+        "students": {
+          "title": "Students",
+          "points": [
+            "Hands-on courses from basics to mastery",
+            "Guidance and review for graduation projects",
+            "Verifiable certificates for your CV"
+          ],
+          "cta": "Start learning"
+        },
+        "professionals": {
+          "title": "Engineers & specialists",
+          "points": [
+            "Advanced paths in spatial analysis and programming",
+            "Technical consulting for real challenges",
+            "Job and training opportunities in the sector"
+          ],
+          "cta": "Request a consultation"
+        },
+        "organizations": {
+          "title": "Organizations & companies",
+          "points": [
+            "Maps and analysis to support decisions",
+            "Land surveying and data conversion",
+            "Clear quotes and a VAT invoice for every request"
+          ],
+          "cta": "Browse services"
+        }
+      }
     }
   },
   "common": {
@@ -451,7 +485,9 @@
     "terms": "Terms & Conditions",
     "privacy": "Privacy Policy",
     "whatsapp": "WhatsApp",
-    "contactPage": "Message us from the contact page"
+    "contactPage": "Message us from the contact page",
+    "cr": "CR",
+    "vat": "VAT"
   },
   "demo": {
     "switchRole": "Switch role (demo)"
@@ -1250,10 +1286,10 @@
   },
   "about": {
     "title": "About Miqyas",
-    "lead": "Miqyas is a Saudi platform specialized in GIS and surveying. We teach through hands-on practice, deliver GIS services with a specialist team, and build a community where students and professionals share experience.",
+    "lead": "Miqyas is a Saudi platform specialized in GIS and surveying. We teach through hands-on practice, deliver geospatial services with a team of specialists, and bring students and professionals together in one community.",
     "mission": {
       "title": "Our mission",
-      "text": "Make learning and mastering GIS accessible in Arabic, practical, and backed by verifiable certificates."
+      "text": "Enable students and professionals to master GIS with practical Arabic content and verifiable certificates, and deliver accurate geospatial solutions that support projects and decisions."
     },
     "what": {
       "title": "What we offer",
@@ -1263,7 +1299,65 @@
       "title": "Who it’s for",
       "text": "University students, professionals, and anyone who needs a map or spatial analysis for their project."
     },
-    "cta": "Start your journey with us today."
+    "cta": "Let’s start your next project together",
+    "eyebrow": "About us",
+    "headline": "Building GIS skills and delivering GIS solutions, professionally",
+    "vision": {
+      "title": "Our vision",
+      "text": "To be the leading Arabic reference for learning GIS and surveying and their services, and a source of national talent in the field."
+    },
+    "offer": {
+      "title": "What we offer",
+      "text": "An integrated ecosystem that brings learning, practice and services together.",
+      "more": "Learn more",
+      "items": {
+        "training": {
+          "title": "Training",
+          "text": "Recorded and live courses in structured paths, with exercises, assessment and verifiable certificates."
+        },
+        "services": {
+          "title": "GIS services",
+          "text": "Map production, spatial analysis, land surveying, data conversion and technical consulting."
+        },
+        "support": {
+          "title": "Tech support",
+          "text": "Help downloading GIS software from official sources, installing and activating it."
+        },
+        "community": {
+          "title": "Community & jobs",
+          "text": "A forum to share expertise, plus job and co-op opportunities in the sector."
+        }
+      }
+    },
+    "values": {
+      "title": "Our values",
+      "items": {
+        "quality": {
+          "title": "Quality",
+          "text": "Professional-grade outputs, carefully reviewed before delivery."
+        },
+        "integrity": {
+          "title": "Academic integrity",
+          "text": "We guide, review and teach; we never do academic work on a student’s behalf."
+        },
+        "transparency": {
+          "title": "Transparency",
+          "text": "Clear quotes before work starts, live tracking of every stage, and a VAT invoice for every payment."
+        },
+        "privacy": {
+          "title": "Data protection",
+          "text": "We protect your data and files in line with the Personal Data Protection Law."
+        }
+      }
+    },
+    "company": {
+      "title": "Company information",
+      "name": "Trade name",
+      "cr": "Commercial registration",
+      "vat": "VAT number",
+      "address": "Address"
+    },
+    "ctaText": "Send your request today and our team will get back to you shortly."
   },
   "contact": {
     "title": "Contact us",
@@ -1334,5 +1428,13 @@
     "you": "Team",
     "noMessages": "No messages yet — start by welcoming the client.",
     "openChat": "Open chat"
+  },
+  "coursesSoon": {
+    "badge": "Coming soon",
+    "title": "Training programs are being prepared",
+    "text": "We are preparing hands-on learning paths led by specialists, launching soon on the platform. Meanwhile, our team is ready to support your GIS projects.",
+    "tracks": "Planned tracks:",
+    "services": "Browse our services",
+    "register": "Create a free account"
   }
 }

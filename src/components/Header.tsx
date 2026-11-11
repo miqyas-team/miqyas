@@ -26,7 +26,7 @@ export function Header() {
     }`
 
   return (
-    <header className="sticky top-0 z-40 border-b border-primary/10 bg-sand/90 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-primary/10 bg-sand/85 shadow-[0_1px_12px_rgb(15_94_78/0.06)] backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4">
         <Link to="/" aria-label={t('nav.home')}>
           <Logo />
@@ -42,6 +42,12 @@ export function Header() {
 
         <div className="hidden items-center gap-2 lg:flex">
           <LanguageSwitcher />
+          <Link
+            to="/services/request"
+            className="hidden rounded-full bg-accent px-4 py-2 text-sm font-semibold text-white shadow-sm shadow-accent/30 transition hover:brightness-95 xl:inline-flex"
+          >
+            {t('hero.requestService')}
+          </Link>
           {session ? (
             <UserMenu />
           ) : (

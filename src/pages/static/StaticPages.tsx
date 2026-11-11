@@ -1,7 +1,7 @@
 import { useState, type FormEvent, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { CheckCircle2, Mail, MessageCircle, Target, Users, Wrench } from 'lucide-react'
+import { ArrowRight, BadgeCheck, Building2, CheckCircle2, Compass, Eye, GraduationCap, Headset, Layers, Mail, MessageCircle, Scale, ShieldCheck, Target, Users } from 'lucide-react'
 import { contactApi, type ContactTopic } from '../../contact/api'
 import { paymentsApi } from '../../payments/api'
 import { Alert, Button, Field, useAsync } from '../../components/ui'
@@ -30,40 +30,125 @@ function useSeller() {
     whatsapp: data?.contact_whatsapp || '',
     address: data?.seller_address || '',
     cr: data?.cr_number || '',
+    vat: data?.vat_number || '',
+    /** الاسم النظامي كما أُدخل فقط (بلا قيمة افتراضية) لقسم «بيانات المنشأة» */
+    legalName: data?.seller_name || '',
   }
 }
 
 /* ───────── من نحن ───────── */
+const PILLARS = [
+  { key: 'training', icon: GraduationCap, to: '/courses' },
+  { key: 'services', icon: Layers, to: '/services' },
+  { key: 'support', icon: Headset, to: '/software' },
+  { key: 'community', icon: Users, to: '/community' },
+] as const
+const VALUES = [
+  { key: 'quality', icon: BadgeCheck },
+  { key: 'integrity', icon: Scale },
+  { key: 'transparency', icon: Eye },
+  { key: 'privacy', icon: ShieldCheck },
+] as const
+
 export function AboutPage() {
   const { t } = useTranslation()
-  const items = [
-    { icon: Target, key: 'mission' },
-    { icon: Wrench, key: 'what' },
-    { icon: Users, key: 'who' },
-  ] as const
+  const s = useSeller()
+  const legal = [
+    { label: t('about.company.name'), value: s.legalName },
+    { label: t('about.company.cr'), value: s.cr },
+    { label: t('about.company.vat'), value: s.vat },
+    { label: t('about.company.address'), value: s.address },
+  ].filter((x) => x.value)
+
   return (
     <>
-      <section className="contour-bg border-b border-primary/10">
-        <div className="mx-auto max-w-4xl px-4 py-14">
-          <h1 className="text-4xl font-bold text-primary">{t('about.title')}</h1>
-          <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted">{t('about.lead')}</p>
+      {/* المقدمة */}
+      <section className="hero-glow relative overflow-hidden border-b border-primary/10">
+        <div aria-hidden className="contour-bg absolute inset-0" />
+        <div className="relative mx-auto max-w-6xl px-4 py-16 md:py-20">
+          <span className="inline-flex items-center gap-2 text-sm font-semibold text-accent">
+            <span className="dotted-path h-2 w-10" /> {t('about.eyebrow')}
+          </span>
+          <h1 className="mt-3 max-w-3xl text-4xl font-bold leading-tight text-primary md:text-5xl">{t('about.headline')}</h1>
+          <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted">{t('about.lead')}</p>
         </div>
       </section>
-      <section className="mx-auto grid max-w-4xl gap-5 px-4 py-12 md:grid-cols-3">
-        {items.map(({ icon: Icon, key }) => (
-          <div key={key} className="rounded-card border border-primary/10 bg-white p-6">
-            <Icon className="h-8 w-8 text-secondary" />
-            <h2 className="mt-4 text-lg font-bold">{t(`about.${key}.title`)}</h2>
-            <p className="mt-2 text-sm leading-relaxed text-muted">{t(`about.${key}.text`)}</p>
+
+      {/* الرسالة والرؤية */}
+      <section className="mx-auto grid max-w-6xl gap-5 px-4 py-14 md:grid-cols-2">
+        {(['mission', 'vision'] as const).map((k) => (
+          <div key={k} className="rounded-card border border-primary/10 bg-white p-7">
+            <span className="grid h-11 w-11 place-items-center rounded-xl bg-primary-50 text-primary">{k === 'mission' ? <Target className="h-5 w-5" /> : <Compass className="h-5 w-5" />}</span>
+            <h2 className="mt-4 text-xl font-bold">{t(`about.${k}.title`)}</h2>
+            <p className="mt-2 leading-relaxed text-muted">{t(`about.${k}.text`)}</p>
           </div>
         ))}
       </section>
-      <section className="mx-auto max-w-4xl px-4 pb-16">
-        <div className="flex flex-wrap items-center justify-between gap-4 rounded-card bg-primary px-6 py-8 text-white">
-          <p className="text-lg font-semibold">{t('about.cta')}</p>
-          <div className="flex gap-2">
-            <Link to="/courses" className="rounded-full bg-white px-5 py-2.5 font-semibold text-primary">{t('hero.browseCourses')}</Link>
-            <Link to="/contact" className="rounded-full border-2 border-white/40 px-5 py-2 font-semibold">{t('nav.contact')}</Link>
+
+      {/* ما نقدّمه */}
+      <section className="bg-white">
+        <div className="mx-auto max-w-6xl px-4 py-16">
+          <h2 className="text-3xl font-bold text-primary">{t('about.offer.title')}</h2>
+          <p className="mt-2 max-w-2xl text-muted">{t('about.offer.text')}</p>
+          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {PILLARS.map(({ key, icon: Icon, to }) => (
+              <Link key={key} to={to} className="group flex flex-col rounded-card border border-primary/10 bg-sand/60 p-6 transition hover:-translate-y-1 hover:bg-white hover:shadow-xl hover:shadow-primary/10">
+                <span className="grid h-12 w-12 place-items-center rounded-2xl bg-primary text-white transition group-hover:bg-secondary"><Icon className="h-6 w-6" /></span>
+                <h3 className="mt-4 text-lg font-bold">{t(`about.offer.items.${key}.title`)}</h3>
+                <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">{t(`about.offer.items.${key}.text`)}</p>
+                <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
+                  {t('about.offer.more')} <ArrowRight className="h-4 w-4 rtl:-scale-x-100" />
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* القيم */}
+      <section className="relative overflow-hidden bg-ink text-white">
+        <div aria-hidden className="contour-bg absolute inset-0 opacity-30" />
+        <div className="relative mx-auto max-w-6xl px-4 py-16">
+          <h2 className="text-3xl font-bold">{t('about.values.title')}</h2>
+          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {VALUES.map(({ key, icon: Icon }) => (
+              <div key={key} className="rounded-card border border-white/10 bg-white/5 p-6">
+                <Icon className="h-8 w-8 text-secondary" />
+                <h3 className="mt-4 text-lg font-bold">{t(`about.values.items.${key}.title`)}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-white/70">{t(`about.values.items.${key}.text`)}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* بيانات المنشأة */}
+      {legal.length > 0 && (
+        <section className="mx-auto max-w-6xl px-4 pt-14">
+          <div className="rounded-card border border-primary/10 bg-white p-7">
+            <h2 className="flex items-center gap-2 text-xl font-bold"><Building2 className="h-5 w-5 text-secondary" /> {t('about.company.title')}</h2>
+            <dl className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {legal.map((x) => (
+                <div key={x.label}>
+                  <dt className="text-sm text-muted">{x.label}</dt>
+                  <dd className="mt-1 font-semibold" dir="auto">{x.value}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </section>
+      )}
+
+      {/* دعوة */}
+      <section className="mx-auto max-w-6xl px-4 py-14">
+        <div className="flex flex-col items-start justify-between gap-5 rounded-card bg-gradient-to-br from-primary to-primary-700 px-7 py-9 text-white md:flex-row md:items-center">
+          <div>
+            <p className="text-2xl font-bold">{t('about.cta')}</p>
+            <p className="mt-1 text-white/75">{t('about.ctaText')}</p>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            <Link to="/services/request" className="rounded-full bg-white px-5 py-2.5 font-semibold text-primary hover:bg-sand">{t('hero.requestService')}</Link>
+            <Link to="/contact" className="rounded-full border-2 border-white/40 px-5 py-2 font-semibold hover:bg-white/10">{t('nav.contact')}</Link>
           </div>
         </div>
       </section>
