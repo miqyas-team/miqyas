@@ -3,3 +3,6 @@ dist
 .env
 .env.local
 *.log
+dist-preview
+miqyas-preview.zip
+dist-share

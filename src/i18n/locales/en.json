@@ -12,7 +12,20 @@
     "menu": "Menu",
     "mapViewer": "Map viewer",
     "community": "Community",
-    "jobs": "Opportunities"
+    "jobs": "Opportunities",
+    "groups": {
+      "home": "On the home page",
+      "learn": "Learning",
+      "work": "Services & tools",
+      "platform": "Platform"
+    },
+    "sections": {
+      "about": "About Miqyas",
+      "offer": "What Miqyas offers",
+      "why": "Why Miqyas?",
+      "faq": "FAQ"
+    },
+    "close": "Close menu"
   },
   "hero": {
     "badge": "A Saudi platform for GIS and surveying",
@@ -213,7 +226,7 @@
     },
     "software": {
       "title": "Software & tools",
-      "text": "A guide to the key GIS and surveying software, with tech support that downloads it from official sources, installs and activates it on your device.",
+      "text": "A guide to key GIS and surveying software with links to their official sites and install guides.",
       "cta": "Browse software",
       "license": {
         "free": "Free",
@@ -307,7 +320,7 @@
         },
         "software": {
           "q": "How do I get software like ArcGIS or QGIS?",
-          "a": "Request the “Software download & setup” service and tech support will contact you in the request chat to help you download from the official source, install and activate it."
+          "a": "From the Software & tools page: every program has a button that takes you straight to its official site. If you need help downloading or installing, you can request the tech-support service."
         }
       }
     },
@@ -342,6 +355,36 @@
             "Clear quotes and an invoice for every request"
           ],
           "cta": "Browse services"
+        }
+      }
+    },
+    "about": {
+      "eyebrow": "About Miqyas",
+      "title": "A Saudi platform for GIS learning and services",
+      "text": "Miqyas is a platform specialized in GIS and surveying. We help students and professionals master GIS tools with practical Arabic content, and deliver accurate geospatial services through a specialist team.",
+      "more": "Learn more about us"
+    },
+    "offer": {
+      "eyebrow": "What Miqyas offers",
+      "title": "Everything you need in one place",
+      "open": "Details",
+      "soon": "In preparation",
+      "items": {
+        "courses": {
+          "title": "Training courses",
+          "text": "Practical learning tracks in QGIS, ArcGIS Pro, Python and remote sensing."
+        },
+        "services": {
+          "title": "Geospatial services",
+          "text": "Mapping, spatial analysis, land surveying, data conversion and consulting."
+        },
+        "software": {
+          "title": "Software & tools",
+          "text": "A guide to key GIS software with links to their official sites, plus practice datasets."
+        },
+        "community": {
+          "title": "Community & jobs",
+          "text": "Ask specialists your questions and follow job and training opportunities."
         }
       }
     }
@@ -1078,13 +1121,14 @@
   "software": {
     "title": "Software & tools",
     "subtitle": "Key GIS and surveying software — our tech support helps you download it from official sources and install it — plus practice data and open data sources.",
-    "officialOnly": "Downloads go through our tech support, from official sources only.",
+    "officialOnly": "We always send you to the official site of the software or its developer — no indirect links.",
     "search": "Search software…",
     "license": {
       "free": "Free",
       "trial": "Free trial",
       "student": "Student license",
-      "paid": "Paid"
+      "paid": "Paid",
+      "specialized": "Specialized"
     },
     "category": {
       "desktop": "Desktop",
@@ -1126,7 +1170,7 @@
         "osm": "The open world map: roads, buildings, points of interest.",
         "geofabrik": "Ready OSM extracts for GCC countries in GIS formats.",
         "usgs": "Landsat imagery and digital elevation models.",
-        "copernicus": "Free European Sentinel imagery.",
+        "copernicus": "European Sentinel imagery.",
         "naturalearth": "Small-scale country and city boundaries.",
         "ksa": "The Saudi government open data portal."
       }
@@ -1160,7 +1204,10 @@
     },
     "requestDownload": "Request download & setup",
     "supportPrice": "{{price}} — tech support contacts you in a chat",
-    "supportNote": "Tech support contacts you in a chat"
+    "supportNote": "Tech support contacts you in a chat",
+    "officialSite": "Download from the official site",
+    "installHelp": "Need help downloading and installing?",
+    "installHelpPrice": "Optional tech-support service ({{price}})"
   },
   "payments": {
     "payNow": "Pay now",

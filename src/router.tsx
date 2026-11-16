@@ -1,5 +1,8 @@
 import { lazy, Suspense, type ComponentType, type ReactElement } from 'react'
-import { createBrowserRouter } from 'react-router-dom'
+import { createBrowserRouter, createHashRouter } from 'react-router-dom'
+
+/** نسخة المراجعة المستضافة (VITE_HASH_ROUTER=1) تعمل من أي مسار: الروابط بعد علامة # */
+const createRouter = import.meta.env.VITE_HASH_ROUTER === '1' ? createHashRouter : createBrowserRouter
 import { Layout } from './components/Layout'
 import { Spinner } from './components/ui'
 import { Home } from './pages/Home'
@@ -70,7 +73,7 @@ const auth = (el: ReactElement, roles?: ('instructor' | 'team' | 'admin')[]) => 
 /** عنوان الصفحة في المتصفح ومحركات البحث (مفتاح ترجمة) */
 const t = (title: string) => ({ title })
 
-export const router = createBrowserRouter([
+export const router = createRouter([
   // صفحات للطباعة بلا رأس وتذييل
   { path: '/certificates/:code', element: P.certificate(), handle: t('certificates.title') },
   { path: '/invoices/:id', element: auth(P.invoice()), handle: t('payments.invoice') },

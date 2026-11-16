@@ -49,8 +49,8 @@ const demoTeam: TeamMember[] = [
 
 const demoTypes: ServiceType[] = [
   { id: 'st-software', slug: 'software-install', icon: 'FileCog', pricing: 'fixed', price: 49, unit: { ar: 'للبرنامج', en: 'per software' }, requiresLocation: false, isAcademic: false, requiresDeliverable: false, isActive: true, position: 0,
-    name: { ar: 'تحميل وتثبيت البرامج', en: 'Software download & setup' },
-    description: { ar: 'يتواصل معك الدعم الفني في محادثة الطلب، ويساعدك في تحميل البرنامج من مصدره الرسمي وتثبيته وتفعيله.', en: 'Tech support contacts you in the request chat and helps you download the software from its official source, install and activate it.' } },
+    name: { ar: 'مساعدة في تثبيت البرامج', en: 'Software setup help' },
+    description: { ar: 'خدمة اختيارية: يتواصل معك الدعم الفني في محادثة الطلب ويساعدك في تثبيت البرنامج من مصدره الرسمي وتفعيله.', en: 'Optional service: tech support helps you in the request chat to install and activate the software from its official source.' } },
   { id: 'st-grad', slug: 'graduation-guidance', icon: 'GraduationCap', pricing: 'custom', price: null, unit: null, requiresLocation: false, isAcademic: true, requiresDeliverable: true, isActive: true, position: 1,
     name: { ar: 'توجيه مشاريع التخرج', en: 'Graduation project guidance' },
     description: { ar: 'نساعدك في اختيار المنهجية والأدوات، ونراجع خرائطك وتحليلاتك قبل التسليم.', en: 'We help you choose the method and tools, and review your maps and analysis before submission.' } },

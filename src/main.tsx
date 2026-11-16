@@ -25,7 +25,10 @@ function NotConfigured() {
 
 const root = createRoot(document.getElementById('root')!)
 
-if (import.meta.env.PROD && !isSupabaseConfigured) {
+/** نسخة مراجعة للفريق (VITE_DEMO=1): تعمل ببيانات المعاينة بدون Supabase */
+const isTeamPreview = import.meta.env.VITE_DEMO === '1'
+
+if (import.meta.env.PROD && !isSupabaseConfigured && !isTeamPreview) {
   console.error('Miqyas: VITE_SUPABASE_URL / VITE_SUPABASE_ANON_KEY are missing in this build.')
   root.render(<NotConfigured />)
 } else {

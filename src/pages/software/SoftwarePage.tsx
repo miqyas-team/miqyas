@@ -45,12 +45,11 @@ export function SoftwarePage() {
   const types = useAsync(() => servicesApi.listServiceTypes(), [])
   const install = (types.data ?? []).find((s) => s.slug === 'software-install')
   const [q, setQ] = useState('')
-  const [license, setLicense] = useState<SoftwareLicense | 'all'>('all')
 
   const rows = useMemo(() => {
     const needle = q.trim().toLowerCase()
-    return (sw.data ?? []).filter((s) => (license === 'all' || s.license === license) && (!needle || `${s.name} ${s.description.ar} ${s.description.en}`.toLowerCase().includes(needle)))
-  }, [sw.data, q, license])
+    return (sw.data ?? []).filter((s) => (!needle || `${s.name} ${s.description.ar} ${s.description.en}`.toLowerCase().includes(needle)))
+  }, [sw.data, q])
 
   const courseBySlug = useMemo(() => new Map((courses.data ?? []).map((c) => [c.slug, c])), [courses.data])
 
@@ -73,11 +72,6 @@ export function SoftwarePage() {
             <Search className="pointer-events-none absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
             <input type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder={t('software.search')} className="w-full rounded-full border border-primary/15 bg-white py-2.5 pe-4 ps-9 text-sm outline-none focus:border-secondary focus:ring-4 focus:ring-secondary/20" />
           </label>
-          {(['all', 'free', 'trial', 'student', 'paid'] as const).map((l) => (
-            <button key={l} type="button" aria-pressed={license === l} onClick={() => setLicense(l)} className={`rounded-full px-3 py-2 text-sm font-medium ${license === l ? 'bg-primary text-white' : 'border border-primary/15 bg-white'}`}>
-              {l === 'all' ? t('requests.filters.all') : t(`software.license.${l}`)}
-            </button>
-          ))}
         </div>
 
         <div className="mt-6">
@@ -154,7 +148,8 @@ function SoftwareCard({ s, price, courseTitle }: { s: Software; price: number | 
         <div className="min-w-0 flex-1">
           <h3 className="text-lg font-bold" dir="ltr">{s.name}</h3>
           <div className="mt-1 flex flex-wrap items-center gap-1.5">
-            <span className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${licenseStyle[s.license]}`}>{t(`software.license.${s.license}`)}</span>
+            {/* لا نعرض «مجاني» — الشارة للبرامج التجريبية والمدفوعة فقط */}
+            {s.license !== 'free' && <span className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${licenseStyle[s.license]}`}>{t(`software.license.${s.license}`)}</span>}
             <span className="rounded-full bg-sand px-2.5 py-0.5 text-xs">{t(`software.category.${s.category}`)}</span>
             <span className="inline-flex items-center gap-1 text-xs text-muted">
               {s.os.includes('web') ? <Globe className="h-3.5 w-3.5" /> : <Monitor className="h-3.5 w-3.5" />}
@@ -195,16 +190,23 @@ function SoftwareCard({ s, price, courseTitle }: { s: Software; price: number | 
         </div>
       )}
 
-      {/* التحميل عبر الدعم الفني: طلب خدمة بسعر ثابت ومحادثة مع الفريق */}
-      <Link
-        to={`/services/request?type=software-install&software=${encodeURIComponent(s.slug)}`}
-        className="mt-5 inline-flex items-center justify-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-white hover:bg-primary-700"
-      >
-        <Download className="h-4 w-4" /> {t('software.requestDownload')}
-      </Link>
-      <p className="mt-2 flex items-center justify-center gap-1.5 text-center text-xs text-muted">
-        <Headset className="h-3.5 w-3.5" />
-        {price !== null ? t('software.supportPrice', { price: lang === 'ar' ? `${price} ر.س` : `SAR ${price}` }) : t('software.supportNote')}
+      {/* الزر الرئيسي: صفحة التحميل الرسمية مباشرة (بدون أي سعر) */}
+      {s.downloadUrl ? (
+        <a
+          href={s.downloadUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-5 inline-flex items-center justify-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-white hover:bg-primary-700"
+        >
+          <ExternalLink className="h-4 w-4" /> {t('software.officialSite')}
+        </a>
+      ) : null}
+      {/* مساعدة اختيارية في التحميل والتثبيت — سعر الخدمة لا سعر البرنامج */}
+      <p className="mt-2 flex flex-wrap items-center justify-center gap-1 text-center text-xs text-muted">
+        <Headset className="h-3.5 w-3.5" /> {t('software.installHelp')}{' '}
+        <Link to={`/services/request?type=software-install&software=${encodeURIComponent(s.slug)}`} className="font-semibold text-primary hover:underline">
+          {price !== null ? t('software.installHelpPrice', { price: lang === 'ar' ? `${price} ر.س` : `SAR ${price}` }) : t('software.supportNote')}
+        </Link>
       </p>
     </article>
   )

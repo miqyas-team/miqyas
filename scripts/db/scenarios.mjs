@@ -245,14 +245,14 @@ await throws(() => q(`insert into public.forum_replies (thread_id, author_id, bo
 
 /* ═══════════ 6. الفرص والبرامج والتواصل والإعدادات ═══════════ */
 await as(null)
-ok((await q(`select * from public.software`)).length === 8, 'visitors see the software list')
-ok((await q(`select * from public.software_links`)).length === 0, 'visitors cannot read official download links')
+ok((await q(`select * from public.software`)).length === 7, 'visitors see the software list (student-license programs hidden)')
+ok((await q(`select * from public.software_links`)).length === 7, 'visitors read official download links of published software')
 await as(student)
-ok((await q(`select * from public.software_links`)).length === 0, 'students cannot read official download links')
+ok((await q(`select * from public.software_links`)).length === 7, 'students read official download links')
 await throws(() => q(`insert into public.job_posts (kind, title, organization, description) values ('job', 'وظيفة', 'جهة', 'وصف')`), 'row-level|policy', 'students cannot post jobs')
 await throws(() => q(`update public.site_settings set value = 'x' where key = 'bank_iban' returning key`).then((r) => { if (!r.length) throw new Error('row-level: no rows') }), 'row-level', 'students cannot change bank details')
 await as(teamUser)
-ok((await q(`select * from public.software_links`)).length === 8, 'team can read official download links')
+ok((await q(`select * from public.software_links`)).length === 8, 'team reads all download links, hidden ones included')
 await as(null)
 await q(`insert into public.contact_messages (name, email, message) values ('زائر', 'v@x.sa', 'رسالة تواصل للاختبار')`)
 ok((await q(`select * from public.contact_messages`)).length === 0, 'visitors can send but not read contact messages')

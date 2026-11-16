@@ -15,14 +15,12 @@ export const services = [
   { key: 'conversion', slug: 'data-conversion', icon: 'FileCog' },
 ] as const
 
-export const software = [
-  { name: 'QGIS', license: 'free' },
-  { name: 'ArcGIS Pro', license: 'student' },
-  { name: 'Google Earth Pro', license: 'free' },
-  { name: 'Python', license: 'free' },
-  { name: 'AutoCAD Civil 3D', license: 'student' },
-  { name: 'GRASS GIS', license: 'free' },
-] as const
+/**
+ * الصورة التعريفية في أعلى الصفحة الرئيسية.
+ * ضعوا الصورة في public/ (مثلاً public/hero.jpg) واكتبوا هنا '/hero.jpg'.
+ * ما دامت فارغة يظهر رسم الخريطة بدلاً منها.
+ */
+export const heroImage = ''
 
 export const reasons = ['arabic', 'practical', 'certificate', 'team'] as const
 

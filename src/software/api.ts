@@ -52,7 +52,7 @@ const steps = (...s: [string, string][]) => L(s.map((x) => x[0]).join('\n'), s.m
 const seedSoftware = (): Software[] =>
   [
     { slug: 'qgis', name: 'QGIS', category: 'desktop', license: 'free', os: ['windows', 'mac', 'linux'],
-      description: L('برنامج GIS مجاني ومفتوح المصدر، يكفي لمعظم أعمال الخرائط والتحليل المكاني.', 'Free, open-source desktop GIS that covers most mapping and spatial analysis work.'),
+      description: L('برنامج GIS مفتوح المصدر، يكفي لمعظم أعمال الخرائط والتحليل المكاني.', 'Open-source desktop GIS that covers most mapping and spatial analysis work.'),
       install: steps(
         ['ادخل صفحة التحميل الرسمية واختر نظام تشغيلك.', 'Open the official download page and choose your OS.'],
         ['حمّل إصدار LTR (طويل الدعم) فهو الأكثر استقراراً.', 'Download the LTR (long-term release) for stability.'],
@@ -61,11 +61,10 @@ const seedSoftware = (): Software[] =>
       ),
       downloadUrl: 'https://qgis.org/download/', courseSlugs: ['qgis-from-zero', 'remote-sensing-basics'] },
     { slug: 'arcgis-pro', name: 'ArcGIS Pro', category: 'desktop', license: 'trial', os: ['windows'],
-      description: L('برنامج Esri الاحترافي للتحليل المكاني وإخراج الخرائط. تتوفر نسخة تجريبية ورخص طلابية عبر الجامعات.', 'Esri’s professional GIS for spatial analysis and cartography. Free trial; student licenses via universities.'),
+      description: L('برنامج Esri الاحترافي للتحليل المكاني وإخراج الخرائط. برنامج مدفوع، وتتوفر نسخة تجريبية من موقع Esri الرسمي.', 'Esri’s professional GIS for spatial analysis and cartography. Paid software with a free trial on Esri’s official site.'),
       install: steps(
-        ['اسأل جامعتك عن رخصة ArcGIS الطلابية أولاً.', 'Ask your university about an ArcGIS student license first.'],
-        ['أو اطلب النسخة التجريبية من صفحة Esri الرسمية.', 'Or request the free trial from Esri’s official page.'],
-        ['سجّل الدخول بحساب ArcGIS ثم حمّل البرنامج.', 'Sign in with an ArcGIS account and download.'],
+        ['ادخل صفحة النسخة التجريبية على موقع Esri الرسمي.', 'Open the free trial page on Esri’s official site.'],
+        ['أنشئ حساب ArcGIS أو سجّل الدخول، ثم حمّل البرنامج.', 'Create or sign in to an ArcGIS account, then download.'],
         ['يعمل على Windows فقط؛ تحقق من متطلبات الجهاز قبل التثبيت.', 'Windows only; check system requirements before installing.'],
       ),
       downloadUrl: 'https://www.esri.com/en-us/arcgis/products/arcgis-pro/trial', courseSlugs: ['arcgis-pro-spatial-analysis'] },
@@ -79,7 +78,7 @@ const seedSoftware = (): Software[] =>
       description: L('أداة وكالة الفضاء الأوروبية لمعالجة صور Sentinel وتحليلها.', 'ESA’s toolbox for processing and analyzing Sentinel imagery.'),
       install: L('', ''), downloadUrl: 'https://step.esa.int/main/download/snap-download/', courseSlugs: ['remote-sensing-basics'] },
     { slug: 'google-earth-engine', name: 'Google Earth Engine', category: 'web', license: 'free', os: ['web'],
-      description: L('منصة سحابية لتحليل الصور الفضائية بكميات ضخمة. مجانية للأغراض البحثية وغير التجارية.', 'Cloud platform for large-scale satellite imagery analysis. Free for research and non-commercial use.'),
+      description: L('منصة سحابية من Google لتحليل الصور الفضائية بكميات ضخمة.', 'Google cloud platform for large-scale satellite imagery analysis.'),
       install: L('', ''), downloadUrl: 'https://earthengine.google.com/', courseSlugs: ['remote-sensing-basics'] },
     { slug: 'python', name: 'Python', category: 'library', license: 'free', os: ['windows', 'mac', 'linux'],
       description: L('لغة البرمجة الأشهر في GIS مع مكتبات GeoPandas وShapely وRasterio.', 'The most popular language for GIS, with GeoPandas, Shapely and Rasterio.'),
@@ -93,7 +92,7 @@ const seedSoftware = (): Software[] =>
     { slug: 'autocad-civil-3d', name: 'AutoCAD Civil 3D', category: 'survey', license: 'student', os: ['windows'],
       description: L('برنامج Autodesk للتصميم المدني والمساحي. رخصة تعليمية مجانية للطلاب.', 'Autodesk’s civil and survey design software. Free educational license for students.'),
       install: L('', ''), downloadUrl: 'https://www.autodesk.com/education/edu-software/overview', courseSlugs: [] },
-  ].map((s, i) => ({ ...s, id: `sw-${s.slug}`, position: i + 1, isPublished: true }) as Software)
+  ].map((s, i) => ({ ...s, id: `sw-${s.slug}`, position: i + 1, isPublished: s.license !== 'student' }) as Software)
 
 /** عيّنة تدريب صغيرة مولّدة — بيانات وهمية للتجربة فقط */
 function sampleDataset(): Dataset {
@@ -118,7 +117,7 @@ function sampleDataset(): Dataset {
   }
 }
 
-const SW_KEY = 'miqyas-demo-software'
+const SW_KEY = 'miqyas-demo-software-v3'
 const DS_KEY = 'miqyas-demo-datasets'
 const loadJson = <T,>(k: string, fallback: () => T): T => {
   try {
@@ -185,8 +184,8 @@ function must<T>(res: { data: T; error: { message: string } | null }): T {
 
 const supabaseApi: SoftwareApi = {
   async listSoftware(scope) {
-    // الروابط الرسمية في جدول خاص بالفريق؛ للعامة تعود فارغة
-    let q = supabase.from('software').select(scope === 'admin' ? '*, software_links(download_url)' : '*').order('position')
+    // رابط الموقع الرسمي يظهر للجميع (للبرامج المنشورة)
+    let q = supabase.from('software').select('*, software_links(download_url)').order('position')
     if (scope === 'public') q = q.eq('is_published', true)
     return (must(await q) as Row[]).map((r) => ({
       id: r.id, slug: r.slug, name: r.name, category: r.category, license: r.license, os: r.os,
