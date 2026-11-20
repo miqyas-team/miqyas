@@ -6,7 +6,6 @@ import { paymentsApi, type Coupon, type CouponScope, type Payment, type SiteSett
 import { Alert, Button, ErrorState, Spinner, useAsync } from '../../components/ui'
 import { formatDate } from '../../components/home/CourseCard'
 import { useLang } from '../../lib/lang'
-import { AdminNav } from '../admin/AdminNav'
 import { Card, SelectField, TextField, Toggle } from '../admin/editor/fields'
 import { money, PaymentStatusChip } from './PaymentPages'
 
@@ -72,7 +71,6 @@ export function AdminPayments() {
   const tab = (params.get('tab') as Tab) || 'log'
   return (
     <>
-      <AdminNav />
       <section className="mx-auto max-w-6xl px-4 py-8">
         <h1 className="text-2xl font-bold text-primary">{t('payments.admin.title')}</h1>
         <div role="tablist" className="mt-5 flex gap-1 border-b border-primary/10">

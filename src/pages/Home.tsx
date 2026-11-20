@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { DailyLearning } from '../components/home/DailyLearning'
 import { Link, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import {
@@ -115,6 +116,7 @@ export function Home() {
         </div>
       </section>
 
+
       {/* ───────── ماذا تقدّم مقياس ───────── */}
       <section id="offer" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-14 md:py-16">
         <SectionHeading eyebrow={t('home.offer.eyebrow')} title={t('home.offer.title')} />
@@ -142,6 +144,8 @@ export function Home() {
           ))}
         </div>
       </section>
+
+      <DailyLearning />
 
       {/* ───────── لماذا مقياس ───────── */}
       <section id="why" className="relative scroll-mt-20 overflow-hidden bg-ink text-white">

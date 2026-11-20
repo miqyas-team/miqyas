@@ -11,6 +11,7 @@ import { formatPrice, pick, useLang } from '../../lib/lang'
 import { Placeholder } from '../Placeholder'
 import { usePageMeta } from '../../lib/seo'
 import { useVatOn } from '../../payments/useVat'
+import { LiveSessions } from './LiveSessions'
 
 export function CourseDetail() {
   const { slug = '' } = useParams()
@@ -70,6 +71,9 @@ function CourseView({ course, enrollment, onEnrolled }: { course: Course; enroll
 
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 lg:grid-cols-[1fr_22rem]">
         <div className="min-w-0 space-y-12">
+          {/* جلسات Zoom — للمسجّل في دفعة الدورة المباشرة */}
+          {enrolled && course.format === 'live' && <LiveSessions courseId={course.id} />}
+
           {/* ماذا ستتعلم */}
           {course.outcomes[lang].length > 0 && (
             <section className="rounded-card border border-primary/10 bg-white p-6">
@@ -217,10 +221,20 @@ function EnrollCard({ course, enrollment, onEnrolled }: { course: Course; enroll
       </Link>
     )
   } else if (enrollment === 'active' || enrollment === 'completed') {
+    const hasLessons = course.modules.some((m) => m.lessons.length > 0)
     action = (
-      <Link to={`/app/learn/${course.slug}`} className="block rounded-full bg-secondary py-3 text-center font-semibold text-white hover:brightness-95">
-        {t(enrollment === 'completed' ? 'courses.enroll.review' : 'courses.enroll.continue')}
-      </Link>
+      <div className="space-y-2">
+        {isLive && (
+          <a href="#live-sessions" className="block rounded-full bg-primary py-3 text-center font-semibold text-white hover:brightness-110">
+            {t('live.mySessions')}
+          </a>
+        )}
+        {hasLessons && (
+          <Link to={`/app/learn/${course.slug}`} className="block rounded-full bg-secondary py-3 text-center font-semibold text-white hover:brightness-95">
+            {t(enrollment === 'completed' ? 'courses.enroll.review' : 'courses.enroll.continue')}
+          </Link>
+        )}
+      </div>
     )
   } else if (enrollment === 'pending_payment') {
     action = (

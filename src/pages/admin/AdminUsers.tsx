@@ -7,7 +7,6 @@ import type { AppRole } from '../../lib/types'
 import { Alert, ErrorState, Spinner, useAsync } from '../../components/ui'
 import { formatDate } from '../../components/home/CourseCard'
 import { useLang } from '../../lib/lang'
-import { AdminNav } from './AdminNav'
 
 const ROLES: AppRole[] = ['user', 'instructor', 'team', 'admin']
 
@@ -53,7 +52,6 @@ export function AdminUsers() {
 
   return (
     <>
-      <AdminNav />
       <section className="mx-auto max-w-6xl px-4 py-8">
         <h1 className="text-2xl font-bold text-primary">{t('adminUsers.title')}</h1>
         <p className="text-sm text-muted">{t('adminUsers.subtitle')}</p>

@@ -281,6 +281,75 @@ ok((await q(`select * from public.courses`)).length >= 0 && (await q(`select * f
 await as(student)
 await throws(() => q(`select public.handle_new_user()`), 'permission denied|trigger', 'trigger functions cannot be called directly')
 
+/* ═══════════ 9. المكتبة العلمية ═══════════ */
+await as(admin)
+const art = (slug) => q(
+  `insert into public.articles (slug, category, title_ar, summary_ar, body_ar) values ($1, 'maps', 'عنوان', 'ملخص', 'نص') returning id`, [slug],
+).then((r) => r[0].id)
+const a1 = await art('test-a1')
+const a2 = await art('test-a2')
+await as(null)
+ok((await q(`select * from public.articles where slug like 'test-%'`)).length === 0, 'visitors do not see pending articles')
+await as(student)
+await throws(() => q(`select public.approve_article($1)`, [a1]), 'admins only', 'students cannot approve articles')
+await throws(() => q(`insert into public.articles (slug, category, title_ar, summary_ar, body_ar) values ('x', 'maps', 'a', 'b', 'c')`), 'row-level|policy', 'students cannot add articles')
+await as(admin)
+const d1 = (await one(`select public.approve_article($1) as d`, [a1])).d
+const d2 = (await one(`select public.approve_article($1) as d`, [a2])).d
+ok(new Date(d2) - new Date(d1) === 86400000, 'each approved article is scheduled for the next free day')
+ok((await one(`select public.approve_article($1) as d`, [a1])).d.getTime() === d1.getTime(), 're-approving keeps the original date')
+await as(null)
+const visible = await q(`select slug from public.articles where slug like 'test-%'`)
+ok(visible.length === 1 && visible[0].slug === 'test-a1', 'visitors see today’s article but not tomorrow’s')
+
+/* ═══════════ 10. التحدي اليومي ═══════════ */
+await as(admin)
+for (let lvl = 1; lvl <= 2; lvl++) {
+  for (let i = 0; i < 6; i++) {
+    await q(
+      `insert into public.challenge_questions (level, prompt_ar, options_ar, correct, explanation_ar, status) values ($1, $2, array['أ','ب','ج'], 1, 'شرح', 'published')`,
+      [lvl, `سؤال ${lvl}-${i}`],
+    )
+  }
+}
+await q(`insert into public.challenge_questions (level, prompt_ar, options_ar, correct, explanation_ar) values (1, 'معلّق', array['أ','ب'], 0, 'شرح')`)
+await throws(() => q(`insert into public.challenge_questions (level, prompt_ar, options_ar, correct, explanation_ar) values (1, 'خطأ', array['أ','ب'], 5, 'شرح')`), 'check|constraint', 'correct answer index must point to an option')
+
+await as(null)
+await throws(() => q(`select * from public.challenge_today()`), 'permission denied', 'visitors cannot get challenge questions')
+await as(student)
+ok((await q(`select * from public.challenge_questions`)).length === 0, 'students cannot read the question bank (answers) directly')
+const qs = await q(`select * from public.challenge_today()`)
+ok(qs.length === 5 && qs.every((x) => x.level === 1 && !('correct' in x)), 'student gets 5 level-1 questions without answers')
+ok(qs.every((x) => x.prompt_ar !== 'معلّق'), 'pending questions never appear in the challenge')
+ok(JSON.stringify(await q(`select id from public.challenge_today()`)) === JSON.stringify(qs.map((x) => ({ id: x.id }))), 'today’s questions stay the same on reload')
+
+const answers = Object.fromEntries(qs.map((x, i) => [x.id, i === 0 ? 0 : 1]))   // 4 من 5 صحيحة
+const res = (await one(`select public.challenge_submit($1) as r`, [JSON.stringify(answers)])).r
+ok(res.score === 4 && res.won && !res.promoted && res.results.length === 5 && res.results[0].explanation_ar, 'submit grades 4/5 as a winning day and returns explanations')
+await throws(() => q(`select public.challenge_submit($1)`, [JSON.stringify(answers)]), 'already played', 'only one attempt per day')
+ok((await one(`select played from public.challenge_today() limit 1`)).played === true, 'challenge_today reports the day as played')
+let prog = await one(`select * from public.challenge_progress where user_id = $1`, [student])
+ok(prog.level === 1 && prog.level_wins === 1 && prog.streak === 1 && prog.points === res.points && res.points > 0, 'progress records the win, streak and points')
+
+// يومان ناجحان سابقان + اليوم = ترقية
+await su()
+await q(`delete from public.challenge_attempts where user_id = $1`, [student])
+await q(`update public.challenge_progress set level_wins = 2, last_day = current_date - 1, streak = 4 where user_id = $1`, [student])
+await as(student)
+const res2 = (await one(`select public.challenge_submit($1) as r`, [JSON.stringify(Object.fromEntries((await q(`select id from public.challenge_today()`)).map((x) => [x.id, 1])))])).r
+prog = await one(`select * from public.challenge_progress where user_id = $1`, [student])
+ok(res2.score === 5 && res2.promoted && prog.level === 2 && prog.level_wins === 0 && prog.streak === 5 && prog.best_streak === 5, 'third winning day promotes to the next level and continues the streak')
+
+await as(student2)
+ok((await q(`select * from public.challenge_progress`)).length === 0, 'students cannot see others’ progress')
+const board = await q(`select * from public.challenge_leaderboard()`)
+ok(board.length === 1 && board[0].name === 'طالب' && !board[0].is_me, 'leaderboard shows first names only')
+await throws(() => q(`select public.content_pending_counts()`), 'admins only', 'students cannot read moderation counts')
+await as(admin)
+const counts = (await one(`select public.content_pending_counts() as c`)).c
+ok(counts.questions >= 1 && counts.articles >= 0, 'admin sees pending counts')
+
 /* ═══════════ النتيجة ═══════════ */
 console.log(`\n${passed} passed, ${failures.length} failed`)
 for (const f of failures) console.log('  ✗ ' + f)

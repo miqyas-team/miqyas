@@ -12,6 +12,7 @@ import { Register } from './pages/auth/Register'
 import { ResetPassword } from './pages/auth/ResetPassword'
 import { UpdatePassword } from './pages/auth/UpdatePassword'
 import { RequireAuth } from './auth/RequireAuth'
+import { StaffLayout } from './pages/admin/StaffLayout'
 
 /**
  * تحميل كسول: كل صفحة تُحمَّل عند زيارتها فقط، فتصغر الحزمة الأولى
@@ -66,6 +67,12 @@ const P = {
   adminCourses: page(() => import('./pages/admin/AdminCourses'), 'AdminCourses'),
   courseEditor: page(() => import('./pages/admin/editor/CourseEditor'), 'CourseEditorPage'),
   requestCenter: page(() => import('./pages/admin/RequestCenter'), 'RequestCenter'),
+  library: page(() => import('./pages/library/LibraryPages'), 'LibraryPage'),
+  article: page(() => import('./pages/library/LibraryPages'), 'ArticlePage'),
+  challenge: page(() => import('./pages/challenge/ChallengePage'), 'ChallengePage'),
+  adminLibrary: page(() => import('./pages/admin/AdminContent'), 'AdminLibrary'),
+  adminQuestions: page(() => import('./pages/admin/AdminContent'), 'AdminQuestions'),
+  adminRoles: page(() => import('./pages/admin/AdminRoles'), 'AdminRoles'),
 }
 
 const soon = (titleKey: string) => <Placeholder titleKey={titleKey} />
@@ -88,6 +95,9 @@ export const router = createRouter([
 
       // عامة
       { path: '/map-viewer', element: P.mapViewer(), handle: t('viewer.title') },
+      { path: '/library', element: P.library(), handle: t('library.title') },
+      { path: '/library/:slug', element: P.article() },
+      { path: '/challenge', element: P.challenge(), handle: t('challenge.title') },
       { path: '/community', element: P.community(), handle: t('community.title') },
       { path: '/community/new', element: auth(P.newThread()), handle: t('community.ask') },
       { path: '/community/:id', element: P.thread() },
@@ -120,31 +130,49 @@ export const router = createRouter([
       { path: '/app/*', element: auth(soon('areas.app')) },
 
       // لوحات الأدوار (المدير يدخلها كلها)
-      { path: '/instructor', element: auth(P.dashboard({ area: 'instructor' }), ['instructor']), handle: t('areas.instructor') },
-      { path: '/instructor/courses', element: auth(P.adminCourses(), ['instructor']), handle: t('admin.courses.title') },
-      { path: '/instructor/courses/:id', element: auth(P.courseEditor(), ['instructor']), handle: t('admin.courses.title') },
-      { path: '/instructor/grading', element: auth(P.requestCenter(), ['instructor']), handle: t('admin.nav.grading') },
-      { path: '/instructor/*', element: auth(soon('areas.instructor'), ['instructor']) },
-      { path: '/team', element: auth(P.dashboard({ area: 'team' }), ['team']), handle: t('areas.team') },
-      { path: '/team/requests', element: auth(P.staffRequests({ as: 'team' }), ['team']), handle: t('requests.assignedTitle') },
-      { path: '/team/requests/:id', element: auth(P.requestDetail({ as: 'team' }), ['team']), handle: t('requests.assignedTitle') },
-      { path: '/team/*', element: auth(soon('areas.team'), ['team']) },
-      { path: '/admin', element: auth(P.adminOverview(), ['admin']), handle: t('adminHome.title') },
-      { path: '/admin/users', element: auth(P.adminUsers(), ['admin']), handle: t('adminUsers.title') },
-      { path: '/admin/payments', element: auth(P.adminPayments(), ['admin']), handle: t('payments.admin.title') },
-      { path: '/admin/software', element: auth(P.adminSoftware(), ['admin']), handle: t('software.admin.title') },
-      { path: '/admin/services', element: auth(P.adminServices(), ['admin']), handle: t('servicesAdmin.title') },
-      { path: '/admin/support', element: auth(P.adminSupport(), ['admin']), handle: t('support.title') },
-      { path: '/admin/jobs', element: auth(P.adminJobs(), ['admin']), handle: t('jobs.admin.title') },
-      { path: '/admin/jobs/new', element: auth(P.adminJobEditor(), ['admin']), handle: t('jobs.admin.new') },
-      { path: '/admin/jobs/:id', element: auth(P.adminJobEditor(), ['admin']), handle: t('jobs.admin.edit') },
-      { path: '/admin/courses', element: auth(P.adminCourses(), ['admin']), handle: t('admin.courses.title') },
-      { path: '/admin/courses/new', element: auth(P.courseEditor(), ['admin']), handle: t('admin.courses.new') },
-      { path: '/admin/courses/:id', element: auth(P.courseEditor(), ['admin']), handle: t('admin.courses.title') },
-      { path: '/admin/requests', element: auth(P.staffRequests({ as: 'admin' }), ['admin']), handle: t('requests.allTitle') },
-      { path: '/admin/requests/:id', element: auth(P.requestDetail({ as: 'admin' }), ['admin']), handle: t('requests.allTitle') },
-      { path: '/admin/inbox', element: auth(P.requestCenter(), ['admin']), handle: t('areas.inbox') },
-      { path: '/admin/*', element: auth(soon('areas.admin'), ['admin']) },
+      {
+        element: auth(<StaffLayout area="instructor" />, ['instructor']),
+        children: [
+          { path: '/instructor', element: auth(P.dashboard({ area: 'instructor' }), ['instructor']), handle: t('areas.instructor') },
+          { path: '/instructor/courses', element: auth(P.adminCourses(), ['instructor']), handle: t('admin.courses.title') },
+          { path: '/instructor/courses/:id', element: auth(P.courseEditor(), ['instructor']), handle: t('admin.courses.title') },
+          { path: '/instructor/grading', element: auth(P.requestCenter(), ['instructor']), handle: t('admin.nav.grading') },
+          { path: '/instructor/*', element: auth(soon('areas.instructor'), ['instructor']) },
+        ],
+      },
+      {
+        element: auth(<StaffLayout area="team" />, ['team']),
+        children: [
+          { path: '/team', element: auth(P.dashboard({ area: 'team' }), ['team']), handle: t('areas.team') },
+          { path: '/team/requests', element: auth(P.staffRequests({ as: 'team' }), ['team']), handle: t('requests.assignedTitle') },
+          { path: '/team/requests/:id', element: auth(P.requestDetail({ as: 'team' }), ['team']), handle: t('requests.assignedTitle') },
+          { path: '/team/*', element: auth(soon('areas.team'), ['team']) },
+        ],
+      },
+      {
+        element: auth(<StaffLayout area="admin" />, ['admin']),
+        children: [
+          { path: '/admin', element: auth(P.adminOverview(), ['admin']), handle: t('adminHome.title') },
+          { path: '/admin/users', element: auth(P.adminUsers(), ['admin']), handle: t('adminUsers.title') },
+          { path: '/admin/library', element: auth(P.adminLibrary(), ['admin']), handle: t('content.libraryTitle') },
+          { path: '/admin/questions', element: auth(P.adminQuestions(), ['admin']), handle: t('content.questionsTitle') },
+          { path: '/admin/roles', element: auth(P.adminRoles(), ['admin']), handle: t('staff.roles.title') },
+          { path: '/admin/payments', element: auth(P.adminPayments(), ['admin']), handle: t('payments.admin.title') },
+          { path: '/admin/software', element: auth(P.adminSoftware(), ['admin']), handle: t('software.admin.title') },
+          { path: '/admin/services', element: auth(P.adminServices(), ['admin']), handle: t('servicesAdmin.title') },
+          { path: '/admin/support', element: auth(P.adminSupport(), ['admin']), handle: t('support.title') },
+          { path: '/admin/jobs', element: auth(P.adminJobs(), ['admin']), handle: t('jobs.admin.title') },
+          { path: '/admin/jobs/new', element: auth(P.adminJobEditor(), ['admin']), handle: t('jobs.admin.new') },
+          { path: '/admin/jobs/:id', element: auth(P.adminJobEditor(), ['admin']), handle: t('jobs.admin.edit') },
+          { path: '/admin/courses', element: auth(P.adminCourses(), ['admin']), handle: t('admin.courses.title') },
+          { path: '/admin/courses/new', element: auth(P.courseEditor(), ['admin']), handle: t('admin.courses.new') },
+          { path: '/admin/courses/:id', element: auth(P.courseEditor(), ['admin']), handle: t('admin.courses.title') },
+          { path: '/admin/requests', element: auth(P.staffRequests({ as: 'admin' }), ['admin']), handle: t('requests.allTitle') },
+          { path: '/admin/requests/:id', element: auth(P.requestDetail({ as: 'admin' }), ['admin']), handle: t('requests.allTitle') },
+          { path: '/admin/inbox', element: auth(P.requestCenter(), ['admin']), handle: t('areas.inbox') },
+          { path: '/admin/*', element: auth(soon('areas.admin'), ['admin']) },
+        ],
+      },
 
       { path: '*', element: <Placeholder notFound />, handle: t('page.notFound') },
     ],

@@ -9,9 +9,9 @@ import { useAuth } from '../../../auth/AuthProvider'
 import { Alert, Button, ErrorState, Spinner, useAsync } from '../../../components/ui'
 import { pick, useLang } from '../../../lib/lang'
 import { Placeholder } from '../../Placeholder'
-import { AdminNav } from '../AdminNav'
 import { BiField, Card, IconButton, Label, SelectField, TextField, Toggle } from './fields'
 import { ContentEditor } from './ContentEditor'
+import { SessionsEditor } from './SessionsEditor'
 
 type Tab = 'basics' | 'content' | 'cohorts'
 
@@ -20,8 +20,8 @@ export function CourseEditorPage() {
   const isNew = !id || id === 'new'
   const loaded = useAsync(() => (isNew ? Promise.resolve(newCourse()) : courseAdminApi.getDraft(id!)), [id])
 
-  if (loaded.loading) return <><AdminNav /><Spinner /></>
-  if (loaded.error) return <><AdminNav /><ErrorState onRetry={loaded.reload} /></>
+  if (loaded.loading) return <><Spinner /></>
+  if (loaded.error) return <><ErrorState onRetry={loaded.reload} /></>
   if (!loaded.data) return <Placeholder notFound />
   return <CourseEditor key={loaded.data.id} initial={loaded.data} />
 }
@@ -106,7 +106,6 @@ function CourseEditor({ initial }: { initial: CourseDraft }) {
 
   return (
     <>
-      <AdminNav />
       {/* شريط الحفظ */}
       <div className="sticky top-16 z-30 border-b border-primary/10 bg-sand/95 backdrop-blur">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-3">
@@ -277,9 +276,10 @@ function CourseEditor({ initial }: { initial: CourseDraft }) {
                       options={(['open', 'full', 'running', 'finished'] as const).map((v) => ({ value: v, label: t(`editor.cohorts.statuses.${v}`) }))}
                     />
                   </div>
+                  <SessionsEditor sessions={c.sessions} onChange={(fn) => update((d) => fn(d.cohorts[ci].sessions))} />
                 </div>
               ))}
-              <p className="text-xs text-muted">{t('editor.cohorts.sessionsNote')}</p>
+              <p className="text-xs text-muted">{t('editor.sessions.note')}</p>
             </Card>
           )}
         </div>

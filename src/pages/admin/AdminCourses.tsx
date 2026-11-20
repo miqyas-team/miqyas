@@ -6,7 +6,6 @@ import { courseAdminApi } from '../../courses/adminApi'
 import { useAuth } from '../../auth/AuthProvider'
 import { Alert, ErrorState, Spinner, useAsync } from '../../components/ui'
 import { formatPrice, pick, useLang } from '../../lib/lang'
-import { AdminNav } from './AdminNav'
 
 export function AdminCourses() {
   const { t } = useTranslation()
@@ -29,7 +28,6 @@ export function AdminCourses() {
 
   return (
     <>
-      <AdminNav />
       <section className="mx-auto max-w-6xl px-4 py-8">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>

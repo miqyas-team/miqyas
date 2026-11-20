@@ -4,7 +4,6 @@ import { Database, Pencil, Plus, Trash2, Wrench } from 'lucide-react'
 import { softwareApi, type Dataset, type OS, type Software, type SoftwareCategory, type SoftwareLicense } from '../../software/api'
 import { Alert, Button, ErrorState, Spinner, useAsync } from '../../components/ui'
 import { pick, useLang } from '../../lib/lang'
-import { AdminNav } from '../admin/AdminNav'
 import { BiField, Card, Label, SelectField, TextField, Toggle } from '../admin/editor/fields'
 import { SLUG_RE, slugify } from '../../courses/draft'
 
@@ -26,7 +25,6 @@ export function AdminSoftware() {
 
   return (
     <>
-      <AdminNav />
       <section className="mx-auto max-w-6xl space-y-8 px-4 py-8">
         <div>
           <h1 className="text-2xl font-bold text-primary">{t('software.admin.title')}</h1>

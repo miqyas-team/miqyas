@@ -10,7 +10,6 @@ import { isPreviewable } from '../../components/map/gisFiles'
 import { formatDate } from '../../components/home/CourseCard'
 import { pick, useLang } from '../../lib/lang'
 import { Placeholder } from '../Placeholder'
-import { AdminNav } from '../admin/AdminNav'
 import { formatSize, StageTracker, StatusChip } from './shared'
 
 export type Perspective = 'client' | 'team' | 'admin'
@@ -25,7 +24,6 @@ export function RequestDetailPage({ as }: { as: Perspective }) {
   if (!req.data) return <Placeholder notFound />
   return (
     <>
-      {as === 'admin' && <AdminNav />}
       <RequestView r={req.data} as={as} reload={req.reload} />
     </>
   )

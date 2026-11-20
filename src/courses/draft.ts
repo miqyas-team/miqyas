@@ -46,6 +46,17 @@ export interface CohortDraft {
   endsOn: string | null
   seats: number
   status: 'open' | 'full' | 'running' | 'finished'
+  sessions: SessionDraft[]
+}
+
+/** جلسة مباشرة داخل الدفعة. startsAt بتوقيت الجهاز بصيغة YYYY-MM-DDTHH:mm */
+export interface SessionDraft {
+  id: string
+  title: Localized
+  startsAt: string
+  durationMin: number
+  meetingUrl: string
+  recordingYoutubeId: string | null
 }
 
 export interface CourseDraft {
@@ -123,8 +134,35 @@ export function newModule(): ModuleDraft {
 }
 
 export function newCohort(): CohortDraft {
-  return { id: newId(), name: emptyL(), startsOn: '', endsOn: null, seats: 25, status: 'open' }
+  return { id: newId(), name: emptyL(), startsOn: '', endsOn: null, seats: 25, status: 'open', sessions: [] }
 }
+
+/** Zoom المجاني يقطع الاجتماع الجماعي بعد 40 دقيقة */
+export const ZOOM_FREE_LIMIT = 40
+
+export function newSession(after?: SessionDraft): SessionDraft {
+  // الجلسة الجديدة بعد أسبوع من السابقة وبنفس الساعة
+  let startsAt = ''
+  if (after?.startsAt) {
+    const d = new Date(after.startsAt)
+    d.setDate(d.getDate() + 7)
+    startsAt = toLocalInput(d.toISOString())
+  }
+  return { id: newId(), title: emptyL(), startsAt, durationMin: ZOOM_FREE_LIMIT, meetingUrl: '', recordingYoutubeId: null }
+}
+
+/** ISO ← → قيمة حقل datetime-local بتوقيت الجهاز */
+export function toLocalInput(iso: string): string {
+  const d = new Date(iso)
+  if (isNaN(d.getTime())) return ''
+  const p = (n: number) => String(n).padStart(2, '0')
+  return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}T${p(d.getHours())}:${p(d.getMinutes())}`
+}
+export function fromLocalInput(v: string): string {
+  return new Date(v).toISOString()
+}
+
+export const MEETING_URL_RE = /^https:\/\/\S+$/i
 
 export function newCourse(): CourseDraft {
   return {
@@ -206,6 +244,11 @@ export function validateDraft(d: CourseDraft): { blocking: DraftIssue[]; publish
 
   d.cohorts.forEach((c, ci) => {
     if (!both(c.name) || !c.startsOn || c.seats < 1) blocking.push({ key: 'editor.issues.cohort', params: { n: ci + 1 } })
+    ;(c.sessions ?? []).forEach((x, si) => {
+      const at = { n: ci + 1, s: si + 1 }
+      if (!both(x.title) || !x.startsAt) blocking.push({ key: 'editor.issues.session', params: at })
+      if (x.meetingUrl.trim() && !MEETING_URL_RE.test(x.meetingUrl.trim())) blocking.push({ key: 'editor.issues.sessionUrl', params: at })
+    })
   })
 
   const lessons = d.modules.flatMap((m) => m.lessons)

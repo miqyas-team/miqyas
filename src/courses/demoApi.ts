@@ -1,6 +1,6 @@
 import type { CoursesApi } from './api'
 import { draftToDetail, loadDrafts } from './demoCatalog'
-import type { CourseDraft, LessonDraft } from './draft'
+import { fromLocalInput, type CourseDraft, type LessonDraft } from './draft'
 import type { Certificate, CourseDetail, EnrollmentStatus, Progress, Submission } from './types'
 import { canClaimCertificate, progressPercent } from './types'
 
@@ -93,6 +93,19 @@ export const demoApi: CoursesApi = {
     s.waitlist = s.waitlist.filter((id) => id !== courseId)
     save(s)
     return delay(s.enrollments[courseId].status)
+  },
+
+  async mySessions(courseId) {
+    const e = load().enrollments[courseId]
+    if (!e || (e.status !== 'active' && e.status !== 'completed')) return delay([])
+    const d = loadDrafts().find((x) => x.id === courseId)
+    const cohort = d?.cohorts.find((c) => c.id === e.cohortId)
+    return delay(
+      (cohort?.sessions ?? [])
+        .filter((x) => x.startsAt)
+        .map((x) => ({ id: x.id, title: x.title, startsAt: fromLocalInput(x.startsAt), durationMin: x.durationMin, meetingUrl: x.meetingUrl.trim() || null, recordingYoutubeId: x.recordingYoutubeId }))
+        .sort((a, b) => a.startsAt.localeCompare(b.startsAt)),
+    )
   },
 
   async joinWaitlist(courseId) {

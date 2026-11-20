@@ -49,6 +49,17 @@ export interface Cohort {
   status: 'open' | 'full' | 'running' | 'finished'
 }
 
+/** جلسة مباشرة (Zoom) — يراها المسجّلون في الدفعة فقط */
+export interface LiveSession {
+  id: string
+  title: Localized
+  /** ISO */
+  startsAt: string
+  durationMin: number
+  meetingUrl: string | null
+  recordingYoutubeId: string | null
+}
+
 export interface CourseDetail extends CourseSummary {
   description: Localized
   outcomes: { ar: string[]; en: string[] }

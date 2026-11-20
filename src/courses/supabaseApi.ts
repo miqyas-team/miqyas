@@ -232,6 +232,17 @@ export const supabaseApi: CoursesApi = {
     return must(await supabase.rpc('claim_certificate', { p_course: courseId })) as string
   },
 
+  async mySessions(courseId) {
+    // RLS: لا تُرجع إلا جلسات دفعة المسجّل (أو الطاقم)
+    const rows = must(
+      await supabase.from('live_sessions').select('*, cohorts!inner(course_id)').eq('cohorts.course_id', courseId).order('starts_at'),
+    ) as Row[]
+    return rows.map((x) => ({
+      id: x.id, title: L(x, 'title'), startsAt: x.starts_at, durationMin: x.duration_min,
+      meetingUrl: x.meeting_url, recordingYoutubeId: x.recording_youtube_id,
+    }))
+  },
+
   async myCourses() {
     const user = await uid()
     const rows = must(

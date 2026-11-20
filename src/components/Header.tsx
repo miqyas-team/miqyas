@@ -10,6 +10,8 @@ import { useAuth } from '../auth/AuthProvider'
 /** الروابط الظاهرة أعلى الصفحة على الشاشات الكبيرة — الباقي في القائمة الجانبية */
 const topLinks = [
   { to: '/courses', key: 'nav.courses' },
+  { to: '/library', key: 'nav.library' },
+  { to: '/challenge', key: 'nav.challenge' },
   { to: '/services', key: 'nav.services' },
   { to: '/software', key: 'nav.software' },
 ]
@@ -21,6 +23,7 @@ const groups = [
     links: [
       { to: '/#about', key: 'nav.sections.about' },
       { to: '/#offer', key: 'nav.sections.offer' },
+      { to: '/#daily', key: 'nav.sections.daily' },
       { to: '/#why', key: 'nav.sections.why' },
       { to: '/#faq', key: 'nav.sections.faq' },
     ],
@@ -29,6 +32,8 @@ const groups = [
     key: 'nav.groups.learn',
     links: [
       { to: '/courses', key: 'nav.courses' },
+      { to: '/library', key: 'nav.library' },
+      { to: '/challenge', key: 'nav.challenge' },
       { to: '/community', key: 'nav.community' },
       { to: '/jobs', key: 'nav.jobs' },
     ],

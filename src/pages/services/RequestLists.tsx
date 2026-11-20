@@ -7,7 +7,6 @@ import type { RequestStatus, RequestSummary } from '../../services/types'
 import { ErrorState, Spinner, useAsync } from '../../components/ui'
 import { formatDate } from '../../components/home/CourseCard'
 import { pick, useLang } from '../../lib/lang'
-import { AdminNav } from '../admin/AdminNav'
 import { ServiceIcon, StatusChip } from './shared'
 
 /** طلبات العميل */
@@ -86,7 +85,6 @@ export function StaffRequests({ as }: { as: 'team' | 'admin' }) {
 
   return (
     <>
-      {as === 'admin' && <AdminNav />}
       <section className="mx-auto max-w-6xl px-4 py-8">
         <h1 className="text-2xl font-bold text-primary">{t(as === 'admin' ? 'requests.allTitle' : 'requests.assignedTitle')}</h1>
 

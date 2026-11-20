@@ -10,7 +10,8 @@
     "db:check": "node scripts/db/run-migrations.mjs",
     "db:test": "node scripts/db/scenarios.mjs",
     "db:check-frontend": "node scripts/db/check-frontend.mjs",
-    "db:bundle": "node scripts/db/bundle.mjs"
+    "db:bundle": "node scripts/db/bundle.mjs",
+    "content:build": "node scripts/build-content.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.119.0",

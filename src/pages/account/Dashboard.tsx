@@ -4,7 +4,6 @@ import { Award, BookOpen, ClipboardList, FileCheck2, Inbox, Pencil } from 'lucid
 import type { ReactNode } from 'react'
 import { useAuth } from '../../auth/AuthProvider'
 import { Alert } from '../../components/ui'
-import { AdminNav } from '../admin/AdminNav'
 
 function Tile({ to, icon, title, text }: { to: string; icon: ReactNode; title: string; text: string }) {
   return (
@@ -44,7 +43,6 @@ export function Dashboard({ area }: { area: 'app' | 'instructor' | 'team' | 'adm
 
   return (
     <>
-      {(area === 'admin' || area === 'instructor') && <AdminNav />}
       <section className="mx-auto max-w-6xl px-4 py-10">
         <p className="text-sm font-medium text-accent">{t(`areas.${area}`)}</p>
         <h1 className="mt-1 text-3xl font-bold text-primary">{t('dash.welcome', { name: firstName })}</h1>

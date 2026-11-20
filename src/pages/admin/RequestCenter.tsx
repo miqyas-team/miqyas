@@ -12,7 +12,6 @@ import type { RequestSummary } from '../../services/types'
 import { useAuth } from '../../auth/AuthProvider'
 import { Alert, Button, ErrorState, Spinner, useAsync } from '../../components/ui'
 import { pick, useLang } from '../../lib/lang'
-import { AdminNav } from './AdminNav'
 import { StatusChip } from '../services/shared'
 
 type Tab = 'assignments' | 'requests' | 'reports' | 'receipts' | 'contact'
@@ -59,7 +58,6 @@ export function RequestCenter() {
 
   return (
     <>
-      {isAdmin || role === 'instructor' ? <AdminNav /> : null}
       <section className="mx-auto max-w-6xl px-4 py-8">
         <h1 className="text-2xl font-bold text-primary">{isAdmin ? t('areas.inbox') : t('center.instructorTitle')}</h1>
         <p className="text-sm text-muted">{t(isAdmin ? 'center.subtitle' : 'center.instructorSubtitle')}</p>

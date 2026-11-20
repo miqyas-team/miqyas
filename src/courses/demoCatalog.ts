@@ -31,7 +31,7 @@ function defaults(): CourseDraft[] {
     instructorBio: c.instructorBio,
     isFeatured: c.isFeatured,
     isPublished: true,
-    cohorts: c.cohorts.map(({ seatsLeft: _s, ...rest }) => rest),
+    cohorts: c.cohorts.map(({ seatsLeft: _s, ...rest }) => ({ ...rest, sessions: [] })),
     modules: c.modules.map((m) => ({
       id: m.id,
       title: m.title,
@@ -58,7 +58,11 @@ function defaults(): CourseDraft[] {
 export function loadDrafts(): CourseDraft[] {
   try {
     const raw = localStorage.getItem(KEY)
-    if (raw) return JSON.parse(raw) as CourseDraft[]
+    if (raw) {
+      // مسوّدات قديمة بلا جلسات
+      const list = JSON.parse(raw) as CourseDraft[]
+      return list.map((d) => ({ ...d, cohorts: d.cohorts.map((c) => ({ ...c, sessions: c.sessions ?? [] })) }))
+    }
   } catch {
     /* تجاهل */
   }
@@ -104,7 +108,8 @@ export function draftToDetail(d: CourseDraft): CourseDetail {
     isFeatured: d.isFeatured,
     passScore: d.passScore,
     nextCohortStart: d.format === 'live' ? openStarts[0] : undefined,
-    cohorts: d.cohorts.map((c) => ({ ...c, seatsLeft: Math.max(0, c.seats - (demoTaken[c.id] ?? 0)) })),
+    // الجلسات (روابط Zoom) لا تظهر في الصفحة العامة
+    cohorts: d.cohorts.map(({ sessions: _x, ...c }) => ({ ...c, seatsLeft: Math.max(0, c.seats - (demoTaken[c.id] ?? 0)) })),
     modules: d.modules.map((m) => ({
       id: m.id,
       title: m.title,

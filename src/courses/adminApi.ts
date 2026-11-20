@@ -1,7 +1,7 @@
 import { isSupabaseConfigured, supabase } from '../lib/supabase'
 import type { Localized } from '../lib/lang'
 import { loadDrafts, saveDrafts } from './demoCatalog'
-import type { AdminCourseRow, CourseDraft, LessonDraft } from './draft'
+import { fromLocalInput, toLocalInput, type AdminCourseRow, type CourseDraft, type LessonDraft } from './draft'
 import type { Tone } from './types'
 
 export interface CourseAdminApi {
@@ -96,7 +96,7 @@ const supabaseAdmin: CourseAdminApi = {
       await supabase
         .from('courses')
         .select(
-          `*, cohorts(*),
+          `*, cohorts(*, live_sessions(*)),
            modules(*, lessons(*, lesson_content(*), lesson_attachments(*), quiz_questions(*, quiz_answer_keys(correct_index))))`,
         )
         .eq('id', id)
@@ -126,7 +126,15 @@ const supabaseAdmin: CourseAdminApi = {
       isPublished: r.is_published,
       cohorts: ((r.cohorts ?? []) as Row[])
         .sort((a, b) => a.starts_on.localeCompare(b.starts_on))
-        .map((c) => ({ id: c.id, name: L(c, 'name'), startsOn: c.starts_on, endsOn: c.ends_on, seats: c.seats, status: c.status })),
+        .map((c) => ({
+          id: c.id, name: L(c, 'name'), startsOn: c.starts_on, endsOn: c.ends_on, seats: c.seats, status: c.status,
+          sessions: ((c.live_sessions ?? []) as Row[])
+            .sort((a, b) => a.starts_at.localeCompare(b.starts_at))
+            .map((x) => ({
+              id: x.id, title: L(x, 'title'), startsAt: toLocalInput(x.starts_at), durationMin: x.duration_min,
+              meetingUrl: x.meeting_url ?? '', recordingYoutubeId: x.recording_youtube_id,
+            })),
+        })),
       modules: ((r.modules ?? []) as Row[]).sort(byPos).map((m) => ({
         id: m.id,
         title: L(m, 'title'),
@@ -230,6 +238,17 @@ const supabaseAdmin: CourseAdminApi = {
       must(await supabase.from('cohorts').upsert(d.cohorts.map((c) => ({
         id: c.id, course_id: d.id, name_ar: c.name.ar, name_en: c.name.en,
         starts_on: c.startsOn, ends_on: c.endsOn || null, seats: c.seats, status: c.status,
+      }))))
+    }
+
+    // الجلسات المباشرة لكل دفعة (روابط Zoom — يقرؤها المسجّلون في الدفعة فقط)
+    const sessions = d.cohorts.flatMap((c) => c.sessions.map((x) => ({ c, x })))
+    if (d.cohorts.length) await syncChildren('live_sessions', 'cohort_id', d.cohorts.map((c) => c.id), sessions.map(({ x }) => x.id))
+    if (sessions.length) {
+      must(await supabase.from('live_sessions').upsert(sessions.map(({ c, x }) => ({
+        id: x.id, cohort_id: c.id, title_ar: x.title.ar, title_en: x.title.en,
+        starts_at: fromLocalInput(x.startsAt), duration_min: x.durationMin,
+        meeting_url: x.meetingUrl.trim() || null, recording_youtube_id: x.recordingYoutubeId,
       }))))
     }
   },

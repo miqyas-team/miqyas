@@ -23,7 +23,8 @@ interface AuthState {
 const AuthContext = createContext<AuthState | null>(null)
 
 const DEMO_KEY = 'miqyas-demo-user'
-const canUseDemo = !isSupabaseConfigured && import.meta.env.DEV
+// المعاينة: أثناء التطوير، أو في نسخة المراجعة للفريق (VITE_DEMO=1)
+const canUseDemo = !isSupabaseConfigured && (import.meta.env.DEV || import.meta.env.VITE_DEMO === '1')
 
 const demoProfile: Profile = {
   id: 'demo-user',

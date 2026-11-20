@@ -8,7 +8,6 @@ import { formatDate } from '../../components/home/CourseCard'
 import { useLang } from '../../lib/lang'
 import { Placeholder } from '../Placeholder'
 import { usePageMeta } from '../../lib/seo'
-import { AdminNav } from '../admin/AdminNav'
 import { Card, SelectField, TextField, Toggle } from '../admin/editor/fields'
 
 function KindChip({ kind }: { kind: JobKind }) {
@@ -176,7 +175,6 @@ export function AdminJobs() {
   const { data, loading, error, reload } = useAsync(() => jobsApi.list('admin'), [])
   return (
     <>
-      <AdminNav />
       <section className="mx-auto max-w-6xl px-4 py-8">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
@@ -217,7 +215,7 @@ export function AdminJobEditor() {
   const { id } = useParams()
   const isNew = !id || id === 'new'
   const loaded = useAsync(() => (isNew ? Promise.resolve(null) : jobsApi.get(id!)), [id])
-  if (loaded.loading) return <><AdminNav /><Spinner /></>
+  if (loaded.loading) return <><Spinner /></>
   if (!isNew && !loaded.data) return <Placeholder notFound />
   return <JobForm key={id ?? 'new'} id={isNew ? null : id!} initial={loaded.data ?? emptyJob()} />
 }
@@ -249,7 +247,6 @@ function JobForm({ id, initial }: { id: string | null; initial: JobInput }) {
   const ta = 'w-full rounded-xl border border-primary/15 bg-white px-3.5 py-2.5 text-sm outline-none focus:border-secondary focus:ring-4 focus:ring-secondary/20'
   return (
     <>
-      <AdminNav />
       <section className="mx-auto max-w-3xl px-4 py-8">
         <Link to="/admin/jobs" className="text-sm text-muted hover:text-primary">{t('jobs.admin.back')}</Link>
         <h1 className="mt-2 text-2xl font-bold text-primary">{t(id ? 'jobs.admin.edit' : 'jobs.admin.new')}</h1>

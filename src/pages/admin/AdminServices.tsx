@@ -5,7 +5,6 @@ import { servicesApi } from '../../services/api'
 import type { ServiceType, ServiceTypePatch } from '../../services/types'
 import { Alert, Button, ErrorState, Spinner, useAsync } from '../../components/ui'
 import { pick, useLang } from '../../lib/lang'
-import { AdminNav } from './AdminNav'
 import { BiField, Card, SelectField, TextField, Toggle } from './editor/fields'
 import { PriceLabel, ServiceIcon } from '../services/shared'
 
@@ -19,7 +18,6 @@ export function AdminServices() {
 
   return (
     <>
-      <AdminNav />
       <section className="mx-auto max-w-6xl px-4 py-8">
         <h1 className="text-2xl font-bold text-primary">{t('servicesAdmin.title')}</h1>
         <p className="text-sm text-muted">{t('servicesAdmin.subtitle')}</p>

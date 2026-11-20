@@ -6,7 +6,6 @@ import { servicesApi } from '../../services/api'
 import { contactApi } from '../../contact/api'
 import { ErrorState, Spinner, useAsync } from '../../components/ui'
 import { useLang } from '../../lib/lang'
-import { AdminNav } from './AdminNav'
 import { StatusChip } from '../services/shared'
 
 type Filter = 'waiting' | 'open' | 'closed'
@@ -55,7 +54,6 @@ export function AdminSupport() {
 
   return (
     <>
-      <AdminNav />
       <section className="mx-auto max-w-6xl px-4 py-8">
         <div className="flex items-start gap-3">
           <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-primary text-white"><Headset className="h-6 w-6" /></span>

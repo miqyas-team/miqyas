@@ -5,6 +5,7 @@ import type {
   CourseSummary,
   EnrollmentStatus,
   LessonContent,
+  LiveSession,
   MyCourse,
   Progress,
   QuizResult,
@@ -24,6 +25,8 @@ export interface CoursesApi {
   submitQuiz(lessonId: string, answers: (number | null)[]): Promise<QuizResult>
   submitAssignment(courseId: string, lessonId: string, file: File, note: string): Promise<Submission>
   claimCertificate(courseId: string): Promise<string>
+  /** جلسات دفعتي المباشرة — فارغة لغير المسجّل */
+  mySessions(courseId: string): Promise<LiveSession[]>
   myCourses(): Promise<MyCourse[]>
   myCertificates(): Promise<Certificate[]>
   verifyCertificate(code: string): Promise<Certificate | null>

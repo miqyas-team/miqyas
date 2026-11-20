@@ -283,4 +283,16 @@ export const demoLessonContent: Record<string, DemoLessonExtra> = {
     },
     attachments: [{ id: 'att-2', name: 'neighborhood-data.zip', sizeBytes: 2_350_000 }],
   },
+  'l-p2': {
+    youtubeId: null,
+    body: {
+      ar: 'العمليات المكانية في GeoPandas: القصّ، والتقاطع، والمنطقة العازلة، والربط المكاني.',
+      en: 'Spatial operations in GeoPandas: clip, intersect, buffer and spatial join.',
+    },
+    assignment: {
+      ar: 'اكتب سكربت Python يحسب عدد المدارس داخل منطقة عازلة بنصف كيلومتر حول كل حديقة، وارفع ملف السكربت والنتيجة.',
+      en: 'Write a Python script that counts schools within a 500 m buffer around each park, and upload the script and result.',
+    },
+    attachments: [],
+  },
 }
